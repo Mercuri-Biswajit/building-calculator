@@ -37,8 +37,8 @@ import { StructuralDesignTab } from "../components/StructuralDesignTab";
 import { BrickMasonryTab } from "../components/BrickMasonryTab";
 import { PaintEstimatorTab } from "../components/PaintEstimatorTab";
 
-import "../styles/CalculatorPage.css";
-import "../styles/design-calculator-styles.css";
+import "../styles/pages/_calculator.css";
+import "../styles/pages/_design-calculator.css";
 import { useSkeleton } from "../hooks/useSkeleton";
 import { CalcTabSkeleton } from "../components/ui/Skeleton";
 

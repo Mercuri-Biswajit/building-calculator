@@ -4,7 +4,7 @@
 // Place in: src/pages/CalculatorPage/components/SlabDesignTab.jsx
 // ═══════════════════════════════════════════════════════════════════════════
 
-import { safeFormat, safeGet } from "../utils/formatHelpers";
+// import { safeFormat, safeGet } from "../utils/formatHelpers";
 
 export function SlabDesignTab({
   inputs,

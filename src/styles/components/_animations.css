@@ -1,0 +1,55 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   styles/components/_animations.css  —  Keyframes & Animation Utilities
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Keyframes ─────────────────────────────────────────────────────────── */
+@keyframes fadeIn      { from { opacity: 0; }                               to { opacity: 1; } }
+@keyframes fadeInUp    { from { opacity: 0; transform: translateY(16px); }  to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInDown  { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn     { from { opacity: 0; transform: scale(0.96); }       to { opacity: 1; transform: scale(1); } }
+@keyframes calcFadeIn  { from { opacity: 0; transform: translateY(8px); }   to { opacity: 1; transform: translateY(0); } }
+@keyframes shimmer     { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@keyframes spinner     { to { transform: rotate(360deg); } }
+@keyframes pulse       { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+/* ── Utility Classes ───────────────────────────────────────────────────── */
+.fade-in      { animation: fadeIn     0.4s ease-out both; }
+.fade-in-up   { animation: fadeInUp   0.45s var(--ease-out) both; }
+.fade-in-down { animation: fadeInDown 0.4s ease-out both; }
+.scale-in     { animation: scaleIn    0.35s var(--ease-out) both; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+
+/* ── Skeleton Loading ──────────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--color-bg-dark) 25%,
+    var(--color-border) 50%,
+    var(--color-bg-dark) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ── Spinner ───────────────────────────────────────────────────────────── */
+.loading-spinner {
+  display: inline-block;
+  width: 34px; height: 34px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spinner 0.75s linear infinite;
+}
+
+/* ── Hover Helpers ─────────────────────────────────────────────────────── */
+.hover-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}

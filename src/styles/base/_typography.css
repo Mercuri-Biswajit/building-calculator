@@ -1,0 +1,29 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   styles/base/_typography.css  —  Base Typography Rules
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  color: var(--color-text);
+}
+
+p { line-height: var(--lh-relaxed); }
+
+strong, b { font-weight: var(--fw-semibold); }
+
+small { font-size: var(--fs-sm); }
+
+code, pre, kbd {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* Fluid headings */
+h1 { font-size: clamp(var(--fs-3xl), 4vw, var(--fs-5xl)); }
+h2 { font-size: clamp(var(--fs-2xl), 3vw, var(--fs-4xl)); }
+h3 { font-size: clamp(var(--fs-xl),  2.5vw, var(--fs-3xl)); }
+h4 { font-size: var(--fs-xl); }
+h5 { font-size: var(--fs-lg); }
+h6 { font-size: var(--fs-md); }
