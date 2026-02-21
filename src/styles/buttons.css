@@ -1,0 +1,456 @@
+/* ===========================
+   BUTTON COMPONENTS
+   All button styles and variants
+   =========================== */
+
+/* ===========================
+   BASE BUTTON STYLES
+   =========================== */
+
+.btn {
+  /* Spacing */
+  padding: 1rem 2rem;
+  
+  /* Typography */
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  
+  /* Display */
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  
+  /* Borders */
+  border: 2px solid transparent;
+  border-radius: 30px;
+  
+  /* Cursor */
+  cursor: pointer;
+  
+  /* Transition */
+  transition: var(--transition);
+  
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Mirror/Shine Effect */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent);
+  transition: left 0.5s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* Ensure content is above the mirror effect */
+.btn > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Disabled State */
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ===========================
+   BUTTON VARIANTS
+   =========================== */
+
+/* Primary Button */
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--btn-primary-border);
+}
+
+.btn-primary:hover {
+  background: var(--btn-primary-bg-hover);
+  border-color: var(--btn-primary-border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 2px solid var(--btn-secondary-border);
+}
+
+.btn-secondary:hover {
+  background: var(--btn-secondary-bg-hover);
+  color: var(--btn-secondary-text-hover);
+  border-color: var(--btn-secondary-border-hover);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* Outline Button */
+.btn-outline {
+  background: var(--btn-outline-bg);
+  color: var(--btn-outline-text);
+  border: 2px solid var(--btn-outline-border);
+}
+
+.btn-outline:hover {
+  background: var(--btn-outline-bg-hover);
+  color: var(--btn-outline-text-hover);
+  border-color: var(--btn-outline-border-hover);
+}
+
+/* Ghost Button */
+.btn-ghost {
+  background: var(--btn-ghost-bg);
+  color: var(--btn-ghost-text);
+  border: none;
+  padding: 0.5rem 1rem;
+}
+
+.btn-ghost:hover {
+  background: var(--btn-ghost-bg-hover);
+  color: var(--btn-ghost-text-hover);
+}
+
+/* Link Button */
+.btn-link {
+  background: transparent;
+  color: var(--btn-link-text);
+  border: none;
+  text-decoration: underline;
+  padding: 0;
+  border-radius: 0;
+}
+
+.btn-link:hover {
+  color: var(--btn-link-text-hover);
+  text-decoration: none;
+}
+
+.btn-link::before {
+  display: none;
+}
+
+/* Gradient Button */
+.btn-gradient {
+  background: linear-gradient(135deg, 
+    var(--btn-gradient-from) 0%, 
+    var(--btn-gradient-to) 100%);
+  color: var(--btn-primary-text);
+  border: none;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(135deg, 
+    var(--btn-gradient-from-hover) 0%, 
+    var(--btn-gradient-to-hover) 100%);
+}
+
+/* ===========================
+   BUTTON SIZES
+   =========================== */
+
+.btn-sm {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.85rem;
+}
+
+.btn-lg {
+  padding: 1.25rem 2.5rem;
+  font-size: 1rem;
+}
+
+.btn-xl {
+  padding: 1.5rem 3rem;
+  font-size: 1.1rem;
+}
+
+/* ===========================
+   BUTTON MODIFIERS
+   =========================== */
+
+/* Block Button (Full Width) */
+.btn-block {
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+/* Icon Buttons */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-icon-only {
+  padding: 0.75rem;
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+}
+
+/* Loading State */
+.btn-loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.btn-loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid var(--btn-primary-text);
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spinner 0.6s linear infinite;
+  z-index: 3;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===========================
+   NAVBAR CTA BUTTON
+   =========================== */
+
+.btn-nav-cta {
+  /* Spacing */
+  padding: 0.7rem 1.8rem;
+  margin-left: 1rem;
+  
+  /* Typography */
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  white-space: nowrap;
+  
+  /* Display */
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  
+  /* Colors */
+  background: var(--btn-nav-cta-bg);
+  color: var(--btn-nav-cta-text) !important;
+  border: 2px solid var(--btn-nav-cta-border);
+  
+  /* Border */
+  border-radius: 6px;
+  
+  /* Transition */
+  transition: var(--transition);
+}
+
+/* Mirror effect for nav CTA */
+.btn-nav-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent);
+  transition: left 0.5s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.btn-nav-cta:hover::before {
+  left: 100%;
+}
+
+.btn-nav-cta:hover {
+  background: var(--btn-nav-cta-bg-hover);
+  border-color: var(--btn-nav-cta-border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-nav-cta::after {
+  display: none;
+}
+
+/* ===========================
+   BUTTON GROUPS
+   =========================== */
+
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-group .btn {
+  flex: 1;
+  min-width: max-content;
+}
+
+/* Attached Button Group */
+.btn-group-attached {
+  display: inline-flex;
+  gap: 0;
+}
+
+.btn-group-attached .btn {
+  border-radius: 0;
+  margin-left: -1px;
+}
+
+.btn-group-attached .btn:first-child {
+  border-top-left-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
+}
+
+.btn-group-attached .btn:last-child {
+  border-top-right-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+}
+
+/* ===========================
+   SPECIAL EFFECTS
+   =========================== */
+
+/* Ripple Effect */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  z-index: 3;
+}
+
+.btn-ripple:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* ===========================
+   RESPONSIVE STYLES
+   =========================== */
+
+@media (max-width: 768px) {
+  .btn {
+    min-height: 44px; /* Touch-friendly size */
+  }
+  
+  .btn-nav-cta {
+    margin-left: 0;
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    font-size: 0.85rem;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+  }
+  
+  .btn-group .btn {
+    width: 100%;
+  }
+  
+  .btn-group-attached {
+    flex-direction: column;
+  }
+  
+  .btn-group-attached .btn {
+    border-radius: 0;
+    margin-left: 0;
+    margin-top: -1px;
+  }
+  
+  .btn-group-attached .btn:first-child {
+    border-top-left-radius: var(--radius-md);
+    border-top-right-radius: var(--radius-md);
+    border-bottom-left-radius: 0;
+  }
+  
+  .btn-group-attached .btn:last-child {
+    border-bottom-left-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+    border-top-right-radius: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    padding: 1rem 1.5rem;
+    font-size: 0.85rem;
+  }
+  
+  .btn-block {
+    padding: 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .btn-sm {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.8rem;
+  }
+  
+  .btn-lg {
+    padding: 1.1rem 2rem;
+    font-size: 0.95rem;
+  }
+  
+  .btn-xl {
+    padding: 1.3rem 2.5rem;
+    font-size: 1rem;
+  }
+}

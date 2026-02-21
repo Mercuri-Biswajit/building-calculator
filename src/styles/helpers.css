@@ -1,0 +1,357 @@
+/* ===========================
+   HELPER UTILITIES
+   Common utility classes
+   =========================== */
+
+/* ===========================
+   DISPLAY UTILITIES
+   =========================== */
+
+.hidden {
+  display: none !important;
+}
+
+.visible {
+  display: block !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+/* ===========================
+   FLEXBOX UTILITIES
+   =========================== */
+
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+/* Justify Content */
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+/* Align Items */
+.items-start {
+  align-items: flex-start;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+/* Gap Utilities */
+.gap-xs {
+  gap: var(--gap-xs);
+}
+
+.gap-sm {
+  gap: var(--gap-sm);
+}
+
+.gap-md {
+  gap: var(--gap-md);
+}
+
+.gap-lg {
+  gap: var(--gap-lg);
+}
+
+.gap-xl {
+  gap: var(--gap-xl);
+}
+
+/* ===========================
+   GRID UTILITIES
+   =========================== */
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ===========================
+   SPACING UTILITIES
+   =========================== */
+
+/* Margin */
+.m-0 { margin: 0; }
+.m-auto { margin: auto; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.my-auto { margin-top: auto; margin-bottom: auto; }
+
+.mt-xs { margin-top: var(--spacing-xs); }
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mt-xl { margin-top: var(--spacing-xl); }
+
+.mb-xs { margin-bottom: var(--spacing-xs); }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.mb-xl { margin-bottom: var(--spacing-xl); }
+
+/* Padding */
+.p-0 { padding: 0; }
+
+.pt-xs { padding-top: var(--spacing-xs); }
+.pt-sm { padding-top: var(--spacing-sm); }
+.pt-md { padding-top: var(--spacing-md); }
+.pt-lg { padding-top: var(--spacing-lg); }
+.pt-xl { padding-top: var(--spacing-xl); }
+
+.pb-xs { padding-bottom: var(--spacing-xs); }
+.pb-sm { padding-bottom: var(--spacing-sm); }
+.pb-md { padding-bottom: var(--spacing-md); }
+.pb-lg { padding-bottom: var(--spacing-lg); }
+.pb-xl { padding-bottom: var(--spacing-xl); }
+
+/* ===========================
+   TEXT UTILITIES
+   =========================== */
+
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+.text-uppercase { text-transform: uppercase; }
+.text-lowercase { text-transform: lowercase; }
+.text-capitalize { text-transform: capitalize; }
+
+.font-light { font-weight: var(--font-weight-light); }
+.font-normal { font-weight: var(--font-weight-normal); }
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+.font-bold { font-weight: var(--font-weight-bold); }
+
+/* Text Colors */
+.text-primary { color: var(--color-primary); }
+.text-accent { color: var(--color-accent); }
+.text-dim { color: var(--color-text-dim); }
+.text-white { color: #ffffff; }
+
+/* ===========================
+   BACKGROUND UTILITIES
+   =========================== */
+
+.bg-primary { background-color: var(--color-primary); }
+.bg-accent { background-color: var(--color-accent); }
+.bg-dark { background-color: var(--color-bg-dark); }
+.bg-white { background-color: #ffffff; }
+.bg-transparent { background-color: transparent; }
+
+/* ===========================
+   BORDER UTILITIES
+   =========================== */
+
+.border { border: 1px solid var(--color-border); }
+.border-0 { border: none; }
+.border-t { border-top: 1px solid var(--color-border); }
+.border-b { border-bottom: 1px solid var(--color-border); }
+.border-l { border-left: 1px solid var(--color-border); }
+.border-r { border-right: 1px solid var(--color-border); }
+
+.border-primary { border-color: var(--color-primary); }
+
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* ===========================
+   SHADOW UTILITIES
+   =========================== */
+
+.shadow-none { box-shadow: none; }
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+
+/* ===========================
+   WIDTH & HEIGHT UTILITIES
+   =========================== */
+
+.w-full { width: 100%; }
+.w-auto { width: auto; }
+.w-screen { width: 100vw; }
+
+.h-full { height: 100%; }
+.h-auto { height: auto; }
+.h-screen { height: 100vh; }
+
+.max-w-full { max-width: 100%; }
+.max-w-screen { max-width: 100vw; }
+
+/* ===========================
+   POSITION UTILITIES
+   =========================== */
+
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.sticky { position: sticky; }
+
+/* ===========================
+   OVERFLOW UTILITIES
+   =========================== */
+
+.overflow-auto { overflow: auto; }
+.overflow-hidden { overflow: hidden; }
+.overflow-visible { overflow: visible; }
+.overflow-scroll { overflow: scroll; }
+
+.overflow-x-auto { overflow-x: auto; }
+.overflow-y-auto { overflow-y: auto; }
+
+/* ===========================
+   CURSOR UTILITIES
+   =========================== */
+
+.cursor-pointer { cursor: pointer; }
+.cursor-default { cursor: default; }
+.cursor-not-allowed { cursor: not-allowed; }
+
+/* ===========================
+   TRANSITION UTILITIES
+   =========================== */
+
+.transition { transition: var(--transition); }
+.transition-fast { transition: var(--transition-fast); }
+.transition-slow { transition: var(--transition-slow); }
+.transition-none { transition: none; }
+
+/* ===========================
+   OPACITY UTILITIES
+   =========================== */
+
+.opacity-0 { opacity: 0; }
+.opacity-25 { opacity: 0.25; }
+.opacity-50 { opacity: 0.5; }
+.opacity-75 { opacity: 0.75; }
+.opacity-100 { opacity: 1; }
+
+/* ===========================
+   Z-INDEX UTILITIES
+   =========================== */
+
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
+
+/* ===========================
+   ACCESSIBILITY UTILITIES
+   =========================== */
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus Visible */
+.focus-visible:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ===========================
+   RESPONSIVE UTILITIES
+   =========================== */
+
+@media (max-width: 480px) {
+  .hidden-mobile { display: none !important; }
+  .visible-mobile { display: block !important; }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .hidden-tablet { display: none !important; }
+  .visible-tablet { display: block !important; }
+}
+
+@media (min-width: 769px) {
+  .hidden-desktop { display: none !important; }
+  .visible-desktop { display: block !important; }
+}
+
+/* ===========================
+   PRINT UTILITIES
+   =========================== */
+
+@media print {
+  .print-hidden { display: none !important; }
+  .print-visible { display: block !important; }
+}

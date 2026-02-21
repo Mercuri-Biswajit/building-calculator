@@ -1,43 +1,175 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#003366" />
+    <link rel="icon" href="%PUBLIC_URL%/assets/icons/favicon.ico" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/assets/icons/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <!-- ================================================
+       PRIMARY SEO
+  ================================================ -->
+    <title>
+      Er. Biswajit Deb Barman | Civil Engineer in Raiganj, Uttar Dinajpur
+    </title>
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Er. Biswajit Deb Barman – Civil Engineer & Structural Designer based in Raiganj, Uttar Dinajpur, West Bengal. Expert in RCC structural design, cost estimation, BOQ preparation using WB PWD SOR 2023–24, and building planning. Serving Raiganj, Dalkhola, Islampur, Itahar, and North Dinajpur district."
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <meta
+      name="keywords"
+      content="civil engineer Raiganj, structural designer Raiganj, building construction Raiganj, RCC design Raiganj, house construction Raiganj, BOQ Raiganj, cost estimation Raiganj, Uttar Dinajpur civil engineer, North Dinajpur civil engineer, WB PWD engineer, construction consultant West Bengal"
+    />
+    <meta name="author" content="Er. Biswajit Deb Barman" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://engineer-biswajit.netlify.app/" />
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <!-- ================================================
+       GEO / LOCAL SEO META TAGS
+  ================================================ -->
+    <meta name="geo.region" content="IN-WB" />
+    <meta
+      name="geo.placename"
+      content="Raiganj, Uttar Dinajpur, West Bengal, India"
+    />
+    <meta name="geo.position" content="25.6173;88.1228" />
+    <meta name="ICBM" content="25.6173, 88.1228" />
+
+    <!-- ================================================
+       OPEN GRAPH (WhatsApp / Facebook shares)
+  ================================================ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://engineer-biswajit.netlify.app/" />
+    <meta
+      property="og:title"
+      content="Er. Biswajit Deb Barman | Civil Engineer – Raiganj, West Bengal"
+    />
+    <meta
+      property="og:description"
+      content="Civil Engineer & Structural Designer in Raiganj, Uttar Dinajpur. RCC structural design, cost estimation, BOQ using WB PWD Schedule of Rates 2023–24."
+    />
+    <meta
+      property="og:image"
+      content="https://engineer-biswajit.netlify.app/assets/icons/og-image.png"
+    />
+    <meta property="og:locale" content="en_IN" />
+    <meta
+      property="og:site_name"
+      content="Er. Biswajit Deb Barman – Civil Engineer Raiganj"
+    />
+
+    <!-- ================================================
+       TWITTER / X CARD
+  ================================================ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Er. Biswajit Deb Barman | Civil Engineer – Raiganj"
+    />
+    <meta
+      name="twitter:description"
+      content="Structural Designer in Raiganj, West Bengal. RCC design, BOQ, cost estimation using WB PWD SOR."
+    />
+    <meta
+      name="twitter:image"
+      content="https://engineer-biswajit.netlify.app/assets/icons/og-image.png"
+    />
+
+    <!-- ================================================
+       FONTS (keep your existing Google Fonts links here)
+  ================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <!-- ================================================
+       SCHEMA.ORG — LOCAL BUSINESS (for Google Local)
+  ================================================ -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Er. Biswajit Deb Barman – Civil Engineer",
+        "description": "Civil Engineer and Structural Designer offering RCC structural design, cost estimation, BOQ preparation (WB PWD SOR 2023–24), and building planning services in Raiganj and Uttar Dinajpur district, West Bengal.",
+        "url": "https://engineer-biswajit.netlify.app/",
+        "telephone": "+91-7602120054",
+        "email": "biswajitdebbarman.civil@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Chanditala",
+          "addressLocality": "Raiganj",
+          "addressRegion": "West Bengal",
+          "postalCode": "733134",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 25.6173,
+          "longitude": 88.1228
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Raiganj" },
+          { "@type": "City", "name": "Dalkhola" },
+          { "@type": "City", "name": "Islampur" },
+          { "@type": "City", "name": "Itahar" },
+          { "@type": "City", "name": "Chopra" },
+          { "@type": "City", "name": "Kaliaganj" },
+          { "@type": "AdministrativeArea", "name": "Uttar Dinajpur" },
+          { "@type": "State", "name": "West Bengal" }
+        ],
+        "knowsAbout": [
+          "RCC Structural Design",
+          "IS 456:2000 Compliance",
+          "Cost Estimation",
+          "Bill of Quantities",
+          "WB PWD Schedule of Rates",
+          "Foundation Design",
+          "Beam Design",
+          "Column Design",
+          "Vastu Shastra"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/biswajit-deb-barman/",
+          "https://www.instagram.com/biswajit.deb.barman/"
+        ],
+        "openingHours": "Mo-Sa 09:00-18:00",
+        "priceRange": "₹₹"
+      }
+    </script>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <!-- ================================================
+       SCHEMA.ORG — PERSON
+  ================================================ -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Er. Biswajit Deb Barman",
+        "jobTitle": "Civil Engineer & Structural Designer",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Raiganj",
+          "addressRegion": "West Bengal",
+          "addressCountry": "IN"
+        },
+        "telephone": "+91-7602120054",
+        "email": "biswajitdebbarman.civil@gmail.com",
+        "url": "https://engineer-biswajit.netlify.app/",
+        "sameAs": [
+          "https://www.linkedin.com/in/biswajit-deb-barman/",
+          "https://www.instagram.com/biswajit.deb.barman/"
+        ]
+      }
+    </script>
   </body>
 </html>

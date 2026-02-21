@@ -1,0 +1,355 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SKELETON LOADING SCREENS
+   Matches site design: navy #003366, orange #FF8C00, gray #F4F4F4
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Shimmer keyframe ───────────────────────────────────────────────────── */
+@keyframes skeletonShimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+
+/* ── Base shimmer block ─────────────────────────────────────────────────── */
+.skeleton-block {
+  display: block;
+  background: linear-gradient(
+    90deg,
+    #E2E8F0 0px,
+    #F1F5F9 80px,
+    #E2E8F0 160px
+  );
+  background-size: 600px 100%;
+  animation: skeletonShimmer 1.6s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PROJECT CARD SKELETON
+   ═══════════════════════════════════════════════════════════════════════════ */
+.skeleton-project-card {
+  background: #ffffff;
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.skeleton-project-image {
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(
+    90deg,
+    #E2E8F0 0px,
+    #F1F5F9 80px,
+    #E2E8F0 160px
+  );
+  background-size: 600px 100%;
+  animation: skeletonShimmer 1.6s ease-in-out infinite;
+}
+
+.skeleton-project-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.skeleton-project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.skeleton-project-footer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid #E2E8F0;
+}
+
+.skeleton-project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SKILL CARD SKELETON
+   ═══════════════════════════════════════════════════════════════════════════ */
+.skeleton-skill-card {
+  position: relative;
+  padding: 1.5rem 1.5rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.skeleton-skill-watermark {
+  position: absolute;
+  top: -0.5rem;
+  right: 0.75rem;
+  width: 64px;
+  height: 72px;
+  background: linear-gradient(
+    90deg,
+    #E2E8F0 0px,
+    #F1F5F9 80px,
+    #E2E8F0 160px
+  );
+  background-size: 600px 100%;
+  animation: skeletonShimmer 1.6s ease-in-out infinite;
+  opacity: 0.4;
+  border-radius: 4px;
+}
+
+.skeleton-skill-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.skeleton-skill-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.skeleton-skill-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ABOUT PAGE SKELETONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.skeleton-about-skill {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+}
+
+.skeleton-about-skill-text {
+  flex: 1;
+}
+
+.skeleton-education-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.skeleton-edu-dot {
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  border-radius: 50%;
+  background: linear-gradient(
+    90deg,
+    #E2E8F0 0px,
+    #F1F5F9 80px,
+    #E2E8F0 160px
+  );
+  background-size: 600px 100%;
+  animation: skeletonShimmer 1.6s ease-in-out infinite;
+  margin-top: 0.2rem;
+}
+
+.skeleton-edu-content {
+  flex: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CALCULATOR PAGE SKELETON
+   ═══════════════════════════════════════════════════════════════════════════ */
+.skeleton-calc-tab {
+  width: 100%;
+}
+
+.skeleton-calc-tabs-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #E2E8F0;
+}
+
+.skeleton-calc-content {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 3rem;
+}
+
+.skeleton-calc-inputs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.skeleton-calc-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HERO SKELETON
+   ═══════════════════════════════════════════════════════════════════════════ */
+.skeleton-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 6rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.skeleton-hero-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-hero-btns {
+  display: flex;
+  gap: 1rem;
+}
+
+.skeleton-hero-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    #E2E8F0 0px,
+    #F1F5F9 80px,
+    #E2E8F0 160px
+  );
+  background-size: 600px 100%;
+  animation: skeletonShimmer 1.6s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION HEADER SKELETON (reusable)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.skeleton-section-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   STAGGER ANIMATION DELAYS
+   Apply to nth-child to stagger card animations
+   ═══════════════════════════════════════════════════════════════════════════ */
+.skeleton-project-card:nth-child(1) .skeleton-block,
+.skeleton-project-card:nth-child(1) .skeleton-project-image { animation-delay: 0s; }
+
+.skeleton-project-card:nth-child(2) .skeleton-block,
+.skeleton-project-card:nth-child(2) .skeleton-project-image { animation-delay: 0.15s; }
+
+.skeleton-project-card:nth-child(3) .skeleton-block,
+.skeleton-project-card:nth-child(3) .skeleton-project-image { animation-delay: 0.3s; }
+
+.skeleton-skill-card:nth-child(odd)  .skeleton-block { animation-delay: 0s; }
+.skeleton-skill-card:nth-child(even) .skeleton-block { animation-delay: 0.2s; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .skeleton-hero {
+    grid-template-columns: 1fr;
+    padding: 3rem 1rem;
+  }
+
+  .skeleton-hero-image {
+    display: none;
+  }
+
+  .skeleton-calc-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-calc-content {
+    padding: 1.5rem;
+  }
+
+  .skeleton-calc-tabs-row {
+    gap: 0.35rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VASTU PAGE SKELETONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.vastu-skeleton {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.vastu-skeleton-card {
+  background: #ffffff;
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(30,41,59,0.06);
+}
+
+.vastu-skeleton-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.vastu-skeleton-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.vastu-skeleton-layout {
+  background: #ffffff;
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(30,41,59,0.06);
+}
+
+.vastu-skeleton-study {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 3rem 0;
+}
+
+.vastu-skeleton-study-card {
+  background: #ffffff;
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(30,41,59,0.06);
+}
+
+@media (max-width: 900px) {
+  .vastu-skeleton {
+    grid-template-columns: 1fr;
+  }
+
+  .vastu-skeleton-study {
+    grid-template-columns: 1fr;
+  }
+}

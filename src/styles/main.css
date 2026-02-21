@@ -1,0 +1,77 @@
+
+/* ===========================
+   BASE STYLES
+   =========================== */
+@import url("./variables.css");
+@import url("./buttons.css");
+@import url("./animations-consolidated.css");
+@import url("./CalculatorPage.css");
+@import url("./helpers.css");
+@import url("./utilities.css");
+@import url("./utilities-consolidated.css");
+
+/* ===========================
+   GLOBAL STYLES
+   =========================== */
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  img, video, iframe {
+    max-width: 100%;
+  }
+
+  a, button {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* ===========================
+   ACCESSIBILITY
+   =========================== */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===========================
+   PRINT
+   =========================== */
+
+@media print {
+  .navbar,
+  .footer,
+  .btn,
+  .cta-section {
+    display: none;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+}
