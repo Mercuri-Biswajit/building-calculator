@@ -264,25 +264,25 @@ export function HeroSection({ mainTab, onTabChange }) {
                   title: "Full Building Cost",
                   desc: "Labour, material & BOQ breakdown",
                 },
-                {
-                  icon: (
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <polyline points="12 6 12 12 16 14" />
-                    </svg>
-                  ),
-                  title: "Project Timeline",
-                  desc: "Phase-wise schedule estimation",
-                },
+                // {
+                //   icon: (
+                //     <svg
+                //       width="16"
+                //       height="16"
+                //       viewBox="0 0 24 24"
+                //       fill="none"
+                //       stroke="currentColor"
+                //       strokeWidth="2"
+                //       strokeLinecap="round"
+                //       strokeLinejoin="round"
+                //     >
+                //       <circle cx="12" cy="12" r="10" />
+                //       <polyline points="12 6 12 12 16 14" />
+                //     </svg>
+                //   ),
+                //   title: "Project Timeline",
+                //   desc: "Phase-wise schedule estimation",
+                // },
               ].map((f) => (
                 <div key={f.title} className="hs-feat-item">
                   <span className="hs-feat-icon">{f.icon}</span>

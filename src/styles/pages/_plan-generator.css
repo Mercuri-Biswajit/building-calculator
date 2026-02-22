@@ -1,0 +1,923 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   src/pages/PlanGeneratorPage.css
+   Styles for the 2D Floor Plan Generator page
+   Uses the same design tokens as the rest of the site.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Page Shell ─────────────────────────────────────────────────────────── */
+.plan-page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  font-family: var(--font-body);
+}
+
+/* Hero uses shared hs-* classes from _herosection.css — no extra styles needed */
+
+/* ── Main Layout ─────────────────────────────────────────────────────────── */
+.plan-main {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: var(--sp-6);
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--sp-8) var(--container-padding);
+  align-items: flex-start;
+}
+
+/* ── Left Panel ──────────────────────────────────────────────────────────── */
+.plan-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  padding-right: var(--sp-2);
+  scrollbar-width: thin;
+}
+
+/* ── Card ────────────────────────────────────────────────────────────────── */
+.plan-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5);
+  box-shadow: var(--shadow-sm);
+}
+
+.plan-card-title {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1.5px solid var(--color-border-light);
+}
+
+.plan-card-desc {
+  font-size: var(--fs-xs);
+  color: var(--color-text-light);
+  margin-bottom: var(--sp-3);
+}
+
+.plan-card-hint {
+  font-size: var(--fs-xs);
+  color: var(--color-text-light);
+  font-style: italic;
+  margin-top: var(--sp-3);
+}
+
+/* ── BHK Selector ────────────────────────────────────────────────────────── */
+.plan-bhk-grid {
+  display: flex;
+  gap: var(--sp-2);
+  flex-direction: column;
+}
+
+.plan-bhk-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition);
+  gap: 0.2rem;
+}
+
+.plan-bhk-btn:hover {
+  border-color: var(--color-primary);
+  background: #f0f4ff;
+}
+
+.plan-bhk-btn.active {
+  border-color: var(--color-primary);
+  background: rgba(0, 51, 102, 0.06);
+  box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.12);
+}
+
+.plan-bhk-label {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+}
+
+.plan-bhk-desc {
+  font-size: var(--fs-xs);
+  color: var(--color-text-light);
+}
+
+/* ── Grid helpers ────────────────────────────────────────────────────────── */
+.plan-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+}
+
+/* ── Inputs ──────────────────────────────────────────────────────────────── */
+.plan-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.plan-label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.plan-label-sm {
+  text-transform: none;
+  font-size: var(--fs-xs);
+}
+
+.plan-required {
+  color: var(--color-accent);
+}
+
+.plan-input {
+  height: 36px;
+  padding: 0 var(--sp-3);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--color-text);
+  background: var(--color-surface);
+  transition: var(--transition);
+  outline: none;
+}
+
+.plan-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.08);
+}
+
+.plan-input-sm {
+  height: 30px;
+  font-size: var(--fs-xs);
+}
+
+.plan-hint {
+  font-size: var(--fs-xs);
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+/* ── North Direction ─────────────────────────────────────────────────────── */
+.plan-north-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2);
+}
+
+.plan-north-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--sp-2) var(--sp-3);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+  cursor: pointer;
+  transition: var(--transition);
+  gap: 0.15rem;
+}
+
+.plan-north-btn:hover {
+  border-color: var(--color-primary);
+  background: #f0f4ff;
+}
+
+.plan-north-btn.active {
+  border-color: var(--color-primary);
+  background: rgba(0, 51, 102, 0.06);
+}
+
+.plan-north-symbol {
+  font-size: 1.1rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-accent);
+}
+
+.plan-north-label {
+  font-size: var(--fs-xs);
+  color: var(--color-text-dim);
+  text-align: center;
+}
+
+/* ── Custom Labels ───────────────────────────────────────────────────────── */
+.plan-labels-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+/* ── Checkbox ────────────────────────────────────────────────────────────── */
+.plan-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-base);
+  color: var(--color-text-dim);
+  cursor: pointer;
+}
+
+.plan-checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+/* ── Action Buttons ──────────────────────────────────────────────────────── */
+.plan-actions {
+  display: flex;
+  gap: var(--sp-3);
+}
+
+.plan-btn-generate {
+  flex: 1;
+  height: 44px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-primary);
+}
+
+.plan-btn-generate:hover {
+  background: var(--color-primary-light);
+  transform: translateY(-1px);
+}
+
+.plan-btn-generate:active {
+  transform: translateY(0);
+}
+
+.plan-btn-reset {
+  height: 44px;
+  padding: 0 var(--sp-4);
+  background: transparent;
+  border: 1.5px solid var(--color-border-dark);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-dim);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.plan-btn-reset:hover {
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+/* ── Right Output Panel ──────────────────────────────────────────────────── */
+.plan-output {
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+/* ── Error / Alert ───────────────────────────────────────────────────────── */
+.plan-alert {
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--radius-lg);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-medium);
+}
+
+.plan-alert-error {
+  background: var(--color-error-light);
+  border: 1px solid #fca5a5;
+  border-left: 3px solid var(--color-error);
+  color: #991b1b;
+}
+
+/* ── Empty State ─────────────────────────────────────────────────────────── */
+.plan-empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  background: var(--color-surface);
+  border: 2px dashed var(--color-border-dark);
+  border-radius: var(--radius-2xl);
+  padding: var(--sp-12);
+  text-align: center;
+  min-height: 400px;
+}
+
+.plan-empty-icon {
+  font-size: 3.5rem;
+  opacity: 0.25;
+}
+
+.plan-empty-title {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-dim);
+  margin: 0;
+}
+
+.plan-empty-desc {
+  font-size: var(--fs-base);
+  color: var(--color-text-light);
+  line-height: var(--lh-relaxed);
+}
+
+/* ── Canvas Wrapper ──────────────────────────────────────────────────────── */
+.plan-canvas-wrapper {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.plan-canvas-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-3) var(--sp-5);
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-surface-2);
+}
+
+.plan-canvas-scale-badge {
+  font-size: var(--fs-xs);
+  color: var(--color-text-light);
+  font-family: var(--font-mono);
+}
+
+.plan-download-btn {
+  height: 30px;
+  padding: 0 var(--sp-4);
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.plan-download-btn:hover {
+  background: var(--color-primary-light);
+}
+
+.plan-canvas-scroll {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 580px;
+  padding: var(--sp-4);
+}
+
+/* ── Room Legend ─────────────────────────────────────────────────────────── */
+.plan-legend {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5);
+  box-shadow: var(--shadow-sm);
+}
+
+.plan-legend-title {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.plan-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.plan-legend-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+
+.plan-legend-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-sm);
+  border: 2px solid;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.plan-legend-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.plan-legend-name {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+}
+
+.plan-legend-area {
+  font-size: var(--fs-xs);
+  color: var(--color-text-light);
+  font-family: var(--font-mono);
+}
+
+.plan-legend-note {
+  font-size: var(--fs-xs);
+  color: var(--color-text-light);
+  font-style: italic;
+  line-height: var(--lh-relaxed);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .plan-main {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-panel {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .plan-hero {
+    padding: var(--sp-8) var(--sp-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .plan-north-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .plan-legend-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-bhk-grid {
+    gap: var(--sp-2);
+  }
+}
+
+/* ── Floors Grid ─────────────────────────────────────────────────────────── */
+.plan-floors-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2);
+}
+
+.plan-floor-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--sp-3) var(--sp-2);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+  cursor: pointer;
+  transition: var(--transition);
+  gap: 0.15rem;
+  text-align: center;
+}
+
+.plan-floor-btn:hover {
+  border-color: var(--color-primary);
+  background: #f0f4ff;
+}
+
+.plan-floor-btn.active {
+  border-color: var(--color-primary);
+  background: rgba(0, 51, 102, 0.06);
+  box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.12);
+}
+
+.plan-floor-short {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+}
+
+.plan-floor-label {
+  font-size: var(--fs-xs);
+  color: var(--color-text-light);
+  text-align: center;
+}
+
+/* ── Face Direction Grid ─────────────────────────────────────────────────── */
+.plan-face-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2);
+}
+
+.plan-face-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--sp-3) var(--sp-2);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+  cursor: pointer;
+  transition: var(--transition);
+  gap: 0.15rem;
+  text-align: center;
+}
+
+.plan-face-btn:hover {
+  border-color: var(--color-accent);
+  background: rgba(255, 140, 0, 0.04);
+}
+
+.plan-face-btn.active {
+  border-color: var(--color-accent);
+  background: rgba(255, 140, 0, 0.08);
+  box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.15);
+}
+
+.plan-face-symbol {
+  font-size: 1.2rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-accent);
+}
+
+.plan-face-name {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+}
+
+.plan-face-desc {
+  font-size: 0.62rem;
+  color: var(--color-text-light);
+  text-align: center;
+}
+
+/* ── Floor Tabs ──────────────────────────────────────────────────────────── */
+.plan-floor-tabs {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.plan-floor-tab {
+  height: 36px;
+  padding: 0 var(--sp-4);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-dim);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.plan-floor-tab:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.plan-floor-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+  box-shadow: var(--shadow-primary);
+}
+
+/* ── Canvas floor label in toolbar ─────────────────────────────────────── */
+.plan-canvas-floor-label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+}
+
+/* ── Area Summary ────────────────────────────────────────────────────────── */
+.plan-area-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--sp-3);
+  margin: var(--sp-4) 0;
+  padding: var(--sp-4);
+  background: var(--color-surface-2);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+}
+
+.plan-area-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.plan-area-item--accent {
+  border-left: 3px solid var(--color-accent);
+  padding-left: var(--sp-3);
+}
+
+.plan-area-label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.plan-area-value {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+}
+
+/* ── Stacked floor sections ─────────────────────────────────────────────── */
+.plan-floors-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.plan-floor-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.plan-floor-section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.plan-floor-section-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.06em;
+  padding: 0.35rem 1rem;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+}
+
+.plan-floor-section-sub {
+  font-size: var(--fs-xs);
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+/* Total area row */
+.plan-area-item--total {
+  border-left: 3px solid var(--color-primary);
+  padding-left: var(--sp-3);
+}
+
+.plan-area-value--big {
+  font-size: var(--fs-xl);
+  color: var(--color-primary);
+}
+
+/* ── Room Selector Chips ─────────────────────────────────────────────────── */
+.plan-room-cat {
+  margin-bottom: var(--sp-4);
+}
+
+.plan-room-cat:last-child {
+  margin-bottom: 0;
+}
+
+.plan-room-cat-label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--sp-2);
+}
+
+.plan-room-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.plan-room-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border-dark);
+  background: var(--color-surface-2);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-dim);
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+
+.plan-room-chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(0, 51, 102, 0.05);
+}
+
+.plan-room-chip.selected {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 51, 102, 0.22);
+}
+
+.plan-chip-check {
+  font-size: 0.65rem;
+  font-weight: var(--fw-bold);
+}
+
+/* ── Per-Floor Config Tabs ───────────────────────────────────────────────── */
+.plan-floor-config-tabs {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1.5px solid var(--color-border-light);
+}
+
+.plan-floor-config-tab {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  height: 34px;
+  padding: 0 var(--sp-4);
+  border: 1.5px solid var(--color-border-dark);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-dim);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.plan-floor-config-tab:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.plan-floor-config-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+  box-shadow: var(--shadow-primary);
+}
+
+.plan-floor-config-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 0.6rem;
+  font-weight: var(--fw-bold);
+  background: rgba(255, 255, 255, 0.25);
+  color: inherit;
+}
+
+.plan-floor-config-tab.active .plan-floor-config-count {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.plan-floor-config-tab:not(.active) .plan-floor-config-count {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* ── Floor Config Body ───────────────────────────────────────────────────── */
+.plan-floor-config-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  animation: fadeInDown 0.18s ease;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Copy to All Button ──────────────────────────────────────────────────── */
+.plan-copy-all-btn {
+  margin-top: var(--sp-2);
+  height: 32px;
+  padding: 0 var(--sp-4);
+  background: transparent;
+  border: 1.5px dashed var(--color-border-dark);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-light);
+  cursor: pointer;
+  transition: var(--transition);
+  width: 100%;
+}
+
+.plan-copy-all-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: rgba(255, 140, 0, 0.04);
+}
+
+/* ── Config Preview (empty state) ───────────────────────────────────────── */
+.plan-config-preview {
+  margin-top: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  width: 100%;
+  max-width: 480px;
+  text-align: left;
+}
+
+.plan-config-preview-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  border-left: 3px solid var(--color-primary);
+}
+
+.plan-config-preview-floor {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.plan-config-preview-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+}
+
+.plan-config-preview-chip {
+  font-size: 0.65rem;
+  font-weight: var(--fw-medium);
+  color: var(--color-text-dim);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 0.15rem 0.55rem;
+}
