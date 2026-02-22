@@ -4,7 +4,6 @@ import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
 
 import CalculatorPage from "./pages/CalculatorPage";
-import PlanGeneratorPage from "./pages/PlanGeneratorPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -21,7 +20,6 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<CalculatorPage />} />
-        <Route path="/plan-generator" element={<PlanGeneratorPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
