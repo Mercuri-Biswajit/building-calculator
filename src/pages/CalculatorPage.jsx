@@ -36,6 +36,7 @@ import { CostingResults } from "../components/CostingResults";
 import { StructuralDesignTab } from "../components/StructuralDesignTab";
 import { BrickMasonryTab } from "../components/BrickMasonryTab";
 import { PaintEstimatorTab } from "../components/PaintEstimatorTab";
+import BOQCalculatorTab from "../components/BOQCalculatorTab";
 
 import "../styles/pages/_calculator.css";
 import "../styles/pages/_design-calculator.css";
@@ -236,6 +237,13 @@ function CalculatorsPage() {
                     onReset={paint.reset}
                     results={paint.results}
                   />
+                </section>
+              )}
+
+              {/* ── BOQ GENERATOR ─────────────────────────────────── */}
+              {mainTab === "boq" && (
+                <section className="calc-results-section">
+                  <BOQCalculatorTab />
                 </section>
               )}
             </>

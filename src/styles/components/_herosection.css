@@ -412,11 +412,14 @@
 
 .hs-tabs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+  overflow-x: auto;
+  gap: 0;
 }
 
 .hs-tab {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   gap: 0.9rem;
   padding: 1.1rem 1.4rem;
@@ -429,6 +432,7 @@
   transition: all 0.22s ease;
   position: relative;
   overflow: hidden;
+  min-width: 160px;
 }
 
 .hs-tab:last-child {
