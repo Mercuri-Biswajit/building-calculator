@@ -2,7 +2,7 @@
 // Redesigned: Light theme · Plus Jakarta Sans · Navy + Orange
 // Drop-in replacement — same props: { mainTab, onTabChange }
 
-import "../styles/components/_herosection.css";
+import "../../styles/components/_herosection.css";
 
 const TABS = [
   {

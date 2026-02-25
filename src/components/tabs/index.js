@@ -2,3 +2,4 @@
 export { CostBreakdown } from "./CostBreakdown";
 export { StructureDesign } from "./StructureDesign";
 export { StaircaseDesign, FoundationDesign, CompleteBBS } from "./OtherTabs";
+export { FullBOQ } from "./FullBOQTab";

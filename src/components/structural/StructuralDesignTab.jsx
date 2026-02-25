@@ -4,14 +4,29 @@
 // ═══════════════════════════════════════════════════════════════════════════
 
 import { useState } from "react";
-import { BeamDesignTab }   from "./BeamDesignTab";
+import { BeamDesignTab } from "./BeamDesignTab";
 import { ColumnDesignTab } from "./ColumnDesignTab";
-import { SlabDesignTab }   from "./SlabDesignTab";
+import { SlabDesignTab } from "./SlabDesignTab";
 
 const SUB_TABS = [
-  { key: "slab",   icon: "⬜", label: "Slab Design",    desc: "One-way & two-way — IS 456" },
-  { key: "beam",   icon: "🏗️", label: "Beam Design",   desc: "Flexural & shear — IS 456" },
-  { key: "column", icon: "🏛️", label: "Column Design",  desc: "Axial & moment — IS 456"  },
+  {
+    key: "slab",
+    icon: "⬜",
+    label: "Slab Design",
+    desc: "One-way & two-way — IS 456",
+  },
+  {
+    key: "beam",
+    icon: "🏗️",
+    label: "Beam Design",
+    desc: "Flexural & shear — IS 456",
+  },
+  {
+    key: "column",
+    icon: "🏛️",
+    label: "Column Design",
+    desc: "Axial & moment — IS 456",
+  },
 ];
 
 export function StructuralDesignTab({ beam, column, slab }) {

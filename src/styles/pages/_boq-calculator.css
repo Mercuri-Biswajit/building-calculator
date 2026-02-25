@@ -6,7 +6,7 @@
 
 /* ── Global scope fallbacks ──────────────────────────────────────────────── */
 :root {
-  --ink: var(--color-text, #0f172a);
+  --ink: #1d47b1;
   --paper: var(--color-bg, #f5f7fa);
   --paper2: var(--color-surface-2, #f8fafc);
   --paper3: var(--color-surface-3, #f0f4f8);

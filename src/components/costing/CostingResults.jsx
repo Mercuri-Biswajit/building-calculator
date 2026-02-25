@@ -4,8 +4,9 @@ import {
   StaircaseDesign,
   FoundationDesign,
   CompleteBBS,
-} from "./tabs";
-import { FullBOQ } from "./FullBOQTab";
+} from "../tabs";
+
+import { FullBOQ } from "../tabs";
 
 const SUB_TABS = [
   { key: "cost", label: "💰 Cost Breakdown" },

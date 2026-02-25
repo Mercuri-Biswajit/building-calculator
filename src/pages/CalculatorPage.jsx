@@ -30,13 +30,13 @@ import { useCostingInputs } from "../hooks/useCostingInputs";
 import { useBrickMasonry } from "../hooks/useBrickMasonry";
 import { usePaintEstimator } from "../hooks/usePaintEstimator";
 
-import { HeroSection } from "../components/HeroSection";
-import { CostingInputPanel } from "../components/CostingInputPanel";
-import { CostingResults } from "../components/CostingResults";
-import { StructuralDesignTab } from "../components/StructuralDesignTab";
-import { BrickMasonryTab } from "../components/BrickMasonryTab";
-import { PaintEstimatorTab } from "../components/PaintEstimatorTab";
-import BOQCalculatorTab from "../components/BOQCalculatorTab";
+import { HeroSection } from "../components/hero/HeroSection";
+import { CostingInputPanel } from "../components/costing/CostingInputPanel";
+import { CostingResults } from "../components/costing/CostingResults";
+import { StructuralDesignTab } from "../components/structural/StructuralDesignTab";
+import { BrickMasonryTab } from "../components/brick/BrickMasonryTab";
+import { PaintEstimatorTab } from "../components/paint/PaintEstimatorTab";
+import BOQCalculatorTab from "../components/boq/BOQCalculatorTab";
 
 import "../styles/pages/_calculator.css";
 import "../styles/pages/_design-calculator.css";
