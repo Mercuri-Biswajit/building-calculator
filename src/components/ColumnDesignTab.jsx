@@ -1,4 +1,4 @@
-import { safeFormat, safeGet } from "../utils/calculator/shared/formatHelpers";
+import { safeFormat, safeGet } from "../utils/shared/formatHelpers";
 
 export function ColumnDesignTab({
   inputs,

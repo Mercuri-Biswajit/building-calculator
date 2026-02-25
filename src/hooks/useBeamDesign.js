@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { designBeam } from "../utils/calculator/beamDesign";
+import { designBeam } from "../utils/beamDesign";
 
 const DEFAULT_INPUTS = {
   Mu: "",

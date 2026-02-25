@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { designColumn } from "../utils/calculator/columnDesign";
+import { designColumn } from "../utils/columnDesign";
 
 const DEFAULT_INPUTS = {
   Pu: "",

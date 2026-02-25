@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { SITE } from "../config/constants";
 
-import { formatCurrency } from "../utils/calculator/shared/formatHelpers";
+import { formatCurrency } from "../utils/shared/formatHelpers";
 import {
   calcBuildingCost,
   calcStairDesign,
@@ -21,7 +21,7 @@ import {
   calcStandardBOQ,
   calcPremiumBOQ,
   calcFloorWiseBOQ,
-} from "../utils/calculator/advanced";
+} from "../utils/advanced";
 
 import { useBeamDesign } from "../hooks/useBeamDesign";
 import { useColumnDesign } from "../hooks/useColumnDesign";

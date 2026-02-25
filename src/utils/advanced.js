@@ -25,7 +25,7 @@ export {
   calcStandardBOQ,
   calcPremiumBOQ,
   calcFloorWiseBOQ,
-} from "./calculators/fullBOQ";
+} from "./boq/fullBOQ";
 
 // Re-export helper functions (these were internal but now available if needed)
 export {
@@ -67,4 +67,4 @@ export {
   createElectricalItem,
   createPlumbingItem,
   createWaterproofingItem,
-} from "./shared/boqItems.js";
+} from "./boq/boqItems.js";

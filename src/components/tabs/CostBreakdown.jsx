@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../utils/calculator/shared/formatHelpers";
+import { formatCurrency } from "../../utils/shared/formatHelpers";
 
 export function CostBreakdown({ results }) {
   const maxCost = Math.max(...Object.values(results.breakdown));

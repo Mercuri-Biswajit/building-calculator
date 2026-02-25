@@ -5,7 +5,7 @@ import {
   SOIL_CONDITIONS,
   REGIONS,
   MATERIAL_RATES,
-} from "../utils/calculator/shared/calculatorConstants";
+} from "../utils/shared/calculatorConstants";
 
 // ─── Validation rules ───────────────────────────────────────────────────────
 const RULES = {
