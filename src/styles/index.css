@@ -17,6 +17,7 @@
 /* 4. Page Styles */
 @import "./pages/_calculator.css";
 @import "./pages/_design-calculator.css";
+@import "./pages/_boq-calculator.css";
 
 /* ── Global Container ────────────────────────────────────────────────────── */
 .container {
@@ -25,5 +26,14 @@
   padding: 0 var(--container-padding);
 }
 
-@media (max-width: 1024px) { .container { padding: 0 1.5rem; } }
-@media (max-width: 480px)  { .container { padding: 0 1rem; } }
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+}

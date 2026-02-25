@@ -1,0 +1,215 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   styles/pages/_boq-calculator.css
+   BOQ Calculator Tab — CSS variable bridge + animation fixes
+   NOTE: No custom fonts — project ke existing fonts (DM Sans, DM Mono) use honge
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Global scope fallbacks ──────────────────────────────────────────────── */
+:root {
+  --ink: var(--color-text, #0f172a);
+  --paper: var(--color-bg, #f5f7fa);
+  --paper2: var(--color-surface-2, #f8fafc);
+  --paper3: var(--color-surface-3, #f0f4f8);
+  --white: var(--color-surface, #ffffff);
+  --border: var(--color-border, #dde3ed);
+  --muted: var(--color-text-dim, #475569);
+  --text: var(--color-text, #0f172a);
+  --success: var(--color-success, #059669);
+  --blue: var(--color-info, #2563eb);
+  --accent2: var(--color-accent, #FF8C00);
+}
+
+/* ── Variable Bridge (scoped to BOQ root) ────────────────────────────────── */
+.boq-calculator-root {
+  --ink: var(--color-text);
+  --paper: var(--color-bg);
+  --paper2: var(--color-surface-2);
+  --paper3: var(--color-surface-3);
+  --white: var(--color-surface);
+  --accent: #c8321a;
+  --accent2: var(--color-accent);
+  --border: var(--color-border);
+  --muted: var(--color-text-dim);
+  --text: var(--color-text);
+  --success: var(--color-success);
+  --blue: var(--color-info);
+  /* No font-family override — project fonts apply automatically */
+  color: var(--text);
+}
+
+/* ── Font overrides: map BOQ inline font references to project fonts ─────── */
+/* BOQ component uses 'Syne', 'Instrument Sans', 'JetBrains Mono' inline.    */
+/* We override these so project fonts are used instead.                       */
+.boq-calculator-root * {
+  font-family: inherit !important;
+}
+
+/* Mono sections (numbers, code) use project's DM Mono */
+.boq-calculator-root [style*="JetBrains Mono"] {
+  font-family: var(--font-mono) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ANIMATION FIX
+   @keyframes inside React inline style objects don't work — defined here.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes boq-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes boq-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: translateX(3px);
+  }
+}
+
+@keyframes boq-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes boq-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── Gear Icon ───────────────────────────────────────────────────────────── */
+.boq-gear-spin {
+  display: block;
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  animation: boq-spin 1.5s linear infinite;
+  transform-origin: center;
+  line-height: 1;
+}
+
+/* ── Loading Card ────────────────────────────────────────────────────────── */
+.boq-loading-card {
+  background: var(--white, #ffffff);
+  border-radius: 16px;
+  padding: 2.5rem 3.5rem;
+  text-align: center;
+  max-width: 400px;
+  animation: boq-fade-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Step List ───────────────────────────────────────────────────────────── */
+.boq-loading-steps {
+  list-style: none;
+  text-align: left;
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0;
+}
+
+.boq-loading-step {
+  font-size: 0.8rem;
+  color: var(--muted, #475569);
+  padding-left: 1.2rem;
+  position: relative;
+  line-height: 1.6;
+  animation: boq-slide-in 0.4s ease both;
+}
+
+.boq-loading-step::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent, #c8321a);
+  animation: boq-pulse 1.6s ease-in-out infinite;
+}
+
+.boq-loading-step:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.boq-loading-step:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.boq-loading-step:nth-child(3) {
+  animation-delay: 0.31s;
+}
+
+.boq-loading-step:nth-child(4) {
+  animation-delay: 0.44s;
+}
+
+.boq-loading-step:nth-child(5) {
+  animation-delay: 0.57s;
+}
+
+.boq-loading-step:nth-child(6) {
+  animation-delay: 0.70s;
+}
+
+.boq-loading-step:nth-child(1)::before {
+  animation-delay: 0.0s;
+}
+
+.boq-loading-step:nth-child(2)::before {
+  animation-delay: 0.27s;
+}
+
+.boq-loading-step:nth-child(3)::before {
+  animation-delay: 0.54s;
+}
+
+.boq-loading-step:nth-child(4)::before {
+  animation-delay: 0.81s;
+}
+
+.boq-loading-step:nth-child(5)::before {
+  animation-delay: 1.08s;
+}
+
+.boq-loading-step:nth-child(6)::before {
+  animation-delay: 1.35s;
+}
+
+/* ── Print ───────────────────────────────────────────────────────────────── */
+@media print {
+  .boq-calculator-root [style*="background: var(--ink)"] {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .boq-loading-card {
+    padding: 2rem 1.75rem;
+    margin: 1rem;
+  }
+}

@@ -2139,66 +2139,55 @@ function LoadingOverlay({ show }) {
           maxWidth: 400,
         }}
       >
-        <span
-          style={{
-            fontSize: "2.8rem",
-            display: "block",
-            marginBottom: "1rem",
-            animation: "spin 1.5s linear infinite",
-            "@keyframes spin": {
-              from: { transform: "rotate(0deg)" },
-              to: { transform: "rotate(360deg)" },
-            },
-          }}
-        >
-          ⚙️
-        </span>
-        <div
-          style={{
-            fontFamily: "'Syne', sans-serif",
-            fontSize: "1.3rem",
-            fontWeight: 800,
-            marginBottom: "0.4rem",
-          }}
-        >
-          Calculating…
-        </div>
-        <p style={{ color: "var(--muted)", fontSize: "0.82rem" }}>
-          IS:456 structural analysis running
-        </p>
-        <ul
-          style={{
-            listStyle: "none",
-            textAlign: "left",
-            marginTop: "1.2rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.4rem",
-          }}
-        >
-          {steps.map((s, i) => (
-            <li
-              key={i}
-              style={{
-                fontSize: "0.8rem",
-                color: "var(--muted)",
-                paddingLeft: "1.2rem",
-                position: "relative",
-              }}
-            >
-              <span
+        <div className="boq-loading-card">
+          <span className="boq-gear-spin">⚙️</span>
+          <div
+            style={{
+              fontFamily: "'Syne', sans-serif",
+              fontSize: "1.3rem",
+              fontWeight: 800,
+              marginBottom: "0.4rem",
+            }}
+          >
+            Calculating…
+          </div>
+          <p style={{ color: "var(--muted)", fontSize: "0.82rem" }}>
+            IS:456 structural analysis running
+          </p>
+          <ul
+            style={{
+              listStyle: "none",
+              textAlign: "left",
+              marginTop: "1.2rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.4rem",
+            }}
+          >
+            {steps.map((s, i) => (
+              <li
+                key={i}
                 style={{
-                  position: "absolute",
-                  left: 0,
-                  color: "var(--accent)",
+                  fontSize: "0.8rem",
+                  color: "var(--muted)",
+                  paddingLeft: "1.2rem",
+                  position: "relative",
                 }}
               >
-                →
-              </span>
-              {s}
-            </li>
-          ))}
-        </ul>
+                <span
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    color: "var(--accent)",
+                  }}
+                >
+                  →
+                </span>
+                {s}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
@@ -2278,6 +2267,7 @@ export default function BOQCalculator() {
 
   return (
     <div
+      className="boq-calculator-root"
       style={{
         fontFamily: "'Instrument Sans', sans-serif",
         color: "var(--text)",
