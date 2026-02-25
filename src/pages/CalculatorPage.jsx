@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { SITE } from "../config/constants";
 
-import { formatCurrency } from "../utils/formatHelpers";
+import { formatCurrency } from "../utils/calculator/shared/formatHelpers";
 import {
   calcBuildingCost,
   calcStairDesign,
@@ -169,72 +169,76 @@ function CalculatorsPage() {
           {isLoading ? (
             <CalcTabSkeleton />
           ) : (
-          <>
-          {/* ── COSTING ─────────────────────────────────────────────── */}
-          {mainTab === "costing" && (
             <>
-              <CostingInputPanel
-                inputs={inputs}
-                updateField={updateField}
-                onCalculate={handleCalculate}
-                onReset={handleReset}
-              />
-              {costingResults && (
-                <CostingResults
-                  results={costingResults}
-                  inputs={inputs}
-                  subTab={costingSubTab}
-                  onSubTabChange={setCostingSubTab}
-                  onReset={handleReset}
-                  formatCurrency={formatCurrency}
-                />
+              {/* ── COSTING ─────────────────────────────────────────────── */}
+              {mainTab === "costing" && (
+                <>
+                  <CostingInputPanel
+                    inputs={inputs}
+                    updateField={updateField}
+                    onCalculate={handleCalculate}
+                    onReset={handleReset}
+                  />
+                  {costingResults && (
+                    <CostingResults
+                      results={costingResults}
+                      inputs={inputs}
+                      subTab={costingSubTab}
+                      onSubTabChange={setCostingSubTab}
+                      onReset={handleReset}
+                      formatCurrency={formatCurrency}
+                    />
+                  )}
+                </>
+              )}
+
+              {/* ── STRUCTURAL DESIGN (beam + column + slab) ────────────── */}
+              {mainTab === "structural" && (
+                <section className="calc-results-section">
+                  {costingResults?.structureDesign && (
+                    <div
+                      className="calc-alert calc-alert-info"
+                      style={{ marginBottom: "1.5rem" }}
+                    >
+                      <strong>ℹ️ Auto-populated from Structure Design:</strong>{" "}
+                      Member dimensions and material grades have been pre-filled
+                      from your building estimate. Modify as needed.
+                    </div>
+                  )}
+                  <StructuralDesignTab
+                    beam={beam}
+                    column={column}
+                    slab={slab}
+                  />
+                </section>
+              )}
+
+              {/* ── BRICK MASONRY ────────────────────────────────────────── */}
+              {mainTab === "brick" && (
+                <section className="calc-results-section">
+                  <BrickMasonryTab
+                    inputs={brick.inputs}
+                    onInputChange={brick.handleInputChange}
+                    onCalculate={brick.calculate}
+                    onReset={brick.reset}
+                    results={brick.results}
+                  />
+                </section>
+              )}
+
+              {/* ── PAINT ESTIMATOR ─────────────────────────────────────── */}
+              {mainTab === "paint" && (
+                <section className="calc-results-section">
+                  <PaintEstimatorTab
+                    inputs={paint.inputs}
+                    onInputChange={paint.handleInputChange}
+                    onCalculate={paint.calculate}
+                    onReset={paint.reset}
+                    results={paint.results}
+                  />
+                </section>
               )}
             </>
-          )}
-
-          {/* ── STRUCTURAL DESIGN (beam + column + slab) ────────────── */}
-          {mainTab === "structural" && (
-            <section className="calc-results-section">
-              {costingResults?.structureDesign && (
-                <div
-                  className="calc-alert calc-alert-info"
-                  style={{ marginBottom: "1.5rem" }}
-                >
-                  <strong>ℹ️ Auto-populated from Structure Design:</strong>{" "}
-                  Member dimensions and material grades have been pre-filled
-                  from your building estimate. Modify as needed.
-                </div>
-              )}
-              <StructuralDesignTab beam={beam} column={column} slab={slab} />
-            </section>
-          )}
-
-          {/* ── BRICK MASONRY ────────────────────────────────────────── */}
-          {mainTab === "brick" && (
-            <section className="calc-results-section">
-              <BrickMasonryTab
-                inputs={brick.inputs}
-                onInputChange={brick.handleInputChange}
-                onCalculate={brick.calculate}
-                onReset={brick.reset}
-                results={brick.results}
-              />
-            </section>
-          )}
-
-          {/* ── PAINT ESTIMATOR ─────────────────────────────────────── */}
-          {mainTab === "paint" && (
-            <section className="calc-results-section">
-              <PaintEstimatorTab
-                inputs={paint.inputs}
-                onInputChange={paint.handleInputChange}
-                onCalculate={paint.calculate}
-                onReset={paint.reset}
-                results={paint.results}
-              />
-            </section>
-          )}
-          </>
           )}
         </main>
       </div>

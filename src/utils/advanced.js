@@ -12,7 +12,7 @@ export {
   FINISH_GRADES,
   SOIL_CONDITIONS,
   MATERIAL_RATES,
-} from "../../config/calculatorConstants.js";
+} from "./shared/calculatorConstants.js";
 
 // Re-export calculator functions
 export { calcBuildingCost } from "./calculators/buildingCost";
@@ -35,7 +35,7 @@ export {
   calcBrickworkVolume,
   calcPlasterArea,
   calcFlooringArea,
-} from "./helpers/volumeCalculations";
+} from "./shared/volumeCalculations.js";
 
 export {
   calcPCCRate,
@@ -44,12 +44,12 @@ export {
   calcPlasterRate,
   calcFlooringRate,
   calcPaintingRate,
-} from "./helpers/rateCalculations";
+} from "./shared/rateCalculations.js";
 
 export {
   calcMaterialQuantities,
   calcMaterialSummary,
-} from "./helpers/materialCalculations";
+} from "./shared/materialCalculations.js";
 
 export {
   createExcavationItem,
@@ -67,4 +67,4 @@ export {
   createElectricalItem,
   createPlumbingItem,
   createWaterproofingItem,
-} from "./helpers/boqItems";
+} from "./shared/boqItems.js";

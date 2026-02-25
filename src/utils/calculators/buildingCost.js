@@ -9,7 +9,7 @@ import {
   FINISH_GRADES,
   SOIL_CONDITIONS,
   MATERIAL_RATES,
-} from "../../../config/calculatorConstants";
+} from "../shared/calculatorConstants";
 
 /**
  * Calculate comprehensive building construction cost

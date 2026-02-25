@@ -4,7 +4,7 @@
 // ═══════════════════════════════════════════════════════════════════════════
 
 // Re-export main function for backward compatibility
-export { designColumn, default } from './design/column';
+export { designColumn, default } from "./structural/column";
 
 // Re-export all column design functions
 export {
@@ -16,8 +16,8 @@ export {
   designBiaxialColumn,
   checkBiaxialInteraction,
   designColumnBars,
-  designColumnTies
-} from './design/column';
+  designColumnTies,
+} from "./structural/column";
 
 // Re-export constants
-export { COLUMN_CONSTANTS } from './design/column/columnConstants';
+export { COLUMN_CONSTANTS } from "./structural/column/columnConstants";

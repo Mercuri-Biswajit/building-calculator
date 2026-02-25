@@ -4,8 +4,8 @@
 // Exports: calcStandardBOQ | calcPremiumBOQ | calcFloorWiseBOQ
 // ═══════════════════════════════════════════════════════════════════════════
 
-import * as STD from "../../../config/wbPwdRatesStandard";
-import * as PRE from "../../../config/wbPwdRatesPremium";
+import * as STD from "../boq/rates/wbPwdRatesStandard";
+import * as PRE from "../boq/rates/wbPwdRatesPremium";
 
 // ───────────────────────────────────────────────────────────────────────────
 // UNIT HELPERS

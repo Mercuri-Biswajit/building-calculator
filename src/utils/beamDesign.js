@@ -3,8 +3,8 @@
 // Backward compatibility wrapper
 // ═══════════════════════════════════════════════════════════════════════════
 
-export { 
-  designBeam, 
+export {
+  designBeam,
   default,
   BEAM_CONSTANTS,
   calcEffectiveDepth,
@@ -17,5 +17,5 @@ export {
   designShearReinforcement,
   getMinimumStirrups,
   designStirrups,
-  checkDeflection
-} from './design/beam';
+  checkDeflection,
+} from "./structural/beam";
