@@ -21,7 +21,7 @@ import {
   calcStandardBOQ,
   calcPremiumBOQ,
   calcFloorWiseBOQ,
-} from "../utils/advanced";
+} from "../utils";
 
 import { useBeamDesign } from "../hooks/useBeamDesign";
 import { useColumnDesign } from "../hooks/useColumnDesign";

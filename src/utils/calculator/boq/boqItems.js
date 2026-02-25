@@ -10,7 +10,7 @@ import {
   calcBrickworkVolume,
   calcPlasterArea,
   calcFlooringArea,
-} from "../shared/volumeCalculations";
+} from "../../shared/volumeCalculations";
 
 import {
   calcPCCRate,
@@ -19,7 +19,7 @@ import {
   calcPlasterRate,
   calcFlooringRate,
   calcPaintingRate,
-} from "../shared/rateCalculations";
+} from "../../shared";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // ✏️  ALL RATES IN ONE PLACE — EDIT HERE ONLY
