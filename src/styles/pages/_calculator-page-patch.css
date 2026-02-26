@@ -1,0 +1,45 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   src/styles/pages/_calculator-page-patch.css
+   Small patch: wires hs-* hero styles into the CalculatorPage shell.
+   Add this file to styles/index.css after the other @imports.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Ensure the .hs-root inside .calc-page stretches full width */
+.calc-page .hs-root {
+  width: 100%;
+  background: #fff;
+}
+
+/* Tab strip gets a bottom border that joins the hero */
+.calc-page .hs-tabs-wrap {
+  position: sticky;
+  top: 0;           /* adjust to your navbar height, e.g. top: 64px */
+  z-index: var(--z-sticky);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* Keep .calc-main below sticky strip */
+.calc-page .calc-main {
+  padding-top: var(--sp-8);
+}
+
+/* Active tab bottom bar inherits --tab-color set inline */
+.calc-page .hs-tab--active {
+  background: #fff;
+}
+
+/* On mobile: allow horizontal scroll of tab strip */
+@media (max-width: 768px) {
+  .calc-page .hs-tabs-wrap {
+    position: relative;   /* remove sticky on mobile to save space */
+  }
+  .calc-page .hs-tabs {
+    grid-template-columns: repeat(5, minmax(130px, 1fr));
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .calc-page .hs-tabs::-webkit-scrollbar {
+    display: none;
+  }
+}

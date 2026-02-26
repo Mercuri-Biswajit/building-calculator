@@ -19,6 +19,7 @@
 @import "./pages/_design-calculator.css";
 @import "./pages/_boq-calculator.css";
 @import "./pages/_vastupage.css";
+@import "./pages/_calculator-page-patch.css";
 
 /* ── Global Container ────────────────────────────────────────────────────── */
 .container {
