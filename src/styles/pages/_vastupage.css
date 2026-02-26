@@ -1,72 +1,31 @@
 /* VASTU PAGE STYLES - MODERN MINIMALIST */
 
 .vastu-page {
-  background: var(--color-bg-dark);
+  background: #F7F9FC;
+  /* match hs-bg — was var(--color-bg-dark) */
   min-height: 100vh;
 }
 
-/* HERO SECTION */
-.vastu-hero {
-  position: relative;
-  min-height: 40vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: var(--color-bg-darker);
-  padding-top: 6rem;
-  padding-bottom: 1rem;
-}
-
-.vastu-hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 0.03;
-}
-
-.vastu-hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.vastu-hero-label {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-accent);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 0.2rem;
-}
-
-.vastu-hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 3vw, 4.5rem);
-  font-weight: 800;
-  color: var(--color-text);
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-}
-
-.vastu-hero-description {
-  font-size: 0.9rem;
-  line-height: 1.7;
-  color: var(--color-text-dim);
-  max-width: 600px;
-  margin: 0 auto;
-  font-weight: 400;
+/* ── Remove old hero styles (now replaced by VastuHeroSection) ── */
+.vastu-hero,
+.vastu-hero-bg,
+.vastu-hero-content,
+.vastu-hero-label,
+.vastu-hero-title,
+.vastu-hero-description,
+.vastu-feature-tabs-section,
+.vastu-feature-tabs,
+.vastu-feature-tab,
+.vft-icon,
+.vft-label,
+.vft-desc {
+  display: none;
 }
 
 /* QUICK INFO CARDS */
 .vastu-quick-info {
   padding: 1rem 0;
-  background: var(--color-bg-darker);
+  background: #F7F9FC;
 }
 
 .vastu-info-grid {
@@ -76,8 +35,8 @@
 }
 
 .vastu-info-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  background: #fff;
+  border: 1px solid #E0E8F2;
   border-radius: var(--radius-xl);
   padding: 1rem 1.5rem;
   text-align: center;
@@ -94,7 +53,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--color-accent);
+  background: #E8630A;
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -105,8 +64,8 @@
 
 .vastu-info-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-border-dark);
+  box-shadow: 0 4px 24px rgba(10, 38, 71, 0.08);
+  border-color: #C0D0E4;
 }
 
 .vastu-info-icon {
@@ -119,22 +78,23 @@
   font-family: var(--font-display);
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--color-text);
+  color: #0A2647;
   margin-bottom: 0.5rem;
   letter-spacing: -0.01em;
 }
 
 .vastu-info-card p {
-  color: var(--color-text-dim);
+  color: #4A6080;
   font-size: 0.875rem;
   line-height: 1.6;
   font-weight: 400;
 }
 
-/* MAIN CONTENT TABS */
+/* MAIN CONTENT */
 .vastu-main-content {
-  padding: 1rem 0;
-  background: var(--color-bg-dark);
+  padding: 2rem 0 3rem;
+  background: #F7F9FC;
+  /* was var(--color-bg-dark) — now matches hero */
 }
 
 .vastu-tabs {
@@ -147,28 +107,28 @@
 
 .vastu-tab {
   padding: 0.875rem 1.75rem;
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  background: #fff;
+  border: 1px solid #E0E8F2;
   border-radius: var(--radius-full);
   font-family: var(--font-display);
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--color-text-dim);
+  color: #4A6080;
   cursor: pointer;
   transition: var(--transition);
   letter-spacing: -0.01em;
 }
 
 .vastu-tab:hover {
-  border-color: var(--color-text);
-  color: var(--color-text);
+  border-color: #0A2647;
+  color: #0A2647;
   transform: translateY(-1px);
 }
 
 .vastu-tab.active {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-text-white);
+  background: #0A2647;
+  border-color: #0A2647;
+  color: #fff;
 }
 
 .vastu-tab-content {
@@ -179,7 +139,7 @@
   font-family: var(--font-display);
   font-size: 2.5rem;
   font-weight: 600;
-  color: var(--color-text);
+  color: #0A2647;
   text-align: center;
   margin-bottom: 2rem;
   letter-spacing: -0.02em;
@@ -193,8 +153,8 @@
 }
 
 .vastu-principle-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  background: #fff;
+  border: 1px solid #E0E8F2;
   border-radius: var(--radius-lg);
   padding: 1rem 1.5rem;
   transition: var(--transition);
@@ -202,8 +162,8 @@
 
 .vastu-principle-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-border-dark);
+  box-shadow: 0 4px 24px rgba(10, 38, 71, 0.08);
+  border-color: #C0D0E4;
 }
 
 .vastu-principle-icon {
@@ -216,13 +176,13 @@
   font-family: var(--font-display);
   font-size: 1.375rem;
   font-weight: 600;
-  color: var(--color-text);
+  color: #0A2647;
   margin-bottom: 1rem;
   letter-spacing: -0.01em;
 }
 
 .vastu-principle-card>p {
-  color: var(--color-text-dim);
+  color: #4A6080;
   line-height: 1.7;
   margin-bottom: 1.5rem;
   font-size: 0.85rem;
@@ -237,7 +197,7 @@
   padding: 0.25rem 0;
   padding-left: 1.75rem;
   position: relative;
-  color: var(--color-text);
+  color: #0A2647;
   font-size: 0.875rem;
   line-height: 1.6;
 }
@@ -246,7 +206,7 @@
   content: "•";
   position: absolute;
   left: 0.5rem;
-  color: var(--color-accent);
+  color: #E8630A;
   font-weight: bold;
 }
 
@@ -258,8 +218,8 @@
 }
 
 .vastu-room-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  background: #fff;
+  border: 1px solid #E0E8F2;
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: var(--transition);
@@ -267,14 +227,14 @@
 
 .vastu-room-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-border-dark);
+  box-shadow: 0 4px 24px rgba(10, 38, 71, 0.08);
+  border-color: #C0D0E4;
 }
 
 .vastu-room-header {
-  background: var(--color-primary);
+  background: #0A2647;
   padding: 2rem;
-  color: var(--color-text-white);
+  color: #fff;
   text-align: center;
 }
 
@@ -307,7 +267,7 @@
 }
 
 .vastu-room-description {
-  color: var(--color-text-dim);
+  color: #4A6080;
   line-height: 1.7;
   margin-bottom: 2rem;
   font-size: 0.9375rem;
@@ -321,7 +281,7 @@
   font-family: var(--font-display);
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--color-text);
+  color: #0A2647;
   margin-bottom: 0.875rem;
   letter-spacing: -0.01em;
 }
@@ -362,15 +322,15 @@
 }
 
 .vastu-room-tips {
-  background: var(--color-bg-subtle);
-  border-left: 3px solid var(--color-accent);
+  background: #EEF2F8;
+  border-left: 3px solid #E8630A;
   padding: 1.25rem;
   border-radius: var(--radius-md);
   margin-top: 1.5rem;
 }
 
 .vastu-room-tips strong {
-  color: var(--color-text);
+  color: #0A2647;
   display: block;
   margin-bottom: 0.75rem;
   font-size: 0.875rem;
@@ -385,7 +345,7 @@
 
 .vastu-room-tips li {
   padding: 0.375rem 0;
-  color: var(--color-text-dim);
+  color: #4A6080;
   font-size: 0.875rem;
 }
 
@@ -400,10 +360,10 @@
   position: relative;
   width: 450px;
   height: 450px;
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  background: #fff;
+  border: 1px solid #E0E8F2;
   border-radius: 50%;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 24px rgba(10, 38, 71, 0.08);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -424,18 +384,18 @@
 }
 
 .direction-btn:hover {
-  background: var(--color-bg-subtle);
-  border-color: var(--color-border);
+  background: #EEF2F8;
+  border-color: #E0E8F2;
 }
 
 .direction-btn.active {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+  background: #0A2647;
+  border-color: #0A2647;
 }
 
 .direction-btn.active .direction-icon,
 .direction-btn.active .direction-name {
-  color: var(--color-text-white);
+  color: #fff;
 }
 
 .direction-icon {
@@ -448,6 +408,7 @@
   font-weight: 500;
   font-family: var(--font-display);
   letter-spacing: 0.02em;
+  color: #4A6080;
 }
 
 .direction-north {
@@ -497,11 +458,11 @@
 }
 
 .vastu-direction-details {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  background: #fff;
+  border: 1px solid #E0E8F2;
   border-radius: var(--radius-lg);
   padding: 3rem;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 24px rgba(10, 38, 71, 0.08);
 }
 
 .direction-header {
@@ -510,13 +471,13 @@
   gap: 2rem;
   margin-bottom: 2.5rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid #E0E8F2;
 }
 
 .direction-icon-large {
   font-size: 4rem;
-  background: var(--color-primary);
-  color: var(--color-text-white);
+  background: #0A2647;
+  color: #fff;
   width: 100px;
   height: 100px;
   display: flex;
@@ -530,7 +491,7 @@
   font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 600;
-  color: var(--color-text);
+  color: #0A2647;
   margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
 }
@@ -538,19 +499,19 @@
 .direction-deity,
 .direction-element {
   font-size: 0.875rem;
-  color: var(--color-text-dim);
+  color: #4A6080;
   margin: 0.375rem 0;
 }
 
 .direction-description {
   font-size: 1rem;
   line-height: 1.7;
-  color: var(--color-text-dim);
+  color: #4A6080;
   margin-bottom: 2.5rem;
   padding: 1.5rem;
-  background: var(--color-bg-subtle);
+  background: #EEF2F8;
   border-radius: var(--radius-md);
-  border-left: 3px solid var(--color-accent);
+  border-left: 3px solid #E8630A;
 }
 
 .direction-grid {
@@ -563,7 +524,7 @@
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--color-text);
+  color: #0A2647;
   margin-bottom: 1rem;
   letter-spacing: -0.01em;
 }
@@ -579,14 +540,14 @@
   position: relative;
   font-size: 0.875rem;
   line-height: 1.6;
-  color: var(--color-text-dim);
+  color: #4A6080;
 }
 
 .direction-section li::before {
   content: "•";
   position: absolute;
   left: 0.25rem;
-  color: var(--color-accent);
+  color: #E8630A;
   font-weight: bold;
 }
 
@@ -602,7 +563,7 @@
   border-radius: var(--radius-full);
   font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--color-text-white);
+  color: #fff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -614,8 +575,8 @@
 }
 
 .vastu-color-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  background: #fff;
+  border: 1px solid #E0E8F2;
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: var(--transition);
@@ -623,12 +584,12 @@
 
 .vastu-color-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 4px 24px rgba(10, 38, 71, 0.08);
 }
 
 .vastu-color-header {
   padding: 2rem;
-  color: var(--color-text-white);
+  color: #fff;
   text-align: center;
   position: relative;
 }
@@ -667,25 +628,25 @@
   width: 48px;
   height: 48px;
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
+  border: 1px solid #E0E8F2;
   transition: var(--transition);
   cursor: pointer;
 }
 
 .color-swatch:hover {
   transform: scale(1.05);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 24px rgba(10, 38, 71, 0.08);
 }
 
 .color-element,
 .color-energy {
   font-size: 0.875rem;
-  color: var(--color-text-dim);
+  color: #4A6080;
   margin-bottom: 0.5rem;
 }
 
 .color-element strong {
-  color: var(--color-text);
+  color: #0A2647;
   font-weight: 600;
 }
 
@@ -697,7 +658,7 @@
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--color-text);
+  color: #0A2647;
   margin-bottom: 0.875rem;
   letter-spacing: -0.01em;
 }
@@ -713,21 +674,21 @@
   position: relative;
   font-size: 0.875rem;
   line-height: 1.6;
-  color: var(--color-text-dim);
+  color: #4A6080;
 }
 
 .color-section li::before {
   content: "•";
   position: absolute;
   left: 0.25rem;
-  color: var(--color-accent);
+  color: #E8630A;
   font-weight: bold;
 }
 
 .color-section p {
   font-size: 0.875rem;
   line-height: 1.7;
-  color: var(--color-text-dim);
+  color: #4A6080;
 }
 
 /* REMEDIES SECTION */
@@ -739,8 +700,8 @@
 }
 
 .vastu-remedy-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  background: #fff;
+  border: 1px solid #E0E8F2;
   border-radius: var(--radius-lg);
   padding: 2.5rem;
   transition: var(--transition);
@@ -748,8 +709,8 @@
 
 .vastu-remedy-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-border-dark);
+  box-shadow: 0 4px 24px rgba(10, 38, 71, 0.08);
+  border-color: #C0D0E4;
 }
 
 .remedy-icon {
@@ -789,7 +750,7 @@
   position: relative;
   font-size: 0.875rem;
   line-height: 1.6;
-  color: var(--color-text-dim);
+  color: #4A6080;
 }
 
 .remedy-solutions li::before {
@@ -803,32 +764,32 @@
 .remedy-note {
   margin-top: 1.5rem;
   padding: 1.25rem;
-  background: var(--color-bg-subtle);
-  border-left: 3px solid var(--color-accent);
+  background: #EEF2F8;
+  border-left: 3px solid #E8630A;
   border-radius: var(--radius-md);
   font-size: 0.875rem;
-  color: var(--color-text-dim);
+  color: #4A6080;
 }
 
 .remedy-note strong {
-  color: var(--color-text);
+  color: #0A2647;
   font-weight: 600;
 }
 
 /* GENERAL TIPS */
 .vastu-general-tips {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  background: #fff;
+  border: 1px solid #E0E8F2;
   border-radius: var(--radius-lg);
   padding: 3rem;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 24px rgba(10, 38, 71, 0.08);
 }
 
 .vastu-general-tips h3 {
   font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 600;
-  color: var(--color-text);
+  color: #0A2647;
   text-align: center;
   margin-bottom: 3rem;
   letter-spacing: -0.02em;
@@ -841,7 +802,7 @@
 }
 
 .tips-column {
-  background: var(--color-bg-subtle);
+  background: #EEF2F8;
   border-radius: var(--radius-lg);
   padding: 2.5rem;
 }
@@ -874,7 +835,7 @@
   position: relative;
   font-size: 0.875rem;
   line-height: 1.6;
-  border-bottom: 1px solid var(--color-border-light);
+  border-bottom: 1px solid #E0E8F2;
 }
 
 .tip-item:last-child {
@@ -882,7 +843,7 @@
 }
 
 .do-item {
-  color: var(--color-text-dim);
+  color: #4A6080;
 }
 
 .do-item::before {
@@ -895,7 +856,7 @@
 }
 
 .dont-item {
-  color: var(--color-text-dim);
+  color: #4A6080;
 }
 
 .dont-item::before {
@@ -910,16 +871,16 @@
 /* CONSULTATION CTA */
 .vastu-consultation-cta {
   padding: 5rem 0;
-  background: var(--color-bg-darker);
+  background: #EEF2F8;
 }
 
 .consultation-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  background: #fff;
+  border: 1px solid #E0E8F2;
   border-radius: var(--radius-xl);
   padding: 4rem 3rem;
   text-align: center;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 24px rgba(10, 38, 71, 0.08);
 }
 
 .consultation-icon {
@@ -932,14 +893,14 @@
   font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 600;
-  color: var(--color-text);
+  color: #0A2647;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
 }
 
 .consultation-card p {
   font-size: 1.0625rem;
-  color: var(--color-text-dim);
+  color: #4A6080;
   max-width: 540px;
   margin: 0 auto 2.5rem;
   line-height: 1.7;
@@ -952,7 +913,568 @@
   flex-wrap: wrap;
 }
 
-/* RESPONSIVE DESIGN */
+/* ── VASTU ROOM PLANNER ── */
+.planner-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.planner-subtitle {
+  text-align: center;
+  color: #4A6080;
+  font-size: 1rem;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.planner-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.planner-step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8FA3BE;
+  transition: var(--transition);
+}
+
+.planner-step.active {
+  color: #E8630A;
+}
+
+.planner-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.planner-step.active .planner-step-num {
+  background: #E8630A;
+  border-color: #E8630A;
+  color: #fff;
+}
+
+.planner-step-line {
+  width: 48px;
+  height: 1px;
+  background: #E0E8F2;
+}
+
+.planner-card {
+  background: #fff;
+  border: 1px solid #E0E8F2;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.planner-card-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0A2647;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #E0E8F2;
+}
+
+.planner-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.planner-field label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #4A6080;
+  margin-bottom: 0.5rem;
+}
+
+.planner-field input,
+.planner-field select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #F7F9FC;
+  border: 1px solid #E0E8F2;
+  border-radius: var(--radius-md);
+  color: #0A2647;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+
+.planner-field input:focus,
+.planner-field select:focus {
+  border-color: #0A2647;
+}
+
+.planner-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.planner-area-badge {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #EEF2F8;
+  border-radius: var(--radius-md);
+  border: 1px solid #E0E8F2;
+  font-size: 0.875rem;
+  color: #4A6080;
+}
+
+.planner-area-badge strong {
+  color: #0A2647;
+}
+
+.planner-badge-ok {
+  color: var(--color-vastu-green);
+  font-weight: 600;
+}
+
+.planner-badge-warn {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.planner-facing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.planner-facing-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.875rem 0.5rem;
+  background: #F7F9FC;
+  border: 1px solid #E0E8F2;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #4A6080;
+  letter-spacing: 0.02em;
+  transition: var(--transition);
+  text-transform: capitalize;
+}
+
+.planner-facing-btn:hover {
+  border-color: #0A2647;
+  color: #0A2647;
+  transform: translateY(-1px);
+}
+
+.planner-facing-btn.active {
+  background: #0A2647;
+  border-color: #0A2647;
+  color: #fff;
+}
+
+.planner-facing-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.planner-facing-desc {
+  padding: 0.875rem 1rem;
+  background: #EEF2F8;
+  border-left: 3px solid #E8630A;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  color: #4A6080;
+  line-height: 1.6;
+}
+
+.planner-rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 0.5rem;
+}
+
+.planner-room-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  background: #F7F9FC;
+  border: 1px solid #E0E8F2;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #4A6080;
+  transition: var(--transition);
+  text-align: left;
+}
+
+.planner-room-btn:hover {
+  border-color: #0A2647;
+  color: #0A2647;
+}
+
+.planner-room-btn.active {
+  background: #fff;
+  border-color: #0A2647;
+  color: #0A2647;
+}
+
+.planner-rooms-note {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #8FA3BE;
+  font-style: italic;
+}
+
+.planner-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.planner-summary-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #E0E8F2;
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.planner-summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0 2rem;
+}
+
+.planner-summary-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8FA3BE;
+}
+
+.planner-summary-val {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0A2647;
+}
+
+.planner-score-val {
+  color: var(--color-vastu-green);
+}
+
+.planner-summary-divider {
+  width: 1px;
+  height: 36px;
+  background: #E0E8F2;
+  flex-shrink: 0;
+}
+
+.planner-result-layout {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+
+.planner-floorplan-wrap {
+  position: sticky;
+  top: 2rem;
+}
+
+.planner-compass-top {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: #8FA3BE;
+  margin-bottom: 4px;
+}
+
+.planner-floor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2px;
+  background: #E0E8F2;
+  border: 2px solid #E0E8F2;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.planner-zone-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.25rem;
+  background: #fff;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  transition: filter 0.2s, border-color 0.2s;
+  min-height: 110px;
+}
+
+.planner-zone-cell:hover {
+  filter: brightness(1.04);
+}
+
+.planner-zone-hovered {
+  filter: brightness(1.06) !important;
+}
+
+.planner-zone-empty {
+  background: #F7F9FC !important;
+  opacity: 0.6;
+}
+
+.planner-zone-label {
+  position: absolute;
+  top: 5px;
+  left: 6px;
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  color: #8FA3BE;
+  opacity: 0.7;
+}
+
+.planner-zone-emoji {
+  font-size: 1.5rem;
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.planner-zone-name {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #0A2647;
+  line-height: 1.3;
+  max-width: 90%;
+  word-break: break-word;
+}
+
+.planner-zone-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  font-size: 0.65rem;
+}
+
+.planner-zone-empty-label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: #8FA3BE;
+  opacity: 0.5;
+}
+
+.planner-compass-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: #8FA3BE;
+}
+
+.planner-legend {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #4A6080;
+}
+
+.planner-analysis-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0A2647;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+}
+
+.planner-analysis-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.planner-analysis-card {
+  background: #fff;
+  border: 1px solid #E0E8F2;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.planner-analysis-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 24px rgba(10, 38, 71, 0.08);
+}
+
+.planner-analysis-card.ideal {
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.planner-analysis-card.warn {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.planner-analysis-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.planner-analysis-emoji {
+  font-size: 1.375rem;
+  flex-shrink: 0;
+}
+
+.planner-analysis-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.planner-analysis-name {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0A2647;
+}
+
+.planner-analysis-zone {
+  font-size: 0.775rem;
+  color: #4A6080;
+}
+
+.planner-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.planner-badge-ideal {
+  background: rgba(74, 222, 128, 0.12);
+  color: var(--color-vastu-green);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+}
+
+.planner-badge-adjust {
+  background: rgba(245, 158, 11, 0.12);
+  color: #E8630A;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.planner-analysis-tip {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #4A6080;
+  font-style: italic;
+  line-height: 1.5;
+  padding-left: 2.25rem;
+}
+
+.planner-tips-section {
+  margin-top: 0;
+}
+
+.planner-tips-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+}
+
+.planner-tip-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: #EEF2F8;
+  border: 1px solid #E0E8F2;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  color: #4A6080;
+  line-height: 1.6;
+  transition: var(--transition);
+}
+
+.planner-tip-item:hover {
+  border-color: #C0D0E4;
+  transform: translateY(-1px);
+}
+
+.planner-tip-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+/* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
 
   .vastu-rooms-grid,
@@ -971,19 +1493,19 @@
   }
 }
 
+@media (max-width: 900px) {
+  .planner-result-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .planner-floorplan-wrap {
+    position: static;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 768px) {
-  .vastu-hero {
-    padding: 8rem 0 4rem;
-  }
-
-  .vastu-hero-title {
-    font-size: 2.25rem;
-  }
-
-  .vastu-hero-label {
-    font-size: 0.8125rem;
-  }
-
   .vastu-content-title {
     font-size: 2rem;
   }
@@ -1049,749 +1571,6 @@
   }
 }
 
-@media (max-width: 480px) {
-  .vastu-hero {
-    padding: 6rem 0 3rem;
-  }
-
-  .vastu-info-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .vastu-principles-grid,
-  .vastu-rooms-grid,
-  .vastu-colors-grid,
-  .vastu-remedies-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .direction-compass {
-    width: 380px;
-    height: 280px;
-    padding: 1rem;
-  }
-
-  .direction-btn {
-    padding: 0.5rem;
-  }
-
-  .direction-icon {
-    font-size: 1.25rem;
-  }
-
-  .direction-name {
-    font-size: 0.625rem;
-  }
-
-  .vastu-general-tips {
-    padding: 2rem;
-  }
-
-  .tips-column {
-    padding: 2rem;
-  }
-
-  /* Feature tabs */
-  .vastu-feature-tabs {
-    max-width: 100%;
-  }
-
-  .vastu-feature-tab {
-    padding: 1.25rem 1rem 1rem;
-  }
-
-  .vft-icon {
-    font-size: 1.5rem;
-  }
-
-  .vft-label {
-    font-size: 0.9rem;
-  }
-
-  .vft-desc {
-    display: none;
-  }
-
-}
-
-@media print {
-
-  .vastu-hero-bg,
-  .vastu-tabs,
-  .consultation-buttons {
-    display: none;
-  }
-
-  .vastu-tab-content {
-    page-break-before: always;
-  }
-
-  .vastu-remedy-card,
-  .vastu-room-card,
-  .vastu-color-card {
-    page-break-inside: avoid;
-  }
-}
-
-/* ── PRIMARY FEATURE TABS (after Hero) ── */
-.vastu-feature-tabs-section {
-  background: var(--color-bg-darker);
-  padding: 2.5rem 0;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.vastu-feature-tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-.vastu-feature-tab {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 1.5rem 2rem 1.25rem;
-  background: transparent;
-  border: none;
-  border-bottom: 3px solid transparent;
-  cursor: pointer;
-  transition: var(--transition);
-  text-align: center;
-}
-
-.vastu-feature-tab:hover .vft-label {
-  color: var(--color-text);
-}
-
-.vastu-feature-tab:hover .vft-icon {
-  transform: scale(1.1);
-}
-
-.vastu-feature-tab.active {
-  border-bottom-color: var(--color-primary);
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.vastu-feature-tab.active .vft-label {
-  color: var(--color-primary);
-}
-
-.vft-icon {
-  font-size: 1.75rem;
-  line-height: 1;
-  transition: transform 0.2s ease;
-  display: block;
-}
-
-.vft-label {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-text-dim);
-  letter-spacing: -0.01em;
-  transition: color 0.2s;
-}
-
-.vft-desc {
-  font-size: 0.8rem;
-  color: var(--color-text-dim);
-  opacity: 0.6;
-  line-height: 1.4;
-  max-width: 200px;
-}
-
-/* ── VASTU ROOM PLANNER ── */
-
-/* Wrapper */
-.planner-wrap {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.planner-subtitle {
-  text-align: center;
-  color: var(--color-text-dim);
-  font-size: 1rem;
-  margin-top: -1rem;
-  margin-bottom: 2rem;
-  line-height: 1.6;
-}
-
-/* ── Step Indicator ── */
-.planner-steps {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2.5rem;
-}
-
-.planner-step {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-text-dim);
-  transition: var(--transition);
-}
-
-.planner-step.active {
-  color: var(--color-accent);
-}
-
-.planner-step-num {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1.5px solid currentColor;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.planner-step.active .planner-step-num {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-text-white);
-}
-
-.planner-step-line {
-  width: 48px;
-  height: 1px;
-  background: var(--color-border);
-}
-
-/* ── Shared card ── */
-.planner-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-.planner-card-title {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-text);
-  letter-spacing: -0.01em;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--color-border);
-}
-
-/* ── Form grids ── */
-.planner-grid-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-}
-
-.planner-field label {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-text-dim);
-  margin-bottom: 0.5rem;
-}
-
-.planner-field input,
-.planner-field select {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background: var(--color-bg-dark);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text);
-  font-family: var(--font-display);
-  font-size: 0.9375rem;
-  outline: none;
-  transition: border-color 0.2s;
-  appearance: none;
-}
-
-.planner-field input:focus,
-.planner-field select:focus {
-  border-color: var(--color-primary);
-}
-
-.planner-field select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  padding-right: 2.5rem;
-}
-
-/* Area badge */
-.planner-area-badge {
-  margin-top: 1rem;
-  padding: 0.75rem 1rem;
-  background: var(--color-bg-subtle);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  font-size: 0.875rem;
-  color: var(--color-text-dim);
-}
-
-.planner-area-badge strong {
-  color: var(--color-text);
-}
-
-.planner-badge-ok {
-  color: var(--color-vastu-green);
-  font-weight: 600;
-}
-
-.planner-badge-warn {
-  color: var(--color-error);
-  font-weight: 600;
-}
-
-/* ── Facing direction buttons ── */
-.planner-facing-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.planner-facing-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.875rem 0.5rem;
-  background: var(--color-bg-dark);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--color-text-dim);
-  letter-spacing: 0.02em;
-  transition: var(--transition);
-  text-transform: capitalize;
-}
-
-.planner-facing-btn:hover {
-  border-color: var(--color-text);
-  color: var(--color-text);
-  transform: translateY(-1px);
-}
-
-.planner-facing-btn.active {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-text-white);
-}
-
-.planner-facing-icon {
-  font-size: 1.5rem;
-  line-height: 1;
-}
-
-.planner-facing-desc {
-  padding: 0.875rem 1rem;
-  background: var(--color-bg-subtle);
-  border-left: 3px solid var(--color-accent);
-  border-radius: var(--radius-md);
-  font-size: 0.875rem;
-  color: var(--color-text-dim);
-  line-height: 1.6;
-}
-
-/* ── Room selection ── */
-.planner-rooms-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
-  gap: 0.5rem;
-}
-
-.planner-room-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 0.875rem;
-  background: var(--color-bg-dark);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--color-text-dim);
-  transition: var(--transition);
-  text-align: left;
-}
-
-.planner-room-btn:hover {
-  border-color: var(--color-text);
-  color: var(--color-text);
-}
-
-.planner-room-btn.active {
-  background: var(--color-bg-card);
-  border-color: var(--color-primary);
-  color: var(--color-text);
-}
-
-.planner-rooms-note {
-  margin-top: 1rem;
-  font-size: 0.8rem;
-  color: var(--color-text-dim);
-  font-style: italic;
-}
-
-/* ── Actions ── */
-.planner-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin: 2rem 0;
-  flex-wrap: wrap;
-}
-
-/* ── Summary bar ── */
-.planner-summary-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem 2rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  gap: 0;
-}
-
-.planner-summary-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0 2rem;
-}
-
-.planner-summary-label {
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-text-dim);
-}
-
-.planner-summary-val {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.planner-score-val {
-  color: var(--color-vastu-green);
-}
-
-.planner-summary-divider {
-  width: 1px;
-  height: 36px;
-  background: var(--color-border);
-  flex-shrink: 0;
-}
-
-/* ── Result layout ── */
-.planner-result-layout {
-  display: grid;
-  grid-template-columns: 420px 1fr;
-  gap: 2rem;
-  align-items: start;
-  margin-bottom: 2rem;
-}
-
-/* ── Floor plan ── */
-.planner-floorplan-wrap {
-  position: sticky;
-  top: 2rem;
-}
-
-.planner-compass-top {
-  text-align: center;
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  color: var(--color-text-dim);
-  margin-bottom: 4px;
-}
-
-.planner-floor-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 2px;
-  background: var(--color-border);
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  aspect-ratio: 1;
-}
-
-.planner-zone-cell {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 0.25rem;
-  background: var(--color-bg-card);
-  border: 1px solid transparent;
-  cursor: pointer;
-  text-align: center;
-  transition: filter 0.2s, border-color 0.2s;
-  min-height: 110px;
-}
-
-.planner-zone-cell:hover {
-  filter: brightness(1.12);
-}
-
-.planner-zone-hovered {
-  filter: brightness(1.2) !important;
-}
-
-.planner-zone-empty {
-  background: var(--color-bg-dark) !important;
-  opacity: 0.5;
-}
-
-.planner-zone-label {
-  position: absolute;
-  top: 5px;
-  left: 6px;
-  font-family: var(--font-display);
-  font-size: 0.55rem;
-  letter-spacing: 0.06em;
-  color: var(--color-text-dim);
-  opacity: 0.6;
-}
-
-.planner-zone-emoji {
-  font-size: 1.5rem;
-  line-height: 1;
-  margin-bottom: 0.2rem;
-}
-
-.planner-zone-name {
-  font-family: var(--font-display);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--color-text);
-  line-height: 1.3;
-  max-width: 90%;
-  word-break: break-word;
-}
-
-.planner-zone-badge {
-  position: absolute;
-  bottom: 4px;
-  right: 4px;
-  font-size: 0.65rem;
-}
-
-.planner-zone-empty-label {
-  font-family: var(--font-display);
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-  color: var(--color-text-dim);
-  opacity: 0.4;
-}
-
-.planner-compass-bottom {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 4px;
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  color: var(--color-text-dim);
-}
-
-.planner-legend {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  margin-top: 1rem;
-  font-size: 0.8rem;
-  color: var(--color-text-dim);
-}
-
-/* ── Analysis panel ── */
-.planner-analysis-title {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-text);
-  letter-spacing: -0.01em;
-  margin-bottom: 1rem;
-}
-
-.planner-analysis-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  max-height: 500px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
-
-.planner-analysis-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 1rem 1.25rem;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.planner-analysis-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.planner-analysis-card.ideal {
-  border-color: rgba(74, 222, 128, 0.3);
-}
-
-.planner-analysis-card.warn {
-  border-color: rgba(245, 158, 11, 0.3);
-}
-
-.planner-analysis-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.planner-analysis-emoji {
-  font-size: 1.375rem;
-  flex-shrink: 0;
-}
-
-.planner-analysis-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.planner-analysis-name {
-  font-family: var(--font-display);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-text);
-  letter-spacing: -0.01em;
-}
-
-.planner-analysis-zone {
-  font-size: 0.775rem;
-  color: var(--color-text-dim);
-}
-
-.planner-badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-full);
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  flex-shrink: 0;
-}
-
-.planner-badge-ideal {
-  background: rgba(74, 222, 128, 0.12);
-  color: var(--color-vastu-green);
-  border: 1px solid rgba(74, 222, 128, 0.25);
-}
-
-.planner-badge-adjust {
-  background: rgba(245, 158, 11, 0.12);
-  color: var(--color-accent);
-  border: 1px solid rgba(245, 158, 11, 0.25);
-}
-
-.planner-analysis-tip {
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
-  color: var(--color-text-dim);
-  font-style: italic;
-  line-height: 1.5;
-  padding-left: 2.25rem;
-}
-
-/* ── Tips section ── */
-.planner-tips-section {
-  margin-top: 0;
-}
-
-.planner-tips-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.875rem;
-}
-
-.planner-tip-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  padding: 0.875rem 1rem;
-  background: var(--color-bg-subtle);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  font-size: 0.875rem;
-  color: var(--color-text-dim);
-  line-height: 1.6;
-  transition: var(--transition);
-}
-
-.planner-tip-item:hover {
-  border-color: var(--color-border-dark);
-  transform: translateY(-1px);
-}
-
-.planner-tip-icon {
-  font-size: 1.2rem;
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-}
-
-/* ── Responsive ── */
-@media (max-width: 900px) {
-  .planner-result-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .planner-floorplan-wrap {
-    position: static;
-    max-width: 420px;
-    margin: 0 auto;
-  }
-}
-
 @media (max-width: 640px) {
   .planner-grid-3 {
     grid-template-columns: 1fr 1fr;
@@ -1836,11 +1615,66 @@
 }
 
 @media (max-width: 480px) {
+  .vastu-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vastu-principles-grid,
+  .vastu-rooms-grid,
+  .vastu-colors-grid,
+  .vastu-remedies-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .direction-compass {
+    width: 380px;
+    height: 280px;
+    padding: 1rem;
+  }
+
+  .direction-btn {
+    padding: 0.5rem;
+  }
+
+  .direction-icon {
+    font-size: 1.25rem;
+  }
+
+  .direction-name {
+    font-size: 0.625rem;
+  }
+
+  .vastu-general-tips {
+    padding: 2rem;
+  }
+
+  .tips-column {
+    padding: 2rem;
+  }
+
   .planner-grid-3 {
     grid-template-columns: 1fr;
   }
 
   .planner-card {
     padding: 1.25rem;
+  }
+}
+
+@media print {
+
+  .vastu-tabs,
+  .consultation-buttons {
+    display: none;
+  }
+
+  .vastu-tab-content {
+    page-break-before: always;
+  }
+
+  .vastu-remedy-card,
+  .vastu-room-card,
+  .vastu-color-card {
+    page-break-inside: avoid;
   }
 }
