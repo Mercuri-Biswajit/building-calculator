@@ -5,7 +5,6 @@ import Footer from "./components/layout/Footer/Footer";
 
 import CalculatorPage from "./pages/CalculatorPage";
 import VastuPage from "./pages/VastuPage";
-import ProjectEstimatorPage from "./pages/ProjectEstimatorPage";
 import BOQPage from "./pages/BOQPage";
 
 function ScrollToTop() {
@@ -24,7 +23,6 @@ function App() {
       <Routes>
         <Route path="/" element={<CalculatorPage />} />
         <Route path="/vastu" element={<VastuPage />} />
-        <Route path="/project-estimator" element={<ProjectEstimatorPage />} />
         <Route path="/boq-generator" element={<BOQPage />} />
       </Routes>
       <Footer />
