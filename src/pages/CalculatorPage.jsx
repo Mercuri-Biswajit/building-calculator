@@ -44,7 +44,12 @@ import { useSkeleton } from "../hooks/useSkeleton";
 import { CalcTabSkeleton } from "../components/ui/Skeleton";
 
 function CalculatorsPage() {
-  const [mainTab, setMainTab] = useState("costing");
+  // Read tab from sessionStorage (set by ProjectEstimatorPage sidebar links)
+  const savedTab = sessionStorage.getItem("openTab");
+  const [mainTab, setMainTab] = useState(savedTab || "costing");
+
+  // Clear the stored tab after reading so it doesn't persist on reload
+  if (savedTab) sessionStorage.removeItem("openTab");
   const [costingResults, setCostingResults] = useState(null);
   const [costingSubTab, setCostingSubTab] = useState("cost");
   const { isLoading } = useSkeleton(700);
