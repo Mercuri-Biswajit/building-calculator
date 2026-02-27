@@ -1,11 +1,11 @@
 // ═══════════════════════════════════════════════════════════════════════════
-// BOQ PAGE — REDESIGNED with Modern Aesthetic
-// Place in: src/pages/BOQPage/BOQPage.jsx
+// BOQ PAGE — Inline styles removed, CSS classes used, scroll-to-top fixed
 // ═══════════════════════════════════════════════════════════════════════════
 
 import { useState, useCallback } from "react";
 import { Helmet } from "react-helmet-async";
 import { SITE } from "../config/constants";
+import "../styles/pages/_boq-calculator.css"; // adjust path as needed
 
 // ─────────────────────────────────────────────────────────────────────────
 // CONSTANTS
@@ -54,90 +54,29 @@ const STEPS = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────
-// STEP BAR - Redesigned with modern aesthetic
+// SCROLL TO TOP helper
+// ─────────────────────────────────────────────────────────────────────────
+function scrollTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// STEP BAR
 // ─────────────────────────────────────────────────────────────────────────
 function StepBar({ currentStep }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "0.5rem",
-        marginBottom: "3rem",
-        padding: "1rem",
-        background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
-        borderRadius: "16px",
-        border: "1px solid rgba(0,0,0,0.06)",
-        overflowX: "auto",
-        scrollbarWidth: "none",
-      }}
-    >
+    <div className="boq-step-bar">
       {STEPS.map((s, idx) => {
         const isActive = s.num === currentStep;
         const isDone = s.num < currentStep;
+        const cls = ["boq-step", isActive ? "active" : isDone ? "done" : ""]
+          .join(" ")
+          .trim();
         return (
-          <div
-            key={s.num}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.75rem",
-              padding: "0.75rem 1.25rem",
-              borderRadius: "12px",
-              background: isActive
-                ? "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-                : isDone
-                  ? "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)"
-                  : "white",
-              color: isActive || isDone ? "white" : "#6c757d",
-              fontSize: "0.875rem",
-              fontWeight: 600,
-              whiteSpace: "nowrap",
-              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              boxShadow: isActive
-                ? "0 8px 20px rgba(102, 126, 234, 0.3)"
-                : isDone
-                  ? "0 4px 12px rgba(17, 153, 142, 0.2)"
-                  : "0 2px 4px rgba(0,0,0,0.05)",
-              transform: isActive ? "translateY(-2px)" : "none",
-              cursor: "default",
-              minWidth: "fit-content",
-            }}
-          >
-            <div
-              style={{
-                width: 28,
-                height: 28,
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "0.75rem",
-                fontWeight: 700,
-                flexShrink: 0,
-                background: isActive || isDone
-                  ? "rgba(255,255,255,0.2)"
-                  : "#f8f9fa",
-                border: isActive || isDone
-                  ? "2px solid rgba(255,255,255,0.4)"
-                  : "2px solid #dee2e6",
-                color: isActive || isDone ? "white" : "#6c757d",
-              }}
-            >
-              {isDone ? "✓" : s.num}
-            </div>
-            <span style={{ letterSpacing: "0.02em" }}>{s.label}</span>
-            {idx < STEPS.length - 1 && (
-              <div
-                style={{
-                  width: "20px",
-                  height: "2px",
-                  background: isDone
-                    ? "rgba(255,255,255,0.5)"
-                    : "rgba(0,0,0,0.1)",
-                  marginLeft: "0.5rem",
-                }}
-              />
-            )}
+          <div key={s.num} className={cls}>
+            <div className="boq-step-number">{isDone ? "✓" : s.num}</div>
+            <span className="boq-step-label">{s.label}</span>
+            {idx < STEPS.length - 1 && <div className="boq-step-connector" />}
           </div>
         );
       })}
@@ -146,184 +85,46 @@ function StepBar({ currentStep }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// FORM HELPERS - Modern design system
+// FORM HELPERS
 // ─────────────────────────────────────────────────────────────────────────
-function FormGroup({ label, hint, error, children, style }) {
+function FormGroup({ label, hint, error, children }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 8, ...style }}>
-      <label
-        style={{
-          fontSize: "0.8rem",
-          fontWeight: 700,
-          textTransform: "uppercase",
-          letterSpacing: "0.1em",
-          color: "#495057",
-        }}
-      >
-        {label}
-      </label>
+    <div className="boq-form-group">
+      <label className="boq-form-label">{label}</label>
       {children}
-      {hint && (
-        <span
-          style={{ fontSize: "0.75rem", color: "#6c757d", marginTop: 4, lineHeight: 1.4 }}
-        >
-          {hint}
-        </span>
-      )}
-      {error && (
-        <span style={{ fontSize: "0.75rem", color: "#dc3545", marginTop: 4, fontWeight: 600 }}>
-          ⚠️ {error}
-        </span>
-      )}
+      {hint && <span className="boq-form-hint">{hint}</span>}
+      {error && <span className="boq-form-error">⚠️ {error}</span>}
     </div>
   );
 }
-
-const inputStyle = {
-  background: "white",
-  border: "2px solid #e9ecef",
-  borderRadius: 12,
-  padding: "12px 16px",
-  color: "#212529",
-  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-  fontSize: "0.95rem",
-  outline: "none",
-  width: "100%",
-  transition: "all 0.2s ease",
-  boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-};
-
-const selectStyle = {
-  ...inputStyle,
-  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10'%3E%3Cpath d='M1 1l7 7 7-7' stroke='%23495057' fill='none' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")`,
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "right 16px center",
-  paddingRight: 48,
-  appearance: "none",
-};
 
 function PageHeader({ step, title, desc }) {
   return (
-    <div
-      style={{
-        marginBottom: "2.5rem",
-        paddingBottom: "1.5rem",
-        borderBottom: "2px solid #e9ecef",
-      }}
-    >
-      <div
-        style={{
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: "0.7rem",
-          color: "#667eea",
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
-          marginBottom: "0.75rem",
-          fontWeight: 700,
-        }}
-      >
-        Step {step}
-      </div>
-      <h2
-        style={{
-          fontFamily: "'Plus Jakarta Sans', -apple-system, sans-serif",
-          fontSize: "2rem",
-          fontWeight: 800,
-          lineHeight: 1.2,
-          color: "#212529",
-          marginBottom: "0.5rem",
-        }}
-      >
-        {title}
-      </h2>
-      <p
-        style={{
-          color: "#6c757d",
-          fontSize: "1rem",
-          lineHeight: 1.6,
-        }}
-      >
-        {desc}
-      </p>
+    <div className="boq-page-header">
+      <div className="boq-page-step">Step {step}</div>
+      <h2 className="boq-page-title">{title}</h2>
+      <p className="boq-page-desc">{desc}</p>
     </div>
   );
 }
 
-function NavBar({ onNext, onBack, hideBack, nextLabel = "Continue →", nextCta }) {
+function NavBar({
+  onNext,
+  onBack,
+  hideBack,
+  nextLabel = "Continue →",
+  nextCta,
+}) {
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "1rem",
-        marginTop: "3rem",
-        paddingTop: "2rem",
-        borderTop: "2px solid #e9ecef",
-        flexWrap: "wrap",
-        alignItems: "center",
-      }}
-    >
+    <div className="boq-nav-bar">
       {!hideBack && (
-        <button
-          onClick={onBack}
-          style={{
-            background: "white",
-            color: "#495057",
-            border: "2px solid #e9ecef",
-            borderRadius: 12,
-            padding: "14px 28px",
-            fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif",
-            fontSize: "0.95rem",
-            fontWeight: 600,
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-          }}
-          onMouseOver={(e) => {
-            e.target.style.background = "#f8f9fa";
-            e.target.style.transform = "translateY(-1px)";
-            e.target.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
-          }}
-          onMouseOut={(e) => {
-            e.target.style.background = "white";
-            e.target.style.transform = "translateY(0)";
-            e.target.style.boxShadow = "0 2px 8px rgba(0,0,0,0.05)";
-          }}
-        >
+        <button className="boq-btn boq-btn-back" onClick={onBack}>
           ← Back
         </button>
       )}
       <button
+        className={`boq-btn boq-btn-next${nextCta ? " cta" : ""}`}
         onClick={onNext}
-        style={{
-          background: nextCta
-            ? "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-            : "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
-          color: "white",
-          border: "none",
-          borderRadius: 12,
-          padding: nextCta ? "16px 48px" : "14px 32px",
-          fontFamily: "'Plus Jakarta Sans', sans-serif",
-          fontSize: nextCta ? "1.05rem" : "0.95rem",
-          fontWeight: 700,
-          cursor: "pointer",
-          transition: "all 0.2s ease",
-          boxShadow: nextCta
-            ? "0 8px 24px rgba(102, 126, 234, 0.4)"
-            : "0 4px 16px rgba(17, 153, 142, 0.3)",
-          letterSpacing: "0.02em",
-        }}
-        onMouseOver={(e) => {
-          e.target.style.transform = "translateY(-2px)";
-          e.target.style.boxShadow = nextCta
-            ? "0 12px 32px rgba(102, 126, 234, 0.5)"
-            : "0 8px 24px rgba(17, 153, 142, 0.4)";
-        }}
-        onMouseOut={(e) => {
-          e.target.style.transform = "translateY(0)";
-          e.target.style.boxShadow = nextCta
-            ? "0 8px 24px rgba(102, 126, 234, 0.4)"
-            : "0 4px 16px rgba(17, 153, 142, 0.3)";
-        }}
       >
         {nextLabel}
       </button>
@@ -331,118 +132,22 @@ function NavBar({ onNext, onBack, hideBack, nextLabel = "Continue →", nextCta 
   );
 }
 
-function Banner({ type, children, style: extraStyle }) {
-  const styles = {
-    info: {
-      background: "linear-gradient(135deg, #e0e7ff 0%, #e0f2fe 100%)",
-      border: "2px solid #93c5fd",
-      color: "#1e40af",
-    },
-    warn: {
-      background: "linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)",
-      border: "2px solid #fbbf24",
-      color: "#92400e",
-    },
-    err: {
-      background: "linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)",
-      border: "2px solid #f87171",
-      color: "#991b1b",
-    },
-  };
-  return (
-    <div
-      style={{
-        ...styles[type],
-        borderRadius: 12,
-        padding: "1rem 1.25rem",
-        fontSize: "0.875rem",
-        lineHeight: 1.6,
-        marginBottom: "1rem",
-        fontWeight: 500,
-        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-        ...extraStyle,
-      }}
-    >
-      {children}
-    </div>
-  );
+function Banner({ type, children }) {
+  return <div className={`boq-banner ${type}`}>{children}</div>;
 }
 
 function ResultSection({ icon, title, sub, badge, children }) {
   return (
-    <div
-      style={{
-        background: "white",
-        border: "2px solid #e9ecef",
-        borderRadius: 16,
-        overflow: "hidden",
-        marginBottom: "2rem",
-        boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
-      }}
-    >
-      <div
-        style={{
-          background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
-          padding: "1.25rem 1.75rem",
-          display: "flex",
-          alignItems: "center",
-          gap: "1rem",
-          borderBottom: "2px solid #e9ecef",
-        }}
-      >
-        <div
-          style={{
-            width: 48,
-            height: 48,
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-            borderRadius: 12,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "1.5rem",
-            flexShrink: 0,
-            boxShadow: "0 4px 12px rgba(102, 126, 234, 0.3)",
-          }}
-        >
-          {icon}
+    <div className="boq-result-section">
+      <div className="boq-result-header">
+        <div className="boq-result-icon">{icon}</div>
+        <div className="boq-result-title-group">
+          <h3 className="boq-result-title">{title}</h3>
+          {sub && <div className="boq-result-subtitle">{sub}</div>}
         </div>
-        <div>
-          <h3
-            style={{
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
-              fontSize: "1.15rem",
-              fontWeight: 800,
-              color: "#212529",
-            }}
-          >
-            {title}
-          </h3>
-          {sub && (
-            <div style={{ fontSize: "0.8rem", color: "#6c757d", marginTop: 2 }}>
-              {sub}
-            </div>
-          )}
-        </div>
-        {badge && (
-          <div
-            style={{
-              marginLeft: "auto",
-              fontSize: "0.7rem",
-              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-              color: "white",
-              padding: "6px 14px",
-              borderRadius: 8,
-              fontFamily: "'JetBrains Mono', monospace",
-              fontWeight: 700,
-              letterSpacing: "0.05em",
-              boxShadow: "0 2px 8px rgba(102, 126, 234, 0.3)",
-            }}
-          >
-            {badge}
-          </div>
-        )}
+        {badge && <div className="boq-result-badge">{badge}</div>}
       </div>
-      <div style={{ padding: "1.75rem 1.75rem" }}>{children}</div>
+      <div className="boq-result-body">{children}</div>
     </div>
   );
 }
@@ -540,7 +245,6 @@ function runBOQCalculation(formData, floorRooms) {
   const wallPerim = 2 * (builtL + builtW);
   const dpcArea = wallPerim * 0.23 + builtL * builtW * 0.5;
   const dpcVol = dpcArea * 0.075;
-
   const totalRCC = fVolTotal + colVol + beamVol + slabVol + plinthBeamVol;
   const earthVol = (builtL + 1) * (builtW + 1) * (soilDepth + 0.3) * 1.2;
 
@@ -886,7 +590,7 @@ function runBOQCalculation(formData, floorRooms) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// PAGES - Redesigned
+// PAGES
 // ─────────────────────────────────────────────────────────────────────────
 function Page1({ data, setData, onNext }) {
   const [errors, setErrors] = useState({});
@@ -897,8 +601,20 @@ function Page1({ data, setData, onNext }) {
     if (!data.location.trim()) e.location = "Location required";
     if (!data.engName.trim()) e.engName = "Engineer name required";
     setErrors(e);
-    if (Object.keys(e).length === 0) onNext();
+    if (Object.keys(e).length === 0) {
+      scrollTop();
+      onNext();
+    }
   };
+
+  const field = (key, errKey) => (
+    <input
+      className={`boq-input${errors[errKey] ? " error" : ""}`}
+      value={data[key]}
+      onChange={(e) => setData((p) => ({ ...p, [key]: e.target.value }))}
+    />
+  );
+
   return (
     <div>
       <PageHeader
@@ -906,81 +622,45 @@ function Page1({ data, setData, onNext }) {
         title="Project Details"
         desc="This information will appear in your official BOQ document"
       />
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "1.5rem",
-          marginBottom: "2rem",
-        }}
-      >
+      <div className="boq-form-grid-2">
         <FormGroup label="Project / Building Name *" error={errors.projName}>
           <input
-            style={{
-              ...inputStyle,
-              borderColor: errors.projName ? "#dc3545" : "#e9ecef",
-            }}
+            className={`boq-input${errors.projName ? " error" : ""}`}
             value={data.projName}
             onChange={(e) =>
               setData((p) => ({ ...p, projName: e.target.value }))
             }
             placeholder="e.g. Kumar Residence"
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) =>
-              (e.target.style.borderColor = errors.projName
-                ? "#dc3545"
-                : "#e9ecef")
-            }
           />
         </FormGroup>
         <FormGroup label="Owner Name *" error={errors.ownerName}>
           <input
-            style={{
-              ...inputStyle,
-              borderColor: errors.ownerName ? "#dc3545" : "#e9ecef",
-            }}
+            className={`boq-input${errors.ownerName ? " error" : ""}`}
             value={data.ownerName}
             onChange={(e) =>
               setData((p) => ({ ...p, ownerName: e.target.value }))
             }
             placeholder="e.g. Rajesh Kumar"
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) =>
-              (e.target.style.borderColor = errors.ownerName
-                ? "#dc3545"
-                : "#e9ecef")
-            }
           />
         </FormGroup>
         <FormGroup label="Project Location / Address *" error={errors.location}>
           <input
-            style={{
-              ...inputStyle,
-              borderColor: errors.location ? "#dc3545" : "#e9ecef",
-            }}
+            className={`boq-input${errors.location ? " error" : ""}`}
             value={data.location}
             onChange={(e) =>
               setData((p) => ({ ...p, location: e.target.value }))
             }
             placeholder="e.g. Salt Lake, Kolkata - 700091"
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) =>
-              (e.target.style.borderColor = errors.location
-                ? "#dc3545"
-                : "#e9ecef")
-            }
           />
         </FormGroup>
         <FormGroup label="Date of Estimate">
           <input
             type="date"
-            style={inputStyle}
+            className="boq-input"
             value={data.estDate}
             onChange={(e) =>
               setData((p) => ({ ...p, estDate: e.target.value }))
             }
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
           />
         </FormGroup>
         <FormGroup
@@ -988,30 +668,19 @@ function Page1({ data, setData, onNext }) {
           error={errors.engName}
         >
           <input
-            style={{
-              ...inputStyle,
-              borderColor: errors.engName ? "#dc3545" : "#e9ecef",
-            }}
+            className={`boq-input${errors.engName ? " error" : ""}`}
             value={data.engName}
             onChange={(e) =>
               setData((p) => ({ ...p, engName: e.target.value }))
             }
             placeholder="e.g. Er. Sunil Sharma, M.Tech Civil"
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) =>
-              (e.target.style.borderColor = errors.engName
-                ? "#dc3545"
-                : "#e9ecef")
-            }
           />
         </FormGroup>
         <FormGroup label="Building Use">
           <select
-            style={selectStyle}
+            className="boq-select"
             value={data.bldUse}
             onChange={(e) => setData((p) => ({ ...p, bldUse: e.target.value }))}
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
           >
             <option value="Residential">Residential</option>
             <option value="Commercial">Commercial</option>
@@ -1024,14 +693,12 @@ function Page1({ data, setData, onNext }) {
         hint="This will be printed in the BOQ as 'As per Drawing No.'"
       >
         <input
-          style={inputStyle}
+          className="boq-input"
           value={data.drawingRef}
           onChange={(e) =>
             setData((p) => ({ ...p, drawingRef: e.target.value }))
           }
           placeholder="e.g. Drg. No. AR-01/2024"
-          onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-          onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
         />
       </FormGroup>
       <NavBar onNext={validate} hideBack />
@@ -1051,12 +718,15 @@ function Page2({ data, setData, onNext, onBack }) {
       const bL = data.plotL - 2 * data.sfSide;
       const bW = data.plotW - data.sfFront - data.sfBack;
       if (bL < 3 || bW < 3)
-        e.setback =
-          "Built-up area is too small. Please reduce setback values.";
+        e.setback = "Built-up area is too small. Please reduce setback values.";
     }
     setErrors(e);
-    if (Object.keys(e).length === 0) onNext();
+    if (Object.keys(e).length === 0) {
+      scrollTop();
+      onNext();
+    }
   };
+
   return (
     <div>
       <PageHeader
@@ -1064,59 +734,36 @@ function Page2({ data, setData, onNext, onBack }) {
         title="Plot Dimensions & Floors"
         desc="Column grid and structural layout will be calculated automatically"
       />
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: "1.5rem",
-          marginBottom: "2rem",
-        }}
-      >
+      <div className="boq-form-grid-3">
         <FormGroup label="Plot Length (m) *" error={errors.plotL}>
           <input
             type="number"
-            style={{
-              ...inputStyle,
-              borderColor: errors.plotL ? "#dc3545" : "#e9ecef",
-            }}
+            className={`boq-input${errors.plotL ? " error" : ""}`}
             value={data.plotL || ""}
             onChange={(e) => setData((p) => ({ ...p, plotL: +e.target.value }))}
             placeholder="e.g. 12"
             step="0.5"
             min="3"
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) =>
-              (e.target.style.borderColor = errors.plotL ? "#dc3545" : "#e9ecef")
-            }
           />
         </FormGroup>
         <FormGroup label="Plot Width (m) *" error={errors.plotW}>
           <input
             type="number"
-            style={{
-              ...inputStyle,
-              borderColor: errors.plotW ? "#dc3545" : "#e9ecef",
-            }}
+            className={`boq-input${errors.plotW ? " error" : ""}`}
             value={data.plotW || ""}
             onChange={(e) => setData((p) => ({ ...p, plotW: +e.target.value }))}
             placeholder="e.g. 9"
             step="0.5"
             min="3"
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) =>
-              (e.target.style.borderColor = errors.plotW ? "#dc3545" : "#e9ecef")
-            }
           />
         </FormGroup>
         <FormGroup label="Number of Floors">
           <select
-            style={selectStyle}
+            className="boq-select"
             value={data.numFloors}
             onChange={(e) =>
               setData((p) => ({ ...p, numFloors: +e.target.value }))
             }
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
           >
             <option value={1}>G (Ground Only)</option>
             <option value={2}>G+1</option>
@@ -1127,13 +774,11 @@ function Page2({ data, setData, onNext, onBack }) {
         </FormGroup>
         <FormGroup label="Floor Height">
           <select
-            style={selectStyle}
+            className="boq-select"
             value={data.floorH}
             onChange={(e) =>
               setData((p) => ({ ...p, floorH: +e.target.value }))
             }
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
           >
             <option value={2.75}>2.75 m (Economy)</option>
             <option value={3.0}>3.0 m (Standard)</option>
@@ -1143,35 +788,20 @@ function Page2({ data, setData, onNext, onBack }) {
         </FormGroup>
         <FormGroup label="Staircase">
           <select
-            style={selectStyle}
+            className="boq-select"
             value={data.hasStair ? "yes" : "no"}
             onChange={(e) =>
               setData((p) => ({ ...p, hasStair: e.target.value === "yes" }))
             }
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
           >
             <option value="yes">Yes — Internal RCC</option>
             <option value="no">No Staircase</option>
           </select>
         </FormGroup>
       </div>
+
       <label
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.75rem",
-          marginBottom: "1.5rem",
-          cursor: "pointer",
-          userSelect: "none",
-          padding: "1rem",
-          background: data.useSetback
-            ? "linear-gradient(135deg, #e0e7ff 0%, #e0f2fe 100%)"
-            : "#f8f9fa",
-          borderRadius: 12,
-          border: `2px solid ${data.useSetback ? "#93c5fd" : "#e9ecef"}`,
-          transition: "all 0.2s ease",
-        }}
+        className={`boq-checkbox-toggle${data.useSetback ? " checked" : ""}`}
       >
         <input
           type="checkbox"
@@ -1179,82 +809,60 @@ function Page2({ data, setData, onNext, onBack }) {
           onChange={(e) =>
             setData((p) => ({ ...p, useSetback: e.target.checked }))
           }
-          style={{
-            width: 20,
-            height: 20,
-            accentColor: "#667eea",
-            cursor: "pointer",
-          }}
         />
-        <span
-          style={{
-            fontSize: "0.95rem",
-            fontWeight: 700,
-            color: data.useSetback ? "#1e40af" : "#495057",
-          }}
-        >
+        <span className="boq-checkbox-toggle-label">
           ➕ Add Setback / Marginal Distances (optional)
         </span>
       </label>
+
       {data.useSetback && (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: "1.5rem",
-            marginBottom: "2rem",
-            padding: "1.5rem",
-            background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
-            borderRadius: 12,
-            border: "2px solid #dee2e6",
-          }}
-        >
+        <div className="boq-setback-box">
           <FormGroup label="Setback Front (m)">
             <input
               type="number"
-              style={inputStyle}
+              className="boq-input"
               value={data.sfFront}
               onChange={(e) =>
                 setData((p) => ({ ...p, sfFront: +e.target.value }))
               }
               step="0.5"
               min="0"
-              onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-              onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
             />
           </FormGroup>
           <FormGroup label="Setback Back (m)">
             <input
               type="number"
-              style={inputStyle}
+              className="boq-input"
               value={data.sfBack}
               onChange={(e) =>
                 setData((p) => ({ ...p, sfBack: +e.target.value }))
               }
               step="0.5"
               min="0"
-              onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-              onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
             />
           </FormGroup>
           <FormGroup label="Setback Side each (m)">
             <input
               type="number"
-              style={inputStyle}
+              className="boq-input"
               value={data.sfSide}
               onChange={(e) =>
                 setData((p) => ({ ...p, sfSide: +e.target.value }))
               }
               step="0.5"
               min="0"
-              onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-              onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
             />
           </FormGroup>
         </div>
       )}
       {errors.setback && <Banner type="err">{errors.setback}</Banner>}
-      <NavBar onNext={validate} onBack={onBack} />
+      <NavBar
+        onNext={validate}
+        onBack={() => {
+          scrollTop();
+          onBack();
+        }}
+      />
     </div>
   );
 }
@@ -1285,7 +893,10 @@ function Page3({ data, floorRooms, setFloorRooms, onNext, onBack }) {
       (fr) => Object.keys(fr).length > 0,
     );
     setError(!hasAny);
-    if (hasAny) onNext();
+    if (hasAny) {
+      scrollTop();
+      onNext();
+    }
   };
 
   return (
@@ -1295,180 +906,47 @@ function Page3({ data, floorRooms, setFloorRooms, onNext, onBack }) {
         title="Rooms — For Each Floor"
         desc="Select floor tab, choose rooms, and set counts"
       />
-      <div
-        style={{
-          display: "flex",
-          gap: "0.5rem",
-          marginBottom: "2rem",
-          padding: "0.5rem",
-          background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
-          borderRadius: 12,
-          border: "2px solid #e9ecef",
-          flexWrap: "wrap",
-        }}
-      >
+
+      <div className="boq-floor-tabs">
         {floors.map((f) => (
           <button
             key={f}
+            className={`boq-floor-tab${activeFloor === f ? " active" : ""}`}
             onClick={() => setActiveFloor(f)}
-            style={{
-              padding: "0.75rem 1.5rem",
-              background:
-                activeFloor === f
-                  ? "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-                  : "white",
-              border: "none",
-              borderRadius: 10,
-              fontFamily: "-apple-system, sans-serif",
-              fontSize: "0.9rem",
-              fontWeight: 700,
-              cursor: "pointer",
-              color: activeFloor === f ? "white" : "#495057",
-              transition: "all 0.2s ease",
-              boxShadow:
-                activeFloor === f
-                  ? "0 4px 12px rgba(102, 126, 234, 0.3)"
-                  : "0 2px 4px rgba(0,0,0,0.05)",
-            }}
-            onMouseOver={(e) => {
-              if (activeFloor !== f) {
-                e.target.style.background = "#f8f9fa";
-                e.target.style.transform = "translateY(-1px)";
-              }
-            }}
-            onMouseOut={(e) => {
-              if (activeFloor !== f) {
-                e.target.style.background = "white";
-                e.target.style.transform = "translateY(0)";
-              }
-            }}
           >
             {FLOOR_NAMES[f] || `Floor ${f}`}
           </button>
         ))}
       </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-          gap: "1rem",
-          marginBottom: "2rem",
-        }}
-      >
+
+      <div className="boq-room-grid">
         {ROOM_TYPES.map((rt) => {
           const selected = !!floorRooms[activeFloor]?.[rt.id];
           return (
             <div
               key={rt.id}
+              className={`boq-room-card${selected ? " selected" : ""}`}
               onClick={() => toggleRoom(activeFloor, rt.id)}
-              style={{
-                background: selected
-                  ? "linear-gradient(135deg, #e0e7ff 0%, #e0f2fe 100%)"
-                  : "white",
-                border: `2px solid ${selected ? "#667eea" : "#e9ecef"}`,
-                borderRadius: 12,
-                padding: "1.25rem",
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "0.75rem",
-                transition: "all 0.2s ease",
-                userSelect: "none",
-                boxShadow: selected
-                  ? "0 4px 16px rgba(102, 126, 234, 0.15)"
-                  : "0 2px 8px rgba(0,0,0,0.05)",
-                transform: selected ? "translateY(-2px)" : "none",
-              }}
-              onMouseOver={(e) => {
-                if (!selected) {
-                  e.currentTarget.style.borderColor = "#667eea";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 16px rgba(0,0,0,0.1)";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (!selected) {
-                  e.currentTarget.style.borderColor = "#e9ecef";
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow =
-                    "0 2px 8px rgba(0,0,0,0.05)";
-                }
-              }}
             >
-              <span style={{ fontSize: "2rem" }}>{rt.icon}</span>
-              <span
-                style={{
-                  fontSize: "0.875rem",
-                  fontWeight: 700,
-                  color: selected ? "#1e40af" : "#212529",
-                  textAlign: "center",
-                  lineHeight: 1.3,
-                }}
-              >
-                {rt.name}
-              </span>
-              <div
-                style={{
-                  width: 24,
-                  height: 24,
-                  borderRadius: "50%",
-                  flexShrink: 0,
-                  border: `2px solid ${selected ? "#667eea" : "#dee2e6"}`,
-                  background: selected ? "#667eea" : "transparent",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "0.7rem",
-                  color: selected ? "white" : "transparent",
-                  transition: "all 0.2s",
-                  fontWeight: 700,
-                }}
-              >
-                ✓
-              </div>
+              <span className="boq-room-icon">{rt.icon}</span>
+              <span className="boq-room-name">{rt.name}</span>
+              <div className="boq-room-check">✓</div>
             </div>
           );
         })}
       </div>
+
       {Object.keys(floorRooms[activeFloor] || {}).length > 0 && (
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "1rem",
-            marginBottom: "2rem",
-            padding: "1.5rem",
-            background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
-            borderRadius: 12,
-            border: "2px solid #dee2e6",
-          }}
-        >
+        <div className="boq-selected-rooms">
           {Object.entries(floorRooms[activeFloor] || {}).map(
             ([roomId, cnt]) => {
               const rt = ROOM_TYPES.find((r) => r.id === roomId);
               return (
-                <div
-                  key={roomId}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.75rem",
-                    background: "white",
-                    border: "2px solid #e9ecef",
-                    borderRadius: 12,
-                    padding: "10px 18px",
-                    fontSize: "0.9rem",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-                  }}
-                >
-                  <span style={{ fontWeight: 700, color: "#212529" }}>
+                <div key={roomId} className="boq-room-badge">
+                  <span className="boq-room-badge-name">
                     {rt?.icon} {rt?.name}
                   </span>
-                  <span style={{ color: "#6c757d", fontSize: "0.85rem" }}>
-                    ×
-                  </span>
+                  <span className="boq-room-badge-multiply">×</span>
                   <input
                     type="number"
                     min={1}
@@ -1477,19 +955,7 @@ function Page3({ data, floorRooms, setFloorRooms, onNext, onBack }) {
                     onChange={(e) =>
                       updateCount(activeFloor, roomId, +e.target.value)
                     }
-                    style={{
-                      width: 60,
-                      border: "2px solid #667eea",
-                      borderRadius: 8,
-                      background: "white",
-                      textAlign: "center",
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: "0.95rem",
-                      outline: "none",
-                      padding: "6px 8px",
-                      color: "#667eea",
-                      fontWeight: 700,
-                    }}
+                    className="boq-room-badge-input"
                   />
                 </div>
               );
@@ -1497,15 +963,23 @@ function Page3({ data, floorRooms, setFloorRooms, onNext, onBack }) {
           )}
         </div>
       )}
+
       {error && (
         <Banner type="err">
           ⚠️ At least one room must be selected on at least one floor!
         </Banner>
       )}
-      <Banner type="info" style={{ marginTop: "1rem" }}>
-        💡 Need multiple rooms of the same type? Just increase the count field — for example, 3 bedrooms → count = 3
+      <Banner type="info">
+        💡 Need multiple rooms of the same type? Just increase the count field —
+        for example, 3 bedrooms → count = 3
       </Banner>
-      <NavBar onNext={validate} onBack={onBack} />
+      <NavBar
+        onNext={validate}
+        onBack={() => {
+          scrollTop();
+          onBack();
+        }}
+      />
     </div>
   );
 }
@@ -1528,6 +1002,7 @@ function Page4({ data, setData, onNext, onBack }) {
     { key: "murrum", icon: "🟤", label: "Murrum / Hard", desc: "Good SBC" },
     { key: "rock", icon: "⛰️", label: "Rock", desc: "Minimal footing depth" },
   ];
+
   const brickHint = `PWD Rate: ₹${BRICK_RATES[data.brickKey][0].toLocaleString("en-IN")}/m³ (ext) · ₹${BRICK_RATES[data.brickKey][1].toLocaleString("en-IN")}/m³ (int)`;
 
   return (
@@ -1537,14 +1012,13 @@ function Page4({ data, setData, onNext, onBack }) {
         title="Soil & Structural Parameters"
         desc="Footing size, depth and column sizes will be determined from these (IS:456)"
       />
+
       <div style={{ maxWidth: 500, marginBottom: "2rem" }}>
         <FormGroup label="Safe Bearing Capacity — SBC (kN/m²)">
           <select
-            style={selectStyle}
+            className="boq-select"
             value={data.sbc}
             onChange={(e) => setData((p) => ({ ...p, sbc: +e.target.value }))}
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
           >
             <option value={50}>50 — Very Soft Clay</option>
             <option value={75}>75 — Soft Clay</option>
@@ -1556,109 +1030,37 @@ function Page4({ data, setData, onNext, onBack }) {
           </select>
         </FormGroup>
       </div>
-      <div
-        style={{
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: "0.7rem",
-          color: "#667eea",
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
-          marginBottom: "1rem",
-          fontWeight: 700,
-        }}
-      >
-        Soil Type
-      </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
-          gap: "1rem",
-          marginBottom: "2rem",
-        }}
-      >
+
+      <div className="boq-soil-section-label">Soil Type</div>
+      <div className="boq-soil-grid">
         {soilOpts.map((o) => (
           <div
             key={o.key}
+            className={`boq-soil-card${data.soilType === o.key ? " selected" : ""}`}
             onClick={() => setData((p) => ({ ...p, soilType: o.key }))}
-            style={{
-              background:
-                data.soilType === o.key
-                  ? "linear-gradient(135deg, #e0e7ff 0%, #e0f2fe 100%)"
-                  : "white",
-              border: `2px solid ${data.soilType === o.key ? "#667eea" : "#e9ecef"}`,
-              borderRadius: 12,
-              padding: "1.5rem",
-              cursor: "pointer",
-              textAlign: "center",
-              transition: "all 0.2s ease",
-              boxShadow:
-                data.soilType === o.key
-                  ? "0 4px 16px rgba(102, 126, 234, 0.15)"
-                  : "0 2px 8px rgba(0,0,0,0.05)",
-              transform: data.soilType === o.key ? "translateY(-2px)" : "none",
-            }}
-            onMouseOver={(e) => {
-              if (data.soilType !== o.key) {
-                e.currentTarget.style.borderColor = "#667eea";
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow =
-                  "0 4px 16px rgba(0,0,0,0.1)";
-              }
-            }}
-            onMouseOut={(e) => {
-              if (data.soilType !== o.key) {
-                e.currentTarget.style.borderColor = "#e9ecef";
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow =
-                  "0 2px 8px rgba(0,0,0,0.05)";
-              }
-            }}
           >
-            <div style={{ fontSize: "2.5rem", marginBottom: 8 }}>{o.icon}</div>
-            <div
-              style={{
-                fontSize: "0.95rem",
-                fontWeight: 700,
-                color: data.soilType === o.key ? "#1e40af" : "#212529",
-                marginBottom: 4,
-              }}
-            >
-              {o.label}
-            </div>
-            <div
-              style={{
-                fontSize: "0.75rem",
-                color: "#6c757d",
-              }}
-            >
-              {o.desc}
-            </div>
+            <div className="boq-soil-icon">{o.icon}</div>
+            <div className="boq-soil-label">{o.label}</div>
+            <div className="boq-soil-desc">{o.desc}</div>
           </div>
         ))}
       </div>
+
       {soilWarn && (
         <Banner type="warn">
-          ⚠️ <strong>Soil Type and SBC inconsistency:</strong> Please verify your soil data.
+          ⚠️ <strong>Soil Type and SBC inconsistency:</strong> Please verify
+          your soil data.
         </Banner>
       )}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: "1.5rem",
-          marginTop: "2rem",
-        }}
-      >
+
+      <div className="boq-struct-grid">
         <FormGroup label="Concrete Grade (Structural)">
           <select
-            style={selectStyle}
+            className="boq-select"
             value={data.concGrade}
             onChange={(e) =>
               setData((p) => ({ ...p, concGrade: e.target.value }))
             }
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
           >
             <option value="M20">M20 — Standard (IS min.)</option>
             <option value="M25">M25 — Preferred</option>
@@ -1667,13 +1069,11 @@ function Page4({ data, setData, onNext, onBack }) {
         </FormGroup>
         <FormGroup label="Steel Grade">
           <select
-            style={selectStyle}
+            className="boq-select"
             value={data.steelGrd}
             onChange={(e) =>
               setData((p) => ({ ...p, steelGrd: e.target.value }))
             }
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
           >
             <option value="Fe415">Fe415</option>
             <option value="Fe500">Fe500 TMT</option>
@@ -1682,13 +1082,11 @@ function Page4({ data, setData, onNext, onBack }) {
         </FormGroup>
         <FormGroup label="Brick / Block Type" hint={brickHint}>
           <select
-            style={selectStyle}
+            className="boq-select"
             value={data.brickKey}
             onChange={(e) =>
               setData((p) => ({ ...p, brickKey: e.target.value }))
             }
-            onFocus={(e) => (e.target.style.borderColor = "#667eea")}
-            onBlur={(e) => (e.target.style.borderColor = "#e9ecef")}
           >
             <option value="1st">1st Class Brick</option>
             <option value="flyash">Fly Ash Brick</option>
@@ -1696,9 +1094,16 @@ function Page4({ data, setData, onNext, onBack }) {
           </select>
         </FormGroup>
       </div>
+
       <NavBar
-        onNext={onNext}
-        onBack={onBack}
+        onNext={() => {
+          scrollTop();
+          onNext();
+        }}
+        onBack={() => {
+          scrollTop();
+          onBack();
+        }}
         nextLabel="⚙️ GENERATE FULL BOQ"
         nextCta
       />
@@ -1711,179 +1116,25 @@ function Page5({ formData, result, onRestart }) {
   const fmtD = (n, d = 2) => (+n).toFixed(d);
   const { boqItems, subTotal, contingency, overhead, gst, grandTotal } = result;
 
-  const statBox = (label, value, sub) => (
-    <div
-      style={{
-        background: "linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)",
-        border: "2px solid #e9ecef",
-        borderRadius: 12,
-        padding: "1.25rem",
-        textAlign: "center",
-        transition: "all 0.2s ease",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-      }}
-      onMouseOver={(e) => {
-        e.currentTarget.style.transform = "translateY(-2px)";
-        e.currentTarget.style.boxShadow = "0 4px 16px rgba(102, 126, 234, 0.15)";
-        e.currentTarget.style.borderColor = "#667eea";
-      }}
-      onMouseOut={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.05)";
-        e.currentTarget.style.borderColor = "#e9ecef";
-      }}
-    >
-      <span
-        style={{
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: "1.5rem",
-          fontWeight: 700,
-          color: "#667eea",
-          display: "block",
-        }}
-      >
-        {value}
-      </span>
-      <div
-        style={{
-          fontSize: "0.7rem",
-          color: "#6c757d",
-          textTransform: "uppercase",
-          letterSpacing: "0.1em",
-          marginTop: 6,
-          fontWeight: 700,
-        }}
-      >
-        {label}
-      </div>
-      {sub && (
-        <div
-          style={{ fontSize: "0.75rem", color: "#667eea", marginTop: 4, fontWeight: 600 }}
-        >
-          {sub}
-        </div>
-      )}
-    </div>
-  );
-
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          gap: "1rem",
-          marginBottom: "2rem",
-          flexWrap: "wrap",
-          alignItems: "center",
-        }}
-      >
-        <button
-          onClick={() => window.print()}
-          style={{
-            background: "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
-            color: "white",
-            border: "none",
-            borderRadius: 12,
-            padding: "14px 32px",
-            fontFamily: "'Plus Jakarta Sans', sans-serif",
-            fontSize: "1rem",
-            fontWeight: 700,
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            boxShadow: "0 4px 16px rgba(17, 153, 142, 0.3)",
-            transition: "all 0.2s ease",
-          }}
-          onMouseOver={(e) => {
-            e.target.style.transform = "translateY(-2px)";
-            e.target.style.boxShadow = "0 8px 24px rgba(17, 153, 142, 0.4)";
-          }}
-          onMouseOut={(e) => {
-            e.target.style.transform = "translateY(0)";
-            e.target.style.boxShadow = "0 4px 16px rgba(17, 153, 142, 0.3)";
-          }}
-        >
+      <div className="boq-results-actions">
+        <button className="boq-btn-download" onClick={() => window.print()}>
           ⬇️ Download BOQ (PDF)
         </button>
-        <button
-          onClick={onRestart}
-          style={{
-            background: "white",
-            color: "#495057",
-            border: "2px solid #e9ecef",
-            borderRadius: 12,
-            padding: "14px 28px",
-            fontFamily: "-apple-system, sans-serif",
-            fontSize: "0.95rem",
-            fontWeight: 600,
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-          }}
-          onMouseOver={(e) => {
-            e.target.style.background = "#f8f9fa";
-            e.target.style.transform = "translateY(-1px)";
-            e.target.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
-          }}
-          onMouseOut={(e) => {
-            e.target.style.background = "white";
-            e.target.style.transform = "translateY(0)";
-            e.target.style.boxShadow = "0 2px 8px rgba(0,0,0,0.05)";
-          }}
-        >
+        <button className="boq-btn-restart" onClick={onRestart}>
           ← New Estimate
         </button>
-        <span style={{ fontSize: "0.8rem", color: "#6c757d", fontWeight: 500 }}>
-          Print dialog → "Save as PDF"
-        </span>
+        <span className="boq-results-note">Print dialog → "Save as PDF"</span>
       </div>
 
-      <div
-        style={{
-          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-          color: "white",
-          borderRadius: 16,
-          padding: "2.5rem 3rem",
-          marginBottom: "2rem",
-          display: "grid",
-          gridTemplateColumns: "1fr auto",
-          gap: "3rem",
-          alignItems: "center",
-          boxShadow: "0 8px 32px rgba(102, 126, 234, 0.3)",
-        }}
-      >
+      <div className="boq-summary-card">
         <div>
-          <div
-            style={{
-              fontSize: "0.7rem",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.7)",
-              marginBottom: 8,
-              fontWeight: 700,
-            }}
-          >
-            Official Estimate & Bill of Quantities
+          <div className="boq-summary-eyebrow">
+            Official Estimate &amp; Bill of Quantities
           </div>
-          <h2
-            style={{
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
-              fontSize: "1.75rem",
-              fontWeight: 900,
-              marginBottom: "1rem",
-            }}
-          >
-            {formData.projName}
-          </h2>
-          <div
-            style={{
-              display: "flex",
-              gap: "2rem",
-              flexWrap: "wrap",
-              marginTop: "1rem",
-            }}
-          >
+          <h2 className="boq-summary-title">{formData.projName}</h2>
+          <div className="boq-summary-meta">
             {[
               ["Owner", formData.ownerName],
               ["Location", formData.location],
@@ -1892,50 +1143,19 @@ function Page5({ formData, result, onRestart }) {
               ["Type", `${formData.bldUse} · ${result.floorStr}`],
               ["Grade", `${formData.concGrade} / ${formData.steelGrd}`],
             ].map(([lbl, val]) => (
-              <div key={lbl} style={{ fontSize: "0.875rem" }}>
-                <span
-                  style={{
-                    color: "rgba(255,255,255,0.7)",
-                    display: "block",
-                    fontSize: "0.7rem",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
-                    marginBottom: 4,
-                    fontWeight: 700,
-                  }}
-                >
-                  {lbl}
-                </span>
-                <span style={{ fontWeight: 600 }}>{val}</span>
+              <div key={lbl} className="boq-summary-meta-item">
+                <span className="boq-summary-meta-label">{lbl}</span>
+                <span className="boq-summary-meta-value">{val}</span>
               </div>
             ))}
           </div>
         </div>
-        <div style={{ textAlign: "right" }}>
-          <div
-            style={{
-              fontSize: "0.7rem",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.7)",
-              fontWeight: 700,
-            }}
-          >
-            Total Project Cost
-          </div>
-          <div
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: "2.5rem",
-              fontWeight: 700,
-              color: "#fbbf24",
-              lineHeight: 1.1,
-              marginTop: 8,
-            }}
-          >
+        <div className="boq-summary-cost">
+          <div className="boq-summary-cost-label">Total Project Cost</div>
+          <div className="boq-summary-cost-value">
             ₹{(grandTotal / 100000).toFixed(2)} L
           </div>
-          <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.8)", marginTop: 6, fontWeight: 600 }}>
+          <div className="boq-summary-cost-sub">
             ≈ ₹
             {Math.round(grandTotal / result.totalBU / 10.764).toLocaleString(
               "en-IN",
@@ -1950,90 +1170,82 @@ function Page5({ formData, result, onRestart }) {
         title="Structural Summary"
         sub="Areas, floors, bay spans"
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-            gap: "1rem",
-          }}
-        >
-          {statBox(
-            "Plot Area",
-            result.plotArea.toFixed(1) + " m²",
-            (result.plotArea * 10.764).toFixed(0) + " sqft",
-          )}
-          {statBox(
-            "Built-up/Floor",
-            result.builtArea.toFixed(1) + " m²",
-            (result.builtArea * 10.764).toFixed(0) + " sqft",
-          )}
-          {statBox(
-            "Total Built-up",
-            result.totalBU.toFixed(1) + " m²",
-            (result.totalBU * 10.764).toFixed(0) + " sqft",
-          )}
-          {statBox(
-            "Building Ht.",
-            result.totalH.toFixed(2) + " m",
-            result.floorStr,
-          )}
-          {statBox(
-            "Column Grid",
-            result.cL + "×" + result.cW,
-            result.totalCols + " columns",
-          )}
-          {statBox(
-            "Bay Span",
-            result.spanL.toFixed(2) + "×" + result.spanW.toFixed(2) + " m",
-            "L × W",
-          )}
+        <div className="boq-stats-grid">
+          {[
+            [
+              "Plot Area",
+              result.plotArea.toFixed(1) + " m²",
+              (result.plotArea * 10.764).toFixed(0) + " sqft",
+            ],
+            [
+              "Built-up/Floor",
+              result.builtArea.toFixed(1) + " m²",
+              (result.builtArea * 10.764).toFixed(0) + " sqft",
+            ],
+            [
+              "Total Built-up",
+              result.totalBU.toFixed(1) + " m²",
+              (result.totalBU * 10.764).toFixed(0) + " sqft",
+            ],
+            ["Building Ht.", result.totalH.toFixed(2) + " m", result.floorStr],
+            [
+              "Column Grid",
+              result.cL + "×" + result.cW,
+              result.totalCols + " columns",
+            ],
+            [
+              "Bay Span",
+              result.spanL.toFixed(2) + "×" + result.spanW.toFixed(2) + " m",
+              "L × W",
+            ],
+          ].map(([label, value, sub]) => (
+            <div key={label} className="boq-stat-box">
+              <span className="boq-stat-value">{value}</span>
+              <div className="boq-stat-label">{label}</div>
+              {sub && <div className="boq-stat-sub">{sub}</div>}
+            </div>
+          ))}
         </div>
       </ResultSection>
 
       <ResultSection icon="📦" title="Material Quantities Summary">
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-            gap: "1rem",
-          }}
-        >
-          {statBox(
-            "Total RCC",
-            result.totalRCC.toFixed(2) + " m³",
-            "All works",
-          )}
-          {statBox(
-            "Total Steel",
-            (result.steelKg / 1000).toFixed(3) + " MT",
-            result.steelKg.toFixed(0) + " kg",
-          )}
-          {statBox(
-            "Brickwork Ext",
-            result.brickVolExt.toFixed(2) + " m³",
-            "230mm walls",
-          )}
-          {statBox(
-            "Brickwork Int",
-            result.brickVolInt.toFixed(2) + " m³",
-            "115mm walls",
-          )}
-          {statBox(
-            "Plastering",
-            (result.plInt + result.plExt).toFixed(0) + " m²",
-            "Int+Ext",
-          )}
-          {statBox("Slab Thk.", result.slabThk + " mm", "Two-way")}
-          {statBox(
-            "Flooring",
-            result.floorArea.toFixed(0) + " m²",
-            "All floors",
-          )}
-          {statBox(
-            "Waterproofing",
-            (result.terraceArea + result.toiletWPArea).toFixed(0) + " m²",
-            "Terrace+Toilet",
-          )}
+        <div className="boq-stats-grid">
+          {[
+            ["Total RCC", result.totalRCC.toFixed(2) + " m³", "All works"],
+            [
+              "Total Steel",
+              (result.steelKg / 1000).toFixed(3) + " MT",
+              result.steelKg.toFixed(0) + " kg",
+            ],
+            [
+              "Brickwork Ext",
+              result.brickVolExt.toFixed(2) + " m³",
+              "230mm walls",
+            ],
+            [
+              "Brickwork Int",
+              result.brickVolInt.toFixed(2) + " m³",
+              "115mm walls",
+            ],
+            [
+              "Plastering",
+              (result.plInt + result.plExt).toFixed(0) + " m²",
+              "Int+Ext",
+            ],
+            ["Slab Thk.", result.slabThk + " mm", "Two-way"],
+            ["Flooring", result.floorArea.toFixed(0) + " m²", "All floors"],
+            [
+              "Waterproofing",
+              (result.terraceArea + result.toiletWPArea).toFixed(0) + " m²",
+              "Terrace+Toilet",
+            ],
+          ].map(([label, value, sub]) => (
+            <div key={label} className="boq-stat-box">
+              <span className="boq-stat-value">{value}</span>
+              <div className="boq-stat-label">{label}</div>
+              {sub && <div className="boq-stat-sub">{sub}</div>}
+            </div>
+          ))}
         </div>
       </ResultSection>
 
@@ -2043,67 +1255,29 @@ function Page5({ formData, result, onRestart }) {
         sub="PWD West Bengal Schedule of Rates 2024"
         badge="WB PWD SOR 2024"
       >
-        <Banner type="info" style={{ marginBottom: "2rem" }}>
+        <Banner type="info">
           📌 <strong>PWD West Bengal SOR 2024</strong> — Rates inclusive of
-          materials, labour & T&P. GST @12% extra as applicable.
+          materials, labour &amp; T&amp;P. GST @12% extra as applicable.
         </Banner>
-        <div style={{ overflowX: "auto" }}>
-          <table
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              fontSize: "0.875rem",
-            }}
-          >
+
+        <div className="boq-table-wrapper" style={{ marginTop: "1rem" }}>
+          <table className="boq-table">
             <thead>
               <tr>
-                {[
-                  "Item",
-                  "Description of Work",
-                  "Unit",
-                  "Qty",
-                  "Rate (₹)",
-                  "Amount (₹)",
-                ].map((h) => (
-                  <th
-                    key={h}
-                    style={{
-                      background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
-                      padding: "12px 16px",
-                      textAlign:
-                        h === "Description of Work" || h === "Item"
-                          ? "left"
-                          : "right",
-                      fontSize: "0.7rem",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.1em",
-                      color: "#495057",
-                      borderBottom: "2px solid #dee2e6",
-                      fontWeight: 700,
-                    }}
-                  >
-                    {h}
-                  </th>
-                ))}
+                <th>Item</th>
+                <th>Description of Work</th>
+                <th>Unit</th>
+                <th>Qty</th>
+                <th>Rate (₹)</th>
+                <th>Amount (₹)</th>
               </tr>
             </thead>
             <tbody>
               {boqItems.map((item, idx) => {
                 if (item.head)
                   return (
-                    <tr key={idx}>
-                      <td
-                        colSpan={6}
-                        style={{
-                          fontFamily: "'Plus Jakarta Sans', sans-serif",
-                          fontSize: "0.9rem",
-                          fontWeight: 800,
-                          background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
-                          padding: "12px 16px",
-                          color: "#212529",
-                          borderBottom: "2px solid #dee2e6",
-                        }}
-                      >
+                    <tr key={idx} className="section-row">
+                      <td colSpan={6}>
                         {item.sno}. {item.desc}
                       </td>
                     </tr>
@@ -2111,68 +1285,15 @@ function Page5({ formData, result, onRestart }) {
                 if (+item.qty <= 0) return null;
                 const amt = +item.qty * +item.rate;
                 return (
-                  <tr
-                    key={idx}
-                    style={{ borderBottom: "1px solid #f1f3f5" }}
-                  >
-                    <td
-                      style={{
-                        padding: "10px 16px",
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: "0.8rem",
-                        fontWeight: 600,
-                      }}
-                    >
-                      {item.sno}
-                    </td>
-                    <td style={{ padding: "10px 16px", fontSize: "0.875rem" }}>
-                      {item.desc}
-                    </td>
-                    <td
-                      style={{
-                        padding: "10px 16px",
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: "0.8rem",
-                        textAlign: "right",
-                        fontWeight: 600,
-                      }}
-                    >
-                      {item.unit}
-                    </td>
-                    <td
-                      style={{
-                        padding: "10px 16px",
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: "0.8rem",
-                        textAlign: "right",
-                        fontWeight: 600,
-                      }}
-                    >
-                      {fmtD(item.qty)}
-                    </td>
-                    <td
-                      style={{
-                        padding: "10px 16px",
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: "0.8rem",
-                        textAlign: "right",
-                        fontWeight: 600,
-                      }}
-                    >
+                  <tr key={idx}>
+                    <td className="td-sno">{item.sno}</td>
+                    <td className="td-desc">{item.desc}</td>
+                    <td className="td-num">{item.unit}</td>
+                    <td className="td-num">{fmtD(item.qty)}</td>
+                    <td className="td-num">
                       {item.rate.toLocaleString("en-IN")}
                     </td>
-                    <td
-                      style={{
-                        padding: "10px 16px",
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: "0.8rem",
-                        textAlign: "right",
-                        fontWeight: 700,
-                        color: "#667eea",
-                      }}
-                    >
-                      ₹{fmt(amt)}
-                    </td>
+                    <td className="td-amount">₹{fmt(amt)}</td>
                   </tr>
                 );
               })}
@@ -2182,54 +1303,14 @@ function Page5({ formData, result, onRestart }) {
                 ["Contractor Overhead & Profit @ 12%", overhead],
                 ["GST @ 12% on work value", gst],
               ].map(([label, val]) => (
-                <tr
-                  key={label}
-                  style={{
-                    fontWeight: 700,
-                    background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
-                    borderTop: "2px solid #dee2e6",
-                  }}
-                >
-                  <td
-                    colSpan={5}
-                    style={{ padding: "12px 16px", fontSize: "0.9rem" }}
-                  >
-                    {label}
-                  </td>
-                  <td
-                    style={{
-                      padding: "12px 16px",
-                      fontFamily: "'JetBrains Mono', monospace",
-                      textAlign: "right",
-                      fontSize: "0.95rem",
-                    }}
-                  >
-                    ₹{fmt(val)}
-                  </td>
+                <tr key={label} className="subtotal-row">
+                  <td colSpan={5}>{label}</td>
+                  <td>₹{fmt(val)}</td>
                 </tr>
               ))}
-              <tr style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", color: "white" }}>
-                <td
-                  colSpan={5}
-                  style={{
-                    fontFamily: "'Plus Jakarta Sans', sans-serif",
-                    fontSize: "1.05rem",
-                    fontWeight: 800,
-                    padding: "16px",
-                  }}
-                >
-                  GRAND TOTAL ESTIMATE
-                </td>
-                <td
-                  style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: "1.05rem",
-                    fontWeight: 700,
-                    padding: "16px",
-                    textAlign: "right",
-                    color: "#fbbf24",
-                  }}
-                >
+              <tr className="total-row">
+                <td colSpan={5}>GRAND TOTAL ESTIMATE</td>
+                <td>
                   ₹
                   {(Math.round(grandTotal / 10000) * 10000).toLocaleString(
                     "en-IN",
@@ -2239,19 +1320,8 @@ function Page5({ formData, result, onRestart }) {
             </tbody>
           </table>
         </div>
-        <div
-          style={{
-            background: "linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)",
-            border: "2px solid #fbbf24",
-            borderRadius: 12,
-            padding: "1.25rem 1.5rem",
-            fontSize: "0.875rem",
-            color: "#92400e",
-            lineHeight: 1.7,
-            marginTop: "2rem",
-            fontWeight: 500,
-          }}
-        >
+
+        <div className="boq-banner-notes">
           <strong>Important Notes:</strong>
           <br />
           1. Rates as per PWD West Bengal SOR 2024. Actual rates may vary by
@@ -2276,43 +1346,11 @@ function Page5({ formData, result, onRestart }) {
 function LoadingOverlay({ show }) {
   if (!show) return null;
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        background: "rgba(0,0,0,0.7)",
-        backdropFilter: "blur(8px)",
-        zIndex: 999,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        style={{
-          background: "white",
-          borderRadius: 20,
-          padding: "3rem 4rem",
-          textAlign: "center",
-          maxWidth: 450,
-          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-        }}
-      >
-        <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>⚙️</div>
-        <div
-          style={{
-            fontFamily: "'Plus Jakarta Sans', sans-serif",
-            fontSize: "1.5rem",
-            fontWeight: 900,
-            marginBottom: "0.75rem",
-            color: "#212529",
-          }}
-        >
-          Calculating…
-        </div>
-        <p style={{ color: "#6c757d", fontSize: "0.95rem", fontWeight: 500 }}>
-          Running IS:456 structural analysis
-        </p>
+    <div className="boq-loading-overlay">
+      <div className="boq-loading-card">
+        <span className="boq-loading-icon">⚙️</span>
+        <div className="boq-loading-title">Calculating…</div>
+        <p className="boq-loading-desc">Running IS:456 structural analysis</p>
       </div>
     </div>
   );
@@ -2355,6 +1393,11 @@ export default function BOQPage() {
   for (let i = 0; i < formData.numFloors; i++) initRooms[i] = {};
   const [floorRooms, setFloorRooms] = useState(initRooms);
 
+  const goTo = (n) => {
+    setStep(n);
+    scrollTop();
+  };
+
   const handleGenerate = useCallback(() => {
     setLoading(true);
     setTimeout(() => {
@@ -2362,6 +1405,7 @@ export default function BOQPage() {
       setResult(res);
       setLoading(false);
       setStep(5);
+      scrollTop();
     }, 2400);
   }, [formData, floorRooms]);
 
@@ -2371,6 +1415,7 @@ export default function BOQPage() {
     const rooms = {};
     for (let i = 0; i < formData.numFloors; i++) rooms[i] = {};
     setFloorRooms(rooms);
+    scrollTop();
   };
 
   const setDataAndFloors = (updater) => {
@@ -2397,89 +1442,23 @@ export default function BOQPage() {
       </Helmet>
 
       <div className="calc-page">
-        {/* ── PAGE HERO ───────────────────────────────────────────── */}
-        <div
-          style={{
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-            padding: "3.5rem 2rem 3rem",
-            marginBottom: 0,
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundImage: `radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                               radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%)`,
-              pointerEvents: "none",
-            }}
-          />
-          <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
-            <div
-              style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: "0.7rem",
-                color: "rgba(255,255,255,0.9)",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                marginBottom: 10,
-                fontWeight: 700,
-              }}
-            >
+        {/* ── HERO ── */}
+        <div className="boq-hero">
+          <div className="boq-hero-content">
+            <div className="boq-hero-badge">
               PWD West Bengal SOR 2024 · IS:456 Compliant
             </div>
-            <h1
-              style={{
-                fontFamily: "'Plus Jakarta Sans', -apple-system, sans-serif",
-                fontSize: "clamp(2rem, 5vw, 3rem)",
-                fontWeight: 900,
-                color: "white",
-                marginBottom: "1rem",
-                lineHeight: 1.1,
-                letterSpacing: "-0.02em",
-              }}
-            >
-              BOQ Generator
-            </h1>
-            <p
-              style={{
-                color: "rgba(255,255,255,0.9)",
-                fontSize: "1.05rem",
-                maxWidth: 600,
-                marginBottom: "1.5rem",
-                lineHeight: 1.6,
-                fontWeight: 500,
-              }}
-            >
+            <h1 className="boq-hero-title">BOQ Generator</h1>
+            <p className="boq-hero-desc">
               Complete Bill of Quantities — Substructure, Superstructure,
-              Finishing & MEP.
+              Finishing &amp; MEP.
               <br />
               5-step wizard → auto structural sizing → full PWD SOR 2024 cost
               sheet.
             </p>
-            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+            <div className="boq-hero-tags">
               {["IS:456", "NBC 2016", "WB PWD 2024", "GST Ready"].map((tag) => (
-                <span
-                  key={tag}
-                  style={{
-                    fontSize: "0.7rem",
-                    background: "rgba(255,255,255,0.2)",
-                    backdropFilter: "blur(10px)",
-                    color: "white",
-                    padding: "6px 14px",
-                    borderRadius: 8,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontWeight: 700,
-                    border: "1px solid rgba(255,255,255,0.3)",
-                  }}
-                >
+                <span key={tag} className="boq-hero-tag">
                   {tag}
                 </span>
               ))}
@@ -2487,8 +1466,8 @@ export default function BOQPage() {
           </div>
         </div>
 
-        {/* ── MAIN CONTENT ────────────────────────────────────────── */}
-        <main className="calc-main" style={{ maxWidth: 1200, margin: "0 auto", padding: "3rem 2rem" }}>
+        {/* ── MAIN ── */}
+        <main className="boq-main calc-main">
           <LoadingOverlay show={loading} />
           <StepBar currentStep={step} />
 
@@ -2496,15 +1475,15 @@ export default function BOQPage() {
             <Page1
               data={formData}
               setData={setFormData}
-              onNext={() => setStep(2)}
+              onNext={() => goTo(2)}
             />
           )}
           {step === 2 && (
             <Page2
               data={formData}
               setData={setDataAndFloors}
-              onNext={() => setStep(3)}
-              onBack={() => setStep(1)}
+              onNext={() => goTo(3)}
+              onBack={() => goTo(1)}
             />
           )}
           {step === 3 && (
@@ -2512,8 +1491,8 @@ export default function BOQPage() {
               data={formData}
               floorRooms={floorRooms}
               setFloorRooms={setFloorRooms}
-              onNext={() => setStep(4)}
-              onBack={() => setStep(2)}
+              onNext={() => goTo(4)}
+              onBack={() => goTo(2)}
             />
           )}
           {step === 4 && (
@@ -2521,7 +1500,7 @@ export default function BOQPage() {
               data={formData}
               setData={setFormData}
               onNext={handleGenerate}
-              onBack={() => setStep(3)}
+              onBack={() => goTo(3)}
             />
           )}
           {step === 5 && result && (
