@@ -2,7 +2,7 @@
 // ═══════════════════════════════════════════════════════════════════════════
 // CALCULATOR PAGE — 4 main tabs
 //   costing | structural (beam + column) | brick | paint
-// Place in: src/pages/CalculatorPage/CalculatorPage.jsx
+// BOQ ab alag page hai: src/pages/BOQPage/BOQPage.jsx  →  route: /boq
 // ═══════════════════════════════════════════════════════════════════════════
 
 import { useState, useEffect } from "react";
@@ -23,25 +23,24 @@ import {
   calcFloorWiseBOQ,
 } from "../utils";
 
-import { useBeamDesign } from "../hooks/useBeamDesign";
-import { useColumnDesign } from "../hooks/useColumnDesign";
-import { useSlabDesign } from "../hooks/useSlabDesign";
-import { useCostingInputs } from "../hooks/useCostingInputs";
-import { useBrickMasonry } from "../hooks/useBrickMasonry";
+import { useBeamDesign }     from "../hooks/useBeamDesign";
+import { useColumnDesign }   from "../hooks/useColumnDesign";
+import { useSlabDesign }     from "../hooks/useSlabDesign";
+import { useCostingInputs }  from "../hooks/useCostingInputs";
+import { useBrickMasonry }   from "../hooks/useBrickMasonry";
 import { usePaintEstimator } from "../hooks/usePaintEstimator";
 
-import { HeroSection } from "../components/hero/HeroSection";
-import { CostingInputPanel } from "../components/costing/CostingInputPanel";
-import { CostingResults } from "../components/costing/CostingResults";
+import { HeroSection }         from "../components/hero/HeroSection";
+import { CostingInputPanel }   from "../components/costing/CostingInputPanel";
+import { CostingResults }      from "../components/costing/CostingResults";
 import { StructuralDesignTab } from "../components/structural/StructuralDesignTab";
-import { BrickMasonryTab } from "../components/brick/BrickMasonryTab";
-import { PaintEstimatorTab } from "../components/paint/PaintEstimatorTab";
-import BOQCalculatorTab from "../components/boq/BOQCalculatorTab";
+import { BrickMasonryTab }     from "../components/brick/BrickMasonryTab";
+import { PaintEstimatorTab }   from "../components/paint/PaintEstimatorTab";
 
 import "../styles/pages/_calculator.css";
 import "../styles/pages/_design-calculator.css";
-import { useSkeleton } from "../hooks/useSkeleton";
-import { CalcTabSkeleton } from "../components/ui/Skeleton";
+import { useSkeleton }       from "../hooks/useSkeleton";
+import { CalcTabSkeleton }   from "../components/ui/Skeleton";
 
 function CalculatorsPage() {
   // Read tab from sessionStorage (set by ProjectEstimatorPage sidebar links)
@@ -50,92 +49,65 @@ function CalculatorsPage() {
 
   // Clear the stored tab after reading so it doesn't persist on reload
   if (savedTab) sessionStorage.removeItem("openTab");
-  const [costingResults, setCostingResults] = useState(null);
-  const [costingSubTab, setCostingSubTab] = useState("cost");
+
+  const [costingResults, setCostingResults]   = useState(null);
+  const [costingSubTab, setCostingSubTab]     = useState("cost");
   const { isLoading } = useSkeleton(700);
 
   const { inputs, updateField, resetInputs } = useCostingInputs();
-  const beam = useBeamDesign();
+  const beam   = useBeamDesign();
   const column = useColumnDesign();
-  const slab = useSlabDesign();
-  const brick = useBrickMasonry();
-  const paint = usePaintEstimator();
+  const slab   = useSlabDesign();
+  const brick  = useBrickMasonry();
+  const paint  = usePaintEstimator();
 
   // Auto-populate beam/column from structure design when switching to structural tab
   useEffect(() => {
     if (costingResults?.structureDesign && mainTab === "structural") {
       if (!beam.inputs.b)
-        beam.populateFromStructure(
-          costingResults.structureDesign,
-          inputs.floorHeight,
-        );
+        beam.populateFromStructure(costingResults.structureDesign, inputs.floorHeight);
       if (!column.inputs.b)
-        column.populateFromStructure(
-          costingResults.structureDesign,
-          inputs.floorHeight,
-        );
+        column.populateFromStructure(costingResults.structureDesign, inputs.floorHeight);
     }
   }, [mainTab, costingResults]);
 
   const handleCalculate = () => {
     const { length, breadth, floors, floorHeight } = inputs;
 
-    if (
-      !length ||
-      !breadth ||
-      parseFloat(length) <= 0 ||
-      parseFloat(breadth) <= 0
-    ) {
-      alert(
-        "Please enter valid building dimensions (length and breadth must be greater than 0).",
-      );
+    if (!length || !breadth || parseFloat(length) <= 0 || parseFloat(breadth) <= 0) {
+      alert("Please enter valid building dimensions (length and breadth must be greater than 0).");
       return;
     }
 
     const calcInputs = {
       ...inputs,
-      length: parseFloat(length),
-      breadth: parseFloat(breadth),
-      floors: parseInt(floors),
+      length:      parseFloat(length),
+      breadth:     parseFloat(breadth),
+      floors:      parseInt(floors),
       floorHeight: parseFloat(floorHeight),
-      basementDepth: parseFloat(inputs.basementDepth),
-      avgColumnSpan: parseFloat(inputs.avgColumnSpan),
+      basementDepth:  parseFloat(inputs.basementDepth),
+      avgColumnSpan:  parseFloat(inputs.avgColumnSpan),
       customRates: {
-        cement: inputs.customCementRate
-          ? parseFloat(inputs.customCementRate)
-          : null,
-        steel: inputs.customSteelRate
-          ? parseFloat(inputs.customSteelRate)
-          : null,
-        sand: inputs.customSandRate ? parseFloat(inputs.customSandRate) : null,
-        aggregate: inputs.customAggregateRate
-          ? parseFloat(inputs.customAggregateRate)
-          : null,
+        cement:    inputs.customCementRate    ? parseFloat(inputs.customCementRate)    : null,
+        steel:     inputs.customSteelRate     ? parseFloat(inputs.customSteelRate)     : null,
+        sand:      inputs.customSandRate      ? parseFloat(inputs.customSandRate)      : null,
+        aggregate: inputs.customAggregateRate ? parseFloat(inputs.customAggregateRate) : null,
       },
     };
 
     setCostingResults({
-      buildingCost: calcBuildingCost(calcInputs),
-      stairDesign: calcInputs.includeStaircase
-        ? calcStairDesign(
-            calcInputs.length,
-            calcInputs.breadth,
-            calcInputs.floorHeight,
-            calcInputs.floors,
-            calcInputs.buildingType,
-          )
+      buildingCost:  calcBuildingCost(calcInputs),
+      stairDesign:   calcInputs.includeStaircase
+        ? calcStairDesign(calcInputs.length, calcInputs.breadth, calcInputs.floorHeight, calcInputs.floors, calcInputs.buildingType)
         : null,
-      footing: calcFooting(calcInputs),
-      barBending: calcBarBending(calcInputs),
-      timeline: calcProjectTimeline(calcInputs),
-      structureDesign: calcStructureDesign(calcInputs),
-      completeBBS: calcCompleteBBS(calcInputs),
-      standardBOQ: calcStandardBOQ(calcInputs),
-      premiumBOQ: calcPremiumBOQ(calcInputs),
-      floorWiseBOQ: calcFloorWiseBOQ({
-        ...calcInputs,
-        finishGrade: calcInputs.finishGrade,
-      }),
+      footing:        calcFooting(calcInputs),
+      barBending:     calcBarBending(calcInputs),
+      timeline:       calcProjectTimeline(calcInputs),
+      structureDesign:calcStructureDesign(calcInputs),
+      completeBBS:    calcCompleteBBS(calcInputs),
+      standardBOQ:    calcStandardBOQ(calcInputs),
+      premiumBOQ:     calcPremiumBOQ(calcInputs),
+      floorWiseBOQ:   calcFloorWiseBOQ({ ...calcInputs, finishGrade: calcInputs.finishGrade }),
     });
   };
 
@@ -149,15 +121,9 @@ function CalculatorsPage() {
     setMainTab(tab);
     if (tab === "structural" && costingResults?.structureDesign) {
       if (!beam.inputs.b)
-        beam.populateFromStructure(
-          costingResults.structureDesign,
-          inputs.floorHeight,
-        );
+        beam.populateFromStructure(costingResults.structureDesign, inputs.floorHeight);
       if (!column.inputs.b)
-        column.populateFromStructure(
-          costingResults.structureDesign,
-          inputs.floorHeight,
-        );
+        column.populateFromStructure(costingResults.structureDesign, inputs.floorHeight);
     }
   };
 
@@ -168,6 +134,7 @@ function CalculatorsPage() {
         <meta name="description" content={SITE.seo.calculators.description} />
         <link rel="canonical" href={SITE.seo.calculators.canonical} />
       </Helmet>
+
       <div className="calc-page">
         <HeroSection mainTab={mainTab} onTabChange={handleTabChange} />
 
@@ -202,20 +169,12 @@ function CalculatorsPage() {
               {mainTab === "structural" && (
                 <section className="calc-results-section">
                   {costingResults?.structureDesign && (
-                    <div
-                      className="calc-alert calc-alert-info"
-                      style={{ marginBottom: "1.5rem" }}
-                    >
+                    <div className="calc-alert calc-alert-info" style={{ marginBottom:"1.5rem" }}>
                       <strong>ℹ️ Auto-populated from Structure Design:</strong>{" "}
-                      Member dimensions and material grades have been pre-filled
-                      from your building estimate. Modify as needed.
+                      Member dimensions and material grades have been pre-filled from your building estimate. Modify as needed.
                     </div>
                   )}
-                  <StructuralDesignTab
-                    beam={beam}
-                    column={column}
-                    slab={slab}
-                  />
+                  <StructuralDesignTab beam={beam} column={column} slab={slab} />
                 </section>
               )}
 
@@ -242,13 +201,6 @@ function CalculatorsPage() {
                     onReset={paint.reset}
                     results={paint.results}
                   />
-                </section>
-              )}
-
-              {/* ── BOQ GENERATOR ─────────────────────────────────── */}
-              {mainTab === "boq" && (
-                <section className="calc-results-section">
-                  <BOQCalculatorTab />
                 </section>
               )}
             </>
