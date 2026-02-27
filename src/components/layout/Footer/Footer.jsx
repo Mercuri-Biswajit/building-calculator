@@ -148,7 +148,7 @@ function Footer() {
                 // { to: "/projects", icon: "🏗️", label: "Projects" },
                 // { to: "/about", icon: "👤", label: "About" },
                 { to: "/", icon: "🧮", label: "Calculator" },
-                // { to: "/vastu", icon: "🏡", label: "Vastu Guide" },
+                { to: "/vastu", icon: "🏡", label: "Vastu Guide" },
               ].map(({ to, icon, label }) => (
                 <Link key={to} to={to} className="footer-nav-item">
                   <span className="footer-nav-left">
