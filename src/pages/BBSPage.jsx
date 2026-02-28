@@ -1,5 +1,4 @@
 import { useState, useCallback, useMemo } from "react";
-import "../styles/pages/_bbs-generator.css";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    ENGINEERING CONSTANTS — IS 456 : 2000
@@ -250,22 +249,823 @@ const ELEMENTS = {
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   STYLES (Improved)
+═══════════════════════════════════════════════════════════════════════════ */
+const styles = `
+  .bbs-wrapper {
+    min-height: 100vh;
+    background: #F7F9FC;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #0f172a;
+    padding-bottom: 4rem;
+  }
+
+  .bbs-hero {
+    background: linear-gradient(135deg, #0A2647 0%, #144272 100%);
+    padding: 3.5rem 0;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid #FF8C00;
+  }
+  
+  .bbs-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none;
+  }
+  
+  .bbs-hero::after {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,140,0,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .bbs-hero-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .bbs-hero-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #FF8C00;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    background: rgba(255,140,0,0.15);
+    padding: 0.45rem 1.1rem;
+    border-radius: 20px;
+    border: 1.5px solid rgba(255,140,0,0.3);
+    display: inline-block;
+  }
+  
+  .bbs-hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin: 0 0 1rem;
+  }
+  
+  .bbs-hero-title span {
+    color: #FF8C00;
+    display: inline-block;
+  }
+  
+  .bbs-hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.8);
+    max-width: 680px;
+    line-height: 1.65;
+    font-weight: 400;
+  }
+  
+  .bbs-outer {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .bbs-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    background: #EEF2F8;
+    padding: 0.4rem;
+    border-radius: 14px;
+    width: fit-content;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  
+  .bbs-tab {
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  
+  .bbs-tab:hover {
+    color: #0A2647;
+    background: rgba(10,38,71,0.05);
+  }
+  
+  .bbs-tab.active {
+    background: #fff;
+    color: #0A2647;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  
+  .bbs-project-bar {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: #fff;
+    border: 1px solid #E0E8F2;
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  
+  .bbs-proj-input {
+    flex: 1;
+    min-width: 180px;
+    padding: 0.7rem 1rem;
+    border: 1.5px solid #E0E8F2;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: #0f172a;
+    background: #F7F9FC;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  
+  .bbs-proj-input:focus {
+    border-color: #0A2647;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(10,38,71,0.08);
+  }
+  
+  .bbs-rate-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+  
+  .bbs-rate-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    white-space: nowrap;
+  }
+  
+  .bbs-rate-input {
+    width: 110px !important;
+    min-width: unset !important;
+  }
+  
+  .bbs-layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  
+  .bbs-panel {
+    background: #fff;
+    border: 1px solid #E0E8F2;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  
+  .bbs-input-panel {
+    position: sticky;
+    top: 20px;
+  }
+  
+  .bbs-result-panel {
+    min-height: 400px;
+  }
+  
+  .bbs-section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #0A2647;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #EEF2F8;
+  }
+  
+  .bbs-element-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .bbs-element-btn {
+    background: #F7F9FC;
+    border: 1.5px solid #E0E8F2;
+    border-radius: 12px;
+    padding: 1rem 0.75rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: #64748b;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .bbs-element-btn:hover {
+    border-color: #0A2647;
+    color: #0A2647;
+    background: rgba(10,38,71,0.03);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  
+  .bbs-element-btn.active {
+    border-color: #0A2647;
+    background: rgba(10,38,71,0.06);
+    color: #0A2647;
+    box-shadow: 0 4px 16px rgba(10,38,71,0.15);
+  }
+  
+  .bbs-element-btn.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--el-color, #FF8C00);
+  }
+  
+  .bbs-el-icon {
+    font-size: 1.8rem;
+  }
+  
+  .bbs-el-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  
+  .bbs-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .bbs-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  
+  .bbs-field-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0f172a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .bbs-field-hint {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .bbs-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #E0E8F2;
+    border-radius: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #0f172a;
+    background: #fff;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  
+  .bbs-input:focus {
+    border-color: #0A2647;
+    box-shadow: 0 0 0 3px rgba(10,38,71,0.1);
+    background: #fff;
+  }
+  
+  .bbs-input::placeholder {
+    color: #cbd5e1;
+    font-weight: 400;
+  }
+  
+  .bbs-assumptions {
+    background: rgba(255,140,0,0.06);
+    border: 1px solid rgba(255,140,0,0.2);
+    border-left: 3px solid #FF8C00;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 1.5rem;
+    font-family: 'DM Mono', monospace;
+    line-height: 1.6;
+  }
+  
+  .bbs-assumptions-title {
+    font-weight: 700;
+    color: #d97706;
+    margin-bottom: 0.4rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  
+  .bbs-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .bbs-btn-primary {
+    flex: 1;
+    padding: 0.95rem 1.5rem;
+    background: #0A2647;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(10,38,71,0.2);
+  }
+  
+  .bbs-btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+  }
+  
+  .bbs-btn-primary:hover::before {
+    transform: translateX(100%);
+  }
+  
+  .bbs-btn-primary:hover {
+    background: #144272;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(10,38,71,0.3);
+  }
+  
+  .bbs-btn-primary:active {
+    transform: translateY(0);
+  }
+  
+  .bbs-btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .bbs-btn-ghost {
+    background: transparent;
+    border: 1.5px solid #E0E8F2;
+    border-radius: 12px;
+    padding: 0.95rem 1.25rem;
+    color: #64748b;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .bbs-btn-ghost:hover {
+    border-color: #0A2647;
+    color: #0A2647;
+    background: rgba(10,38,71,0.04);
+  }
+  
+  .bbs-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .bbs-empty-icon {
+    font-size: 3.5rem;
+    opacity: 0.2;
+  }
+  
+  .bbs-empty-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+  
+  .bbs-empty-sub {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    max-width: 300px;
+    line-height: 1.5;
+  }
+  
+  .bbs-warnings {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .bbs-warn-item {
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  
+  .bbs-warn-warn {
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    border-left: 3px solid #d97706;
+    color: #78350f;
+  }
+  
+  .bbs-warn-error {
+    background: #fee2e2;
+    border: 1px solid #fca5a5;
+    border-left: 3px solid #dc2626;
+    color: #991b1b;
+  }
+  
+  .bbs-result-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .bbs-result-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0A2647;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  
+  .bbs-add-btn {
+    background: #FF8C00;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.7rem 1.4rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(255,140,0,0.25);
+  }
+  
+  .bbs-add-btn:hover {
+    background: #e07b00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255,140,0,0.35);
+  }
+  
+  .bbs-table-wrap {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #E0E8F2;
+  }
+  
+  .bbs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  
+  .bbs-table th {
+    background: #0A2647;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    white-space: nowrap;
+  }
+  
+  .bbs-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #F0F4F8;
+    vertical-align: middle;
+    color: #0f172a;
+  }
+  
+  .bbs-table tbody tr:nth-child(even) td {
+    background: #F7F9FC;
+  }
+  
+  .bbs-table tbody tr:hover td {
+    background: rgba(10,38,71,0.03);
+  }
+  
+  .bbs-table tbody tr:last-child td {
+    border-bottom: 2px solid #E0E8F2;
+  }
+  
+  .bbs-td-desc {
+    font-weight: 500;
+  }
+  
+  .bbs-td-num {
+    font-family: 'DM Mono', monospace;
+    text-align: right;
+  }
+  
+  .bbs-td-note {
+    font-size: 0.7rem;
+    color: #94a3b8;
+  }
+  
+  .bbs-weight {
+    font-weight: 700;
+    color: #059669;
+    font-family: 'DM Mono', monospace;
+  }
+  
+  .bbs-lap {
+    color: #2563eb;
+    font-family: 'DM Mono', monospace;
+  }
+  
+  .bbs-muted {
+    color: #94a3b8;
+  }
+  
+  .bbs-is-ref {
+    color: #2563eb;
+    font-size: 0.7rem;
+    font-family: 'DM Mono', monospace;
+  }
+  
+  .bbs-dia-badge {
+    background: #EEF2F8;
+    border: 1px solid #E0E8F2;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: #0A2647;
+    font-weight: 700;
+  }
+  
+  .bbs-table tfoot td {
+    background: #F7F9FC;
+    padding: 1rem;
+  }
+  
+  .bbs-total-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #64748b;
+  }
+  
+  .bbs-total-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #059669;
+    text-align: right;
+  }
+  
+  .bbs-cost-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .bbs-cost-card {
+    background: #F7F9FC;
+    border: 1.5px solid #E0E8F2;
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  
+  .bbs-cost-highlight {
+    background: rgba(10,38,71,0.04);
+    border-color: rgba(10,38,71,0.15);
+  }
+  
+  .bbs-cost-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+  }
+  
+  .bbs-cost-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0A2647;
+    line-height: 1;
+  }
+  
+  .bbs-cost-highlight .bbs-cost-value {
+    color: #FF8C00;
+  }
+  
+  .bbs-cost-value small {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-family: 'DM Sans', sans-serif;
+  }
+  
+  .bbs-cost-sub {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    margin-top: 0.4rem;
+    font-family: 'DM Mono', monospace;
+  }
+  
+  .bbs-opt-section {
+    margin-bottom: 1rem;
+  }
+  
+  .bbs-opt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.85rem;
+  }
+  
+  .bbs-opt-card {
+    background: #F7F9FC;
+    border: 1px solid #E0E8F2;
+    border-radius: 12px;
+    padding: 1rem;
+    transition: all 0.2s ease;
+  }
+  
+  .bbs-opt-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-color: #0A2647;
+    transform: translateY(-2px);
+  }
+  
+  .bbs-opt-dia {
+    font-family: 'DM Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0A2647;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid #EEF2F8;
+  }
+  
+  .bbs-opt-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #64748b;
+    padding: 4px 0;
+  }
+  
+  .bbs-opt-row span {
+    font-weight: 500;
+  }
+  
+  .bbs-opt-row b {
+    font-family: 'DM Mono', monospace;
+    color: #0f172a;
+  }
+  
+  .bbs-opt-waste b {
+    color: #059669;
+  }
+  
+  .bbs-opt-waste-high b {
+    color: #d97706;
+  }
+  
+  @media (max-width: 900px) {
+    .bbs-layout {
+      grid-template-columns: 1fr;
+    }
+    
+    .bbs-input-panel {
+      position: static;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .bbs-outer {
+      padding: 1rem;
+    }
+    
+    .bbs-panel {
+      padding: 1.5rem;
+    }
+    
+    .bbs-hero {
+      padding: 2.5rem 0;
+    }
+    
+    .bbs-hero-container {
+      padding: 0 1rem;
+    }
+    
+    .bbs-element-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .bbs-el-label {
+      display: none;
+    }
+    
+    .bbs-table {
+      min-width: 600px;
+    }
+    
+    .bbs-cost-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .bbs-element-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .bbs-el-label {
+      display: block;
+    }
+    
+    .bbs-tabs {
+      width: 100%;
+      overflow-x: auto;
+    }
+    
+    .bbs-project-bar {
+      flex-direction: column;
+    }
+  }
+`;
+
+/* ═══════════════════════════════════════════════════════════════════════════
    MAIN COMPONENT
 ═══════════════════════════════════════════════════════════════════════════ */
 export default function BBSGenerator() {
   const [activeEl,     setActiveEl]     = useState("beam");
   const [inputs,       setInputs]       = useState(ELEMENTS.beam.defaults);
   const [result,       setResult]       = useState(null);
-  const [allElements,  setAllElements]  = useState([]);     // multi-element accumulator
-  const [steelRate,    setSteelRate]    = useState(78.5);   // ₹/kg
+  const [allElements,  setAllElements]  = useState([]);
+  const [steelRate,    setSteelRate]    = useState(78.5);
   const [projectInfo,  setProjectInfo]  = useState({ projectName:"", engineer:"", location:"" });
-  const [activeTab,    setActiveTab]    = useState("inputs"); // inputs | summary | isref
-  const [pdfLoading,   setPdfLoading]   = useState(false);
+  const [activeTab,    setActiveTab]    = useState("inputs");
   const [elementId,    setElementId]    = useState("");
 
   const cfg = ELEMENTS[activeEl];
 
-  // ── Switch element ────────────────────────────────────────────────────
   const handleElChange = (key) => {
     setActiveEl(key);
     setInputs(ELEMENTS[key].defaults);
@@ -273,12 +1073,10 @@ export default function BBSGenerator() {
     setElementId("");
   };
 
-  // ── Input change ──────────────────────────────────────────────────────
   const handleInput = (id, val) => {
     setInputs(p => ({ ...p, [id]: isNaN(val) || val === "" ? val : Number(val) }));
   };
 
-  // ── Calculate ─────────────────────────────────────────────────────────
   const handleCalculate = useCallback(() => {
     try {
       const { rows, warnings } = cfg.calculate(inputs);
@@ -288,7 +1086,6 @@ export default function BBSGenerator() {
     } catch(e) { alert("Input error: " + e.message); }
   }, [activeEl, inputs]);
 
-  // ── Add to schedule ───────────────────────────────────────────────────
   const handleAdd = () => {
     if (!result) return;
     const el = {
@@ -306,490 +1103,206 @@ export default function BBSGenerator() {
     setActiveTab("summary");
   };
 
-  // ── Remove element ────────────────────────────────────────────────────
-  const handleRemove = (idx) => setAllElements(p => p.filter((_,i) => i !== idx));
-
-  // ── Summary ───────────────────────────────────────────────────────────
-  const summary = useMemo(() => {
-    if (!allElements.length) return null;
-    const allRows = allElements.flatMap(e => e.rows);
-    return buildSummary(allRows);
-  }, [allElements]);
-
-  // ── CSV Export ────────────────────────────────────────────────────────
-  const handleCSV = () => {
-    if (!allElements.length) return;
-    let csv = "Element,Bar Mark,Description,Dia (mm),Qty,Cut Length (mm),Lap Length (mm),Total Length (m),Wt/m (kg/m),Weight (kg),IS Ref\n";
-    allElements.forEach(el => {
-      el.rows.forEach(r => {
-        csv += `"${el.elementId}","${r.mark}","${r.desc}",${r.dia},${r.qty},${r.cutLen},${r.lapLen},${r.totalLenM},${r.wtPerM},${r.weight},"${r.isRef}"\n`;
-      });
-    });
-    if (summary) {
-      csv += "\nDiameter Summary\nDia (mm),Total Weight (kg),12m Bars Required\n";
-      summary.byDia.forEach(s => { csv += `${s.dia},${s.totalKg},${s.bars12m}\n`; });
-      csv += `\nGRAND TOTAL,${summary.totalKg},\n`;
-    }
-    const blob = new Blob([csv], { type:"text/csv" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob); a.download = "BBS_Schedule.csv"; a.click();
-  };
-
-  // ── PDF Export (calls Python via data URL approach) ───────────────────
-  const handlePDF = async () => {
-    if (!allElements.length) { alert("Add at least one element first."); return; }
-    setPdfLoading(true);
-    try {
-      const payload = {
-        projectInfo,
-        elements: allElements,
-        steelRates: { default: steelRate },
-        summary: summary || {},
-      };
-      // Build download via a server endpoint OR generate client-side HTML for printing
-      generatePrintHTML(payload);
-    } catch(e) { alert("PDF error: " + e.message); }
-    finally { setPdfLoading(false); }
-  };
-
-  // Client-side printable HTML (since no server in React SPA)
-  const generatePrintHTML = (payload) => {
-    const { projectInfo: pi, elements, summary: sum, steelRates } = payload;
-    const rate = steelRates.default;
-    let totalCost = 0;
-    if (sum?.byDia) sum.byDia.forEach(s => { totalCost += s.totalKg * rate; });
-
-    const rows = elements.map(el => `
-      <div class="el-block">
-        <div class="el-title">● ${el.elementType.toUpperCase()} &mdash; ${el.elementId}</div>
-        ${el.warnings?.map(w => `<div class="warn">${w}</div>`).join('')||''}
-        <table>
-          <thead><tr>
-            <th>Mark</th><th>Description</th><th>Ø(mm)</th><th>Qty</th>
-            <th>Cut Length(mm)</th><th>Lap(mm)</th><th>Total(m)</th>
-            <th>kg/m</th><th>Weight(kg)</th><th>IS Ref</th>
-          </tr></thead>
-          <tbody>
-            ${el.rows.map(r=>`<tr>
-              <td><b>${r.mark}</b></td><td>${r.desc}</td><td><b>${r.dia}</b></td>
-              <td>${r.qty}</td><td>${Number(r.cutLen).toLocaleString()}</td>
-              <td>${r.lapLen||0}</td><td>${r.totalLenM}</td>
-              <td>${r.wtPerM}</td><td><b>${r.weight}</b></td>
-              <td class="is-ref">${r.isRef}</td>
-            </tr>`).join('')}
-            <tr class="subtotal"><td colspan="8"><b>SUBTOTAL</b></td><td><b>${el.totalKg} kg</b></td><td></td></tr>
-          </tbody>
-        </table>
-        ${el.barOptimization?.length ? `
-        <div class="opt-title">12m Bar Optimization</div>
-        <table class="opt-table">
-          <thead><tr><th>Ø(mm)</th><th>Bars(12m)</th><th>Pcs/Bar</th><th>Total Pcs</th><th>Wastage(m)</th><th>Wastage%</th></tr></thead>
-          <tbody>${el.barOptimization.map(o=>`<tr>
-            <td>Ø${o.dia}</td><td>${o.fullBars}</td><td>${o.piecesPerBar}</td>
-            <td>${o.totalPieces}</td><td>${parseFloat(o.wastageM).toFixed(2)}</td><td>${o.wastagePct}%</td>
-          </tr>`).join('')}</tbody>
-        </table>` : ''}
-      </div>`).join('');
-
-    const sumRows = sum?.byDia?.map(s => {
-      const cost = (s.totalKg * rate).toFixed(0);
-      return `<tr><td>Ø${s.dia}</td><td>${s.totalKg}</td><td>₹${rate}</td><td>₹${Number(cost).toLocaleString()}</td><td>${s.bars12m} nos</td></tr>`;
-    }).join('') || '';
-
-    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
-    <title>Bar Bending Schedule — ${pi.projectName||'Project'}</title>
-    <style>
-      *{box-sizing:border-box;margin:0;padding:0}
-      body{font-family:'Segoe UI',Arial,sans-serif;font-size:8.5pt;color:#0f172a;background:#fff}
-      .header{background:#003366;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
-      .header h1{font-size:14pt;letter-spacing:.05em}
-      .header .sub{font-size:7.5pt;color:#FFD580;margin-top:3px}
-      .header .right{text-align:right;font-size:7.5pt}
-      .info-box{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;background:#F0F4F8;padding:6px 14px;gap:8px;border-bottom:2px solid #003366}
-      .info-item label{font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#475569;display:block}
-      .info-item span{font-size:8pt;font-weight:600;color:#003366}
-      .content{padding:10px 14px}
-      .el-block{margin-bottom:16px;page-break-inside:avoid}
-      .el-title{font-size:10pt;font-weight:700;color:#003366;margin-bottom:4px;border-left:3px solid #FF8C00;padding-left:8px}
-      .warn{font-size:7pt;color:#D97706;margin-bottom:2px;padding:2px 6px;background:#FEF3C7;border-radius:3px}
-      table{width:100%;border-collapse:collapse;margin-bottom:6px;font-size:7.5pt}
-      th{background:#003366;color:#fff;padding:4px 6px;font-size:7pt;text-align:left}
-      td{padding:3px 6px;border-bottom:1px solid #DDE3ED;vertical-align:middle}
-      tr:nth-child(even) td{background:#F0F4F8}
-      .subtotal td{background:#EEF2F8!important;font-size:8.5pt;border-top:1.5px solid #003366}
-      .is-ref{color:#2563EB;font-size:6.5pt}
-      .opt-title{font-size:7.5pt;font-weight:700;color:#1A4F8A;margin:4px 0 3px;text-transform:uppercase;letter-spacing:.08em}
-      .opt-table th{background:#1A4F8A}
-      .summary-section{margin-top:12px;page-break-inside:avoid}
-      .summary-title{font-size:10pt;font-weight:700;color:#003366;margin-bottom:6px;padding:4px 8px;background:#F0F4F8;border-left:3px solid #FF8C00}
-      .cost-bar{display:grid;grid-template-columns:1fr 1fr;margin-top:8px}
-      .cost-item{padding:8px 12px;font-size:10pt;font-weight:700;color:#fff;text-align:center}
-      .cost-navy{background:#003366}.cost-orange{background:#FF8C00}
-      .is-section{margin-top:12px;page-break-inside:avoid}
-      .footer{margin-top:10px;padding:6px 14px;background:#F0F4F8;font-size:6.5pt;color:#475569;border-top:1px solid #DDE3ED;display:flex;justify-content:space-between}
-      @media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-    </style></head><body>
-    <div class="header">
-      <div><h1>BAR BENDING SCHEDULE</h1><div class="sub">IS 456:2000 | G+1 Residential | Auto-Generated</div></div>
-      <div class="right">
-        ${pi.projectName?`<b>Project:</b> ${pi.projectName}<br>`:''}
-        ${pi.engineer?`<b>Engineer:</b> ${pi.engineer}<br>`:''}
-        <b>Date:</b> ${new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}
-      </div>
-    </div>
-    <div class="info-box">
-      <div class="info-item"><label>Project</label><span>${pi.projectName||'—'}</span></div>
-      <div class="info-item"><label>Location</label><span>${pi.location||'—'}</span></div>
-      <div class="info-item"><label>Grade</label><span>Fe415 / M20</span></div>
-      <div class="info-item"><label>Cover | Ld | Lap</label><span>40mm | 40d | 50d</span></div>
-    </div>
-    <div class="content">
-      ${rows}
-      <div class="summary-section">
-        <div class="summary-title">STEEL SUMMARY BY DIAMETER</div>
-        <table>
-          <thead><tr><th>Dia (mm)</th><th>Total Wt (kg)</th><th>Rate (₹/kg)</th><th>Cost (₹)</th><th>12m Bars Required</th></tr></thead>
-          <tbody>${sumRows}</tbody>
-          <tfoot><tr style="background:#003366;color:#fff">
-            <td><b>TOTAL</b></td><td><b>${sum?.totalKg||0} kg</b></td><td></td>
-            <td><b>₹${totalCost.toLocaleString('en-IN',{maximumFractionDigits:0})}</b></td><td></td>
-          </tr></tfoot>
-        </table>
-        <div class="cost-bar">
-          <div class="cost-item cost-navy">TOTAL STEEL: ${sum?.totalKg||0} kg</div>
-          <div class="cost-item cost-orange">EST. COST: ₹${totalCost.toLocaleString('en-IN',{maximumFractionDigits:0})}</div>
-        </div>
-      </div>
-      <div class="is-section">
-        <div class="summary-title">IS CODE REFERENCES</div>
-        <table>
-          <thead><tr><th>Clause</th><th>Description</th><th>Value Used</th></tr></thead>
-          <tbody>
-            <tr><td>IS 456 Cl.26.4</td><td>Nominal Cover (Moderate exp.)</td><td>40 mm</td></tr>
-            <tr><td>IS 456 Cl.26.2.1</td><td>Development Length — Fe415/M20</td><td>40d</td></tr>
-            <tr><td>IS 456 Cl.26.2.5</td><td>Lap Splice Length (tension)</td><td>50d</td></tr>
-            <tr><td>IS 456 Cl.26.5.2.1</td><td>Min. Reinf. in Beams</td><td>0.85bwd/fy</td></tr>
-            <tr><td>IS 456 Cl.26.5.3.1</td><td>Min. Reinf. in Columns</td><td>0.8% Ag</td></tr>
-            <tr><td>IS 456 Cl.26.5.3.2</td><td>Max Tie Spacing</td><td>min(b, 16d, 300mm)</td></tr>
-            <tr><td>IS 456 Cl.24.1</td><td>Min Slab Thickness</td><td>125 mm</td></tr>
-            <tr><td>SP 34</td><td>Standard Hook</td><td>9d</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="footer">
-      <span>Generated by BBS Generator | IS 456:2000 Compliant | Assumptions: Fe415, M20, Moderate Exposure</span>
-      <span>This is a preliminary estimate. Verify with structural engineer before construction.</span>
-    </div>
-    <script>window.onload=()=>window.print()</script>
-    </body></html>`;
-
-    const w = window.open('', '_blank');
-    w.document.write(html);
-    w.document.close();
-  };
-
-  /* ─── RENDER ─────────────────────────────────────────────────────────── */
   return (
-    <div className="bbs-wrapper">
-      {/* Hero */}
-      <div className="bbs-hero">
-        <div className="bbs-hero-badge">STRUCTURAL ENGINEERING TOOL</div>
-        <h1 className="bbs-hero-title">Bar Bending Schedule <span>Generator</span></h1>
-        <p className="bbs-hero-sub">IS 456:2000 compliant · G+1 Residential focused · Auto lapping, optimization &amp; cost estimation</p>
-      </div>
-
-      {/* Main */}
-      <div className="bbs-outer">
-        {/* ── Tab bar ── */}
-        <div className="bbs-tabs">
-          {[["inputs","⚙ Calculate"], ["summary","📊 Schedule"], ["isref","📋 IS Codes"]].map(([k,l]) => (
-            <button key={k} className={`bbs-tab ${activeTab===k?"active":""}`} onClick={() => setActiveTab(k)}>{l}</button>
-          ))}
-        </div>
-
-        {/* ── PROJECT INFO ── */}
-        <div className="bbs-project-bar">
-          {["projectName","engineer","location"].map((k,i) => (
-            <input key={k} className="bbs-proj-input" placeholder={["Project Name","Engineer Name","Location / Site"][i]}
-              value={projectInfo[k]} onChange={e => setProjectInfo(p => ({...p,[k]:e.target.value}))} />
-          ))}
-          <div className="bbs-rate-wrap">
-            <span className="bbs-rate-label">Steel Rate ₹/kg</span>
-            <input type="number" className="bbs-proj-input bbs-rate-input" value={steelRate}
-              onChange={e => setSteelRate(Number(e.target.value))} />
+    <>
+      <style>{styles}</style>
+      <div className="bbs-wrapper">
+        {/* Hero */}
+        <div className="bbs-hero">
+          <div className="bbs-hero-container">
+            <div className="bbs-hero-badge">STRUCTURAL ENGINEERING TOOL</div>
+            <h1 className="bbs-hero-title">
+              Bar Bending Schedule <span>Generator</span>
+            </h1>
+            <p className="bbs-hero-sub">
+              IS 456:2000 compliant · G+1 Residential focused · Auto lapping, optimization & cost estimation
+            </p>
           </div>
         </div>
 
-        {/* ─────── TAB: INPUTS ─────── */}
-        {activeTab === "inputs" && (
-          <div className="bbs-layout">
-            {/* LEFT: Input Panel */}
-            <div className="bbs-panel bbs-input-panel">
-              <div className="bbs-section-label">01 — SELECT ELEMENT</div>
-              <div className="bbs-element-grid">
-                {Object.entries(ELEMENTS).map(([key,el]) => (
-                  <button key={key} className={`bbs-element-btn ${activeEl===key?"active":""}`}
-                    style={{"--el-color":el.color}} onClick={() => handleElChange(key)}>
-                    <span className="bbs-el-icon">{el.icon}</span>
-                    <span className="bbs-el-label">{el.label}</span>
-                  </button>
-                ))}
-              </div>
+        {/* Main */}
+        <div className="bbs-outer">
+          {/* Tabs */}
+          <div className="bbs-tabs">
+            {[["inputs","⚙ Calculate"], ["summary","📊 Schedule"], ["isref","📋 IS Codes"]].map(([k,l]) => (
+              <button key={k} className={`bbs-tab ${activeTab===k?"active":""}`} onClick={() => setActiveTab(k)}>
+                {l}
+              </button>
+            ))}
+          </div>
 
-              <div className="bbs-section-label">02 — ELEMENT ID (optional)</div>
-              <input className="bbs-input" placeholder={`e.g. B1, B2, C1...`}
-                value={elementId} onChange={e => setElementId(e.target.value)}
-                style={{marginBottom:"var(--sp-5)"}} />
-
-              <div className="bbs-section-label">03 — DIMENSIONS</div>
-              <div className="bbs-fields">
-                {cfg.fields.map(f => (
-                  <div className="bbs-field" key={f.id}>
-                    <label className="bbs-field-label">
-                      {f.label}
-                      {f.hint && <span className="bbs-field-hint">{f.hint}</span>}
-                    </label>
-                    {f.type === "select" ? (
-                      <select className="bbs-input" value={inputs[f.id]||""}
-                        onChange={e => handleInput(f.id, Number(e.target.value))}>
-                        {DIAMETERS.map(d => <option key={d} value={d}>Ø {d} mm</option>)}
-                      </select>
-                    ) : (
-                      <input type="number" className="bbs-input"
-                        value={inputs[f.id]||""} onChange={e => handleInput(f.id, e.target.value)} />
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Assumptions */}
-              <div className="bbs-assumptions">
-                <div className="bbs-assumptions-title">IS 456 Defaults Applied</div>
-                Cover: {COVER}mm &nbsp;|&nbsp; Ld: {LD_FACTOR}d &nbsp;|&nbsp; Hook: {HOOK_FACTOR}d &nbsp;|&nbsp;
-                Lap: {LAP_FACTOR}d &nbsp;|&nbsp; Fe415 / M20
-              </div>
-
-              <div className="bbs-actions">
-                <button className="bbs-btn-primary" onClick={handleCalculate}>⚙ Calculate</button>
-                <button className="bbs-btn-ghost"   onClick={() => { setInputs(cfg.defaults); setResult(null); }}>Reset</button>
-              </div>
+          {/* Project Info */}
+          <div className="bbs-project-bar">
+            {["projectName","engineer","location"].map((k,i) => (
+              <input key={k} className="bbs-proj-input" 
+                placeholder={["Project Name","Engineer Name","Location / Site"][i]}
+                value={projectInfo[k]} 
+                onChange={e => setProjectInfo(p => ({...p,[k]:e.target.value}))} />
+            ))}
+            <div className="bbs-rate-wrap">
+              <span className="bbs-rate-label">Steel Rate ₹/kg</span>
+              <input type="number" className="bbs-proj-input bbs-rate-input" 
+                value={steelRate}
+                onChange={e => setSteelRate(Number(e.target.value))} />
             </div>
+          </div>
 
-            {/* RIGHT: Result Panel */}
-            <div className="bbs-panel bbs-result-panel">
-              {!result ? (
-                <div className="bbs-empty">
-                  <div className="bbs-empty-icon">📐</div>
-                  <div className="bbs-empty-title">Awaiting Calculation</div>
-                  <div className="bbs-empty-sub">Fill inputs and click Calculate</div>
+          {/* Inputs Tab */}
+          {activeTab === "inputs" && (
+            <div className="bbs-layout">
+              {/* Input Panel */}
+              <div className="bbs-panel bbs-input-panel">
+                <div className="bbs-section-label">01 — SELECT ELEMENT</div>
+                <div className="bbs-element-grid">
+                  {Object.entries(ELEMENTS).map(([key,el]) => (
+                    <button key={key} className={`bbs-element-btn ${activeEl===key?"active":""}`}
+                      style={{"--el-color":el.color}} onClick={() => handleElChange(key)}>
+                      <span className="bbs-el-icon">{el.icon}</span>
+                      <span className="bbs-el-label">{el.label}</span>
+                    </button>
+                  ))}
                 </div>
-              ) : (
-                <>
-                  {/* Warnings */}
-                  {result.warnings?.length > 0 && (
-                    <div className="bbs-warnings">
-                      {result.warnings.map((w,i) => (
-                        <div key={i} className={`bbs-warn-item ${w.includes('ERROR')?"bbs-warn-error":"bbs-warn-warn"}`}>{w}</div>
-                      ))}
-                    </div>
-                  )}
 
-                  <div className="bbs-result-header">
-                    <div>
-                      <div className="bbs-section-label">BBS RESULT</div>
-                      <div className="bbs-result-title">{cfg.label}</div>
+                <div className="bbs-section-label">02 — ELEMENT ID (optional)</div>
+                <input className="bbs-input" placeholder="e.g. B1, B2, C1..."
+                  value={elementId} onChange={e => setElementId(e.target.value)}
+                  style={{marginBottom:"1.5rem"}} />
+
+                <div className="bbs-section-label">03 — DIMENSIONS</div>
+                <div className="bbs-fields">
+                  {cfg.fields.map(f => (
+                    <div className="bbs-field" key={f.id}>
+                      <label className="bbs-field-label">
+                        {f.label}
+                        {f.hint && <span className="bbs-field-hint">{f.hint}</span>}
+                      </label>
+                      {f.type === "select" ? (
+                        <select className="bbs-input" value={inputs[f.id]||""}
+                          onChange={e => handleInput(f.id, Number(e.target.value))}>
+                          {DIAMETERS.map(d => <option key={d} value={d}>Ø {d} mm</option>)}
+                        </select>
+                      ) : (
+                        <input type="number" className="bbs-input"
+                          value={inputs[f.id]||""} onChange={e => handleInput(f.id, e.target.value)} />
+                      )}
                     </div>
-                    <button className="bbs-add-btn" onClick={handleAdd}>+ Add to Schedule</button>
+                  ))}
+                </div>
+
+                {/* Assumptions */}
+                <div className="bbs-assumptions">
+                  <div className="bbs-assumptions-title">IS 456 Defaults Applied</div>
+                  Cover: {COVER}mm | Ld: {LD_FACTOR}d | Hook: {HOOK_FACTOR}d | Lap: {LAP_FACTOR}d | Fe415 / M20
+                </div>
+
+                <div className="bbs-actions">
+                  <button className="bbs-btn-primary" onClick={handleCalculate}>⚙ Calculate</button>
+                  <button className="bbs-btn-ghost" onClick={() => { setInputs(cfg.defaults); setResult(null); }}>
+                    Reset
+                  </button>
+                </div>
+              </div>
+
+              {/* Result Panel */}
+              <div className="bbs-panel bbs-result-panel">
+                {!result ? (
+                  <div className="bbs-empty">
+                    <div className="bbs-empty-icon">📐</div>
+                    <div className="bbs-empty-title">Awaiting Calculation</div>
+                    <div className="bbs-empty-sub">Fill inputs and click Calculate</div>
                   </div>
-
-                  {/* BBS Table */}
-                  <div className="bbs-table-wrap">
-                    <table className="bbs-table">
-                      <thead><tr>
-                        <th>Mark</th><th>Description</th><th>Ø</th><th>Qty</th>
-                        <th>Cut Len(mm)</th><th>Lap(mm)</th><th>Total(m)</th>
-                        <th>kg/m</th><th>Weight(kg)</th><th>IS Ref</th>
-                      </tr></thead>
-                      <tbody>
-                        {result.rows.map((r,i) => (
-                          <tr key={i}>
-                            <td><b>{r.mark}</b></td>
-                            <td className="bbs-td-desc">{r.desc}</td>
-                            <td><span className="bbs-dia-badge">Ø{r.dia}</span></td>
-                            <td className="bbs-td-num">{r.qty}</td>
-                            <td className="bbs-td-num">{Number(r.cutLen).toLocaleString()}</td>
-                            <td className="bbs-td-num bbs-lap">{r.lapLen||0}</td>
-                            <td className="bbs-td-num">{r.totalLenM}</td>
-                            <td className="bbs-td-num bbs-muted">{r.wtPerM}</td>
-                            <td className="bbs-td-num bbs-weight">{r.weight}</td>
-                            <td className="bbs-td-note bbs-is-ref">{r.isRef}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                      <tfoot><tr>
-                        <td colSpan={8} className="bbs-total-label">TOTAL STEEL WEIGHT</td>
-                        <td colSpan={2} className="bbs-total-value">{result.totalKg} kg</td>
-                      </tr></tfoot>
-                    </table>
-                  </div>
-
-                  {/* Cost Card */}
-                  <div className="bbs-cost-cards">
-                    <div className="bbs-cost-card">
-                      <div className="bbs-cost-label">Total Weight</div>
-                      <div className="bbs-cost-value">{result.totalKg} <small>kg</small></div>
-                    </div>
-                    <div className="bbs-cost-card bbs-cost-highlight">
-                      <div className="bbs-cost-label">Estimated Cost</div>
-                      <div className="bbs-cost-value">
-                        ₹{(parseFloat(result.totalKg) * steelRate).toLocaleString('en-IN',{maximumFractionDigits:0})}
-                      </div>
-                      <div className="bbs-cost-sub">@ ₹{steelRate}/kg</div>
-                    </div>
-                  </div>
-
-                  {/* 12m Bar Optimization */}
-                  <div className="bbs-opt-section">
-                    <div className="bbs-section-label">12m BAR OPTIMIZATION</div>
-                    <div className="bbs-opt-grid">
-                      {result.opt.map((o,i) => (
-                        <div key={i} className="bbs-opt-card">
-                          <div className="bbs-opt-dia">Ø{o.dia} mm</div>
-                          <div className="bbs-opt-row"><span>Full Bars (12m)</span><b>{o.fullBars} nos</b></div>
-                          <div className="bbs-opt-row"><span>Pieces/Bar</span><b>{o.piecesPerBar}</b></div>
-                          <div className="bbs-opt-row"><span>Total Pieces</span><b>{o.totalPieces}</b></div>
-                          <div className={`bbs-opt-row bbs-opt-waste ${parseFloat(o.wastagePct)>8?"bbs-opt-waste-high":""}`}>
-                            <span>Wastage</span>
-                            <b>{parseFloat(o.wastageM).toFixed(2)}m ({o.wastagePct}%)</b>
+                ) : (
+                  <>
+                    {/* Warnings */}
+                    {result.warnings?.length > 0 && (
+                      <div className="bbs-warnings">
+                        {result.warnings.map((w,i) => (
+                          <div key={i} className={`bbs-warn-item ${w.includes('ERROR')?"bbs-warn-error":"bbs-warn-warn"}`}>
+                            {w}
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        )}
+                        ))}
+                      </div>
+                    )}
 
-        {/* ─────── TAB: SUMMARY / SCHEDULE ─────── */}
-        {activeTab === "summary" && (
-          <div className="bbs-summary-page">
-            {!allElements.length ? (
-              <div className="bbs-empty" style={{minHeight:"300px"}}>
-                <div className="bbs-empty-icon">📋</div>
-                <div className="bbs-empty-title">No Elements Added</div>
-                <div className="bbs-empty-sub">Calculate elements and click "Add to Schedule"</div>
-              </div>
-            ) : (
-              <>
-                {/* Actions */}
-                <div className="bbs-sched-actions">
-                  <button className="bbs-btn-primary" onClick={handlePDF} disabled={pdfLoading}>
-                    {pdfLoading ? "⏳ Generating…" : "🖨 Print / PDF"}
-                  </button>
-                  <button className="bbs-btn-ghost" onClick={handleCSV}>↓ Export CSV</button>
-                  <span className="bbs-sched-count">{allElements.length} element{allElements.length>1?"s":""} added</span>
-                </div>
-
-                {/* Per-element cards */}
-                {allElements.map((el, idx) => (
-                  <div key={idx} className="bbs-sched-card">
-                    <div className="bbs-sched-card-header">
-                      <span className="bbs-sched-el-type">{el.elementType}</span>
-                      <span className="bbs-sched-el-id">{el.elementId}</span>
-                      <span className="bbs-sched-el-wt">{el.totalKg} kg</span>
-                      <button className="bbs-remove-btn" onClick={() => handleRemove(idx)}>✕</button>
+                    <div className="bbs-result-header">
+                      <div>
+                        <div className="bbs-section-label">BBS RESULT</div>
+                        <div className="bbs-result-title">{cfg.label}</div>
+                      </div>
+                      <button className="bbs-add-btn" onClick={handleAdd}>+ Add to Schedule</button>
                     </div>
-                    {el.warnings?.length > 0 &&
-                      <div className="bbs-sched-warns">{el.warnings.map((w,i)=><div key={i} className="bbs-warn-item bbs-warn-warn">{w}</div>)}</div>}
+
+                    {/* BBS Table */}
                     <div className="bbs-table-wrap">
                       <table className="bbs-table">
                         <thead><tr>
                           <th>Mark</th><th>Description</th><th>Ø</th><th>Qty</th>
-                          <th>Cut(mm)</th><th>Lap(mm)</th><th>Total(m)</th><th>Wt(kg)</th><th>IS Ref</th>
+                          <th>Cut Len(mm)</th><th>Lap(mm)</th><th>Total(m)</th>
+                          <th>kg/m</th><th>Weight(kg)</th><th>IS Ref</th>
                         </tr></thead>
-                        <tbody>{el.rows.map((r,i) => (
-                          <tr key={i}>
-                            <td><b>{r.mark}</b></td><td className="bbs-td-desc">{r.desc}</td>
-                            <td><span className="bbs-dia-badge">Ø{r.dia}</span></td>
-                            <td className="bbs-td-num">{r.qty}</td>
-                            <td className="bbs-td-num">{Number(r.cutLen).toLocaleString()}</td>
-                            <td className="bbs-td-num bbs-lap">{r.lapLen||0}</td>
-                            <td className="bbs-td-num">{r.totalLenM}</td>
-                            <td className="bbs-td-num bbs-weight">{r.weight}</td>
-                            <td className="bbs-td-note bbs-is-ref">{r.isRef}</td>
-                          </tr>
-                        ))}</tbody>
+                        <tbody>
+                          {result.rows.map((r,i) => (
+                            <tr key={i}>
+                              <td><b>{r.mark}</b></td>
+                              <td className="bbs-td-desc">{r.desc}</td>
+                              <td><span className="bbs-dia-badge">Ø{r.dia}</span></td>
+                              <td className="bbs-td-num">{r.qty}</td>
+                              <td className="bbs-td-num">{Number(r.cutLen).toLocaleString()}</td>
+                              <td className="bbs-td-num bbs-lap">{r.lapLen||0}</td>
+                              <td className="bbs-td-num">{r.totalLenM}</td>
+                              <td className="bbs-td-num bbs-muted">{r.wtPerM}</td>
+                              <td className="bbs-td-num bbs-weight">{r.weight}</td>
+                              <td className="bbs-td-note bbs-is-ref">{r.isRef}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                        <tfoot><tr>
+                          <td colSpan={8} className="bbs-total-label">TOTAL STEEL WEIGHT</td>
+                          <td colSpan={2} className="bbs-total-value">{result.totalKg} kg</td>
+                        </tr></tfoot>
                       </table>
                     </div>
-                  </div>
-                ))}
 
-                {/* Overall Summary */}
-                {summary && (
-                  <div className="bbs-overall-summary">
-                    <div className="bbs-section-label">STEEL SUMMARY BY DIAMETER</div>
-                    <div className="bbs-dia-summary-grid">
-                      {summary.byDia.map((s,i) => (
-                        <div key={i} className="bbs-dia-card">
-                          <div className="bbs-dia-head">Ø{s.dia} mm</div>
-                          <div className="bbs-dia-kg">{s.totalKg} <small>kg</small></div>
-                          <div className="bbs-dia-bars">{s.bars12m} bars × 12m</div>
-                          <div className="bbs-dia-cost">₹{(s.totalKg * steelRate).toLocaleString('en-IN',{maximumFractionDigits:0})}</div>
+                    {/* Cost Cards */}
+                    <div className="bbs-cost-cards">
+                      <div className="bbs-cost-card">
+                        <div className="bbs-cost-label">Total Weight</div>
+                        <div className="bbs-cost-value">{result.totalKg} <small>kg</small></div>
+                      </div>
+                      <div className="bbs-cost-card bbs-cost-highlight">
+                        <div className="bbs-cost-label">Estimated Cost</div>
+                        <div className="bbs-cost-value">
+                          ₹{(parseFloat(result.totalKg) * steelRate).toLocaleString('en-IN',{maximumFractionDigits:0})}
                         </div>
-                      ))}
-                    </div>
-                    <div className="bbs-grand-bar">
-                      <div className="bbs-grand-item bbs-grand-navy">
-                        <span>TOTAL STEEL</span>
-                        <strong>{summary.totalKg} kg</strong>
-                      </div>
-                      <div className="bbs-grand-item bbs-grand-orange">
-                        <span>ESTIMATED COST</span>
-                        <strong>₹{(summary.totalKg * steelRate).toLocaleString('en-IN',{maximumFractionDigits:0})}</strong>
+                        <div className="bbs-cost-sub">@ ₹{steelRate}/kg</div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        )}
 
-        {/* ─────── TAB: IS CODES ─────── */}
-        {activeTab === "isref" && (
-          <div className="bbs-isref-page">
-            <div className="bbs-section-label">IS 456 : 2000 — KEY CLAUSES USED</div>
-            <div className="bbs-isref-grid">
-              {[
-                { clause:"IS 456 Cl.26.4",     title:"Nominal Cover",              detail:"Mild: 20mm | Moderate: 30mm | Severe: 45mm | Default used: 40mm", color:"#003366" },
-                { clause:"IS 456 Cl.26.2.1",   title:"Development Length (Ld)",    detail:"Ld = 40d for Fe415, M20, tension zone. Compression: 25% reduction allowed.", color:"#2563EB" },
-                { clause:"IS 456 Cl.26.2.5",   title:"Lap Splice Length",          detail:"Tension: 50d | Compression: 40d | Staggering preferred in columns.", color:"#7C3AED" },
-                { clause:"IS 456 Cl.26.5.2.1", title:"Min. Beam Reinforcement",    detail:"Ast_min = 0.85 × b × d / fy (tension). Max: 0.04bD.", color:"#e8552a" },
-                { clause:"IS 456 Cl.26.5.3.1", title:"Column Reinforcement",       detail:"Min: 0.8% Ag | Max: 6% Ag (4% preferred). Min 4 bars for rectangular.", color:"#2a6ee8" },
-                { clause:"IS 456 Cl.26.5.3.2", title:"Lateral Tie Spacing",        detail:"Max spacing = min(least lateral dim, 16× long bar dia, 300mm).", color:"#1A4F8A" },
-                { clause:"IS 456 Cl.26.5.2.2", title:"Stirrup Spacing",            detail:"Max = 0.75d for vertical stirrups | Reduce in shear zones.", color:"#D97706" },
-                { clause:"IS 456 Cl.24.1",     title:"Min Slab Thickness",         detail:"One-way: 75mm | Two-way: 125mm | 150mm recommended for residential.", color:"#27a96b" },
-                { clause:"IS 456 Cl.26.3.3",   title:"Max Slab Bar Spacing",       detail:"Main: ≤3D or 300mm | Dist: ≤5D or 450mm (D = slab thickness).", color:"#059669" },
-                { clause:"IS 456 Cl.34.1",     title:"Footing Reinforcement",      detail:"Min 0.12% of cross-section area. Hooks required at ends.", color:"#8b5cf6" },
-                { clause:"SP 34 — Hook",        title:"Standard Hook Dimensions",   detail:"90° hook = 9d + 4d extension. 180° hook = 9d. Minimum bend dia = 4d.", color:"#475569" },
-                { clause:"IS 2502",            title:"12m Standard Bar Length",    detail:"Standard mill bar = 12000mm. Wastage allowance: 3–5% typical site.", color:"#0f172a" },
-              ].map((item,i) => (
-                <div key={i} className="bbs-isref-card" style={{"--ref-color":item.color}}>
-                  <div className="bbs-isref-clause">{item.clause}</div>
-                  <div className="bbs-isref-title">{item.title}</div>
-                  <div className="bbs-isref-detail">{item.detail}</div>
-                </div>
-              ))}
+                    {/* 12m Bar Optimization */}
+                    <div className="bbs-opt-section">
+                      <div className="bbs-section-label">12m BAR OPTIMIZATION</div>
+                      <div className="bbs-opt-grid">
+                        {result.opt.map((o,i) => (
+                          <div key={i} className="bbs-opt-card">
+                            <div className="bbs-opt-dia">Ø{o.dia} mm</div>
+                            <div className="bbs-opt-row"><span>Full Bars (12m)</span><b>{o.fullBars} nos</b></div>
+                            <div className="bbs-opt-row"><span>Pieces/Bar</span><b>{o.piecesPerBar}</b></div>
+                            <div className="bbs-opt-row"><span>Total Pieces</span><b>{o.totalPieces}</b></div>
+                            <div className={`bbs-opt-row bbs-opt-waste ${parseFloat(o.wastagePct)>8?"bbs-opt-waste-high":""}`}>
+                              <span>Wastage</span>
+                              <b>{parseFloat(o.wastageM).toFixed(2)}m ({o.wastagePct}%)</b>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
-            <div className="bbs-isref-note">
-              ⚠ This tool is for preliminary estimation only. Always verify with a qualified structural engineer. Assumptions: Fe415 HYSD, M20 concrete, moderate exposure, normal weight concrete.
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
