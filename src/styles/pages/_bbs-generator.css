@@ -499,9 +499,8 @@
 .bbs-export-print:hover { background: rgba(255,255,255,0.2); }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   IS CODES TAB
+  IS CODES TAB
 ══════════════════════════════════════════════════════════════════════════ */
-.bbs-iscodes-wrap   { }
 .bbs-iscodes-header { margin-bottom: 1.5rem; }
 .bbs-iscodes-title  { font-size: 1.4rem; font-weight: 700; color: var(--color-primary, #0A2647); margin-bottom: 0.4rem; }
 .bbs-iscodes-sub    { color: #64748b; font-size: 0.87rem; }
