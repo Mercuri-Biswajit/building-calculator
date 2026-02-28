@@ -6,6 +6,7 @@ import Footer from "./components/layout/Footer/Footer";
 import CalculatorPage from "./pages/CalculatorPage";
 import VastuPage from "./pages/VastuPage";
 import BOQPage from "./pages/BOQPage";
+import BBSPage from "./pages/BBSPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<CalculatorPage />} />
         <Route path="/vastu" element={<VastuPage />} />
         <Route path="/boq-generator" element={<BOQPage />} />
+        <Route path="/bbs-generator" element={<BBSPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
