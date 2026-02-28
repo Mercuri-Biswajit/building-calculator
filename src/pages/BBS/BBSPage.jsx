@@ -1,5 +1,6 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from "react";
-import "../styles/pages/_bbs-calculator.css";
+import "./_bbs-calculator.css";
+// import "../styles/pages/_shared-hero.css";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    IS 456 : 2000 — MATERIAL TABLES  (Fe415/500/550 × M20/25/30)
@@ -2291,47 +2292,98 @@ export default function BBSGenerator() {
   });
 
   return (
-    <div className="bbs-wrapper">
+    <div className="calc-page">
       <div ref={wrapperTopRef} style={{ position: "absolute", top: 0 }} />
 
-      {/* HERO */}
-      <div className="bbs-hero">
-        <div className="bbs-hero-container">
-          <div className="bbs-hero-badge">IS 456 : 2000 · Auto BBS Engine</div>
-          <h1 className="bbs-hero-title">
-            Bar Bending Schedule <span>Generator</span>
+      {/* ── HERO ── */}
+      <section className="sh-hero">
+        <div className="sh-hero-left">
+          <div className="sh-badge">
+            <span className="sh-badge-icon">📐</span>
+            <span>IS 456 : 2000 · AUTO BBS ENGINE</span>
+          </div>
+          <h1 className="sh-title">
+            Bar Bending Schedule
+            <br />
+            <span className="sh-title-accent">Generator</span>
           </h1>
-          <p className="bbs-hero-sub">
-            Dimensions only — bars, spacing, Ld auto-calculated. Fe415/500/550 ·
-            M20/25/30 · Multi-span · Circular column · Two-way slab
+          <p className="sh-subtitle">
+            Dimensions only — bars, spacing &amp; Ld auto-calculated per IS 456.
+            Fe415/500/550 · M20/25/30 · Multi-span · Circular column · Two-way
+            slab.
           </p>
+          <div className="sh-pills">
+            {["4 Elements", "IS 456:2000", "Free Forever"].map((p) => (
+              <span key={p} className="sh-pill">
+                {p}
+              </span>
+            ))}
+          </div>
+          {/* TABS moved into hero */}
+          <div className="sh-tabs">
+            {[
+              ["inputs", "⚙ Calculate"],
+              ["summary", "📊 Schedule"],
+              ["iscodes", "📋 IS Codes"],
+            ].map(([k, l]) => (
+              <button
+                key={k}
+                className={`sh-tab${activeTab === k ? " active" : ""}`}
+                onClick={() => setActiveTab(k)}
+              >
+                {l}
+                {k === "summary" &&
+                  allElements.length > 0 &&
+                  ` (${allElements.length})`}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+        <div className="sh-hero-right">
+          <div className="sh-stats-row">
+            <div className="sh-stat sh-stat-accent">
+              <div className="sh-stat-icon">📐</div>
+              <div className="sh-stat-value">4+</div>
+              <div className="sh-stat-label">Element Types</div>
+            </div>
+            <div className="sh-stat">
+              <div className="sh-stat-icon">🛡</div>
+              <div className="sh-stat-value">IS 456</div>
+              <div className="sh-stat-label">:2000 Compliant</div>
+            </div>
+          </div>
+          <div className="sh-features">
+            {[
+              {
+                icon: "⬛",
+                title: "Beam & Column Design",
+                sub: "Multi-span & circular support",
+              },
+              {
+                icon: "▬",
+                title: "Slab & Footing BBS",
+                sub: "One-way & two-way auto detect",
+              },
+              {
+                icon: "📊",
+                title: "12m Bar Optimization",
+                sub: "Wastage & cost calculation",
+              },
+            ].map((f) => (
+              <div key={f.title} className="sh-feature-item">
+                <div className="sh-feature-icon">{f.icon}</div>
+                <div className="sh-feature-text">
+                  <div className="sh-feature-title">{f.title}</div>
+                  <div className="sh-feature-sub">{f.sub}</div>
+                </div>
+                <div className="sh-feature-arrow">›</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <div className="bbs-outer">
-        {/* TABS */}
-        <div className="bbs-tabs">
-          {[
-            ["inputs", "⚙ Calculate"],
-            ["summary", "📊 Schedule"],
-            ["iscodes", "📋 IS Codes"],
-          ].map(([k, l]) => (
-            <button
-              key={k}
-              className={`bbs-tab${activeTab === k ? " active" : ""}`}
-              onClick={() => setActiveTab(k)}
-            >
-              {l}
-              {k === "summary" && allElements.length > 0 && (
-                <span className="bbs-tab-dot" />
-              )}
-              {k === "summary" &&
-                allElements.length > 0 &&
-                ` (${allElements.length})`}
-            </button>
-          ))}
-        </div>
-
         {/* PROJECT BAR */}
         <div className="bbs-project-bar">
           {[

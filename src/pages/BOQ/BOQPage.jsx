@@ -4,8 +4,9 @@
 
 import { useState, useCallback } from "react";
 import { Helmet } from "react-helmet-async";
-import { SITE } from "../config/constants";
-import "../styles/pages/_boq-calculator.css"; // adjust path as needed
+import { SITE } from "../../config/constants";
+import "./_boq-calculator.css"; // adjust path as needed
+// import "../styles/pages/_shared-hero.css";
 
 // ─────────────────────────────────────────────────────────────────────────
 // CONSTANTS
@@ -1443,28 +1444,73 @@ export default function BOQPage() {
 
       <div className="calc-page">
         {/* ── HERO ── */}
-        <div className="boq-hero">
-          <div className="boq-hero-content">
-            <div className="boq-hero-badge">
-              PWD West Bengal SOR 2024 · IS:456 Compliant
+        <section className="sh-hero">
+          <div className="sh-hero-left">
+            <div className="sh-badge">
+              <span className="sh-badge-icon">🏗️</span>
+              <span>PWD WEST BENGAL SOR 2024 · IS:456 COMPLIANT</span>
             </div>
-            <h1 className="boq-hero-title">BOQ Generator</h1>
-            <p className="boq-hero-desc">
-              Complete Bill of Quantities — Substructure, Superstructure,
-              Finishing &amp; MEP.
+            <h1 className="sh-title">
+              Smart BOQ
               <br />
-              5-step wizard → auto structural sizing → full PWD SOR 2024 cost
-              sheet.
+              <span className="sh-title-accent">Generator</span>
+            </h1>
+            <p className="sh-subtitle">
+              Complete Bill of Quantities — Substructure, Superstructure,
+              Finishing &amp; MEP. 5-step wizard → auto structural sizing → full
+              PWD SOR 2024 cost sheet.
             </p>
-            <div className="boq-hero-tags">
+            <div className="sh-pills">
               {["IS:456", "NBC 2016", "WB PWD 2024", "GST Ready"].map((tag) => (
-                <span key={tag} className="boq-hero-tag">
+                <span key={tag} className="sh-pill">
                   {tag}
                 </span>
               ))}
             </div>
           </div>
-        </div>
+          <div className="sh-hero-right">
+            <div className="sh-stats-row">
+              <div className="sh-stat sh-stat-accent">
+                <div className="sh-stat-icon">₹</div>
+                <div className="sh-stat-value">5-Step</div>
+                <div className="sh-stat-label">Wizard</div>
+              </div>
+              <div className="sh-stat">
+                <div className="sh-stat-icon">🛡</div>
+                <div className="sh-stat-value">IS 456</div>
+                <div className="sh-stat-label">:2000 Compliant</div>
+              </div>
+            </div>
+            <div className="sh-features">
+              {[
+                {
+                  icon: "⚙️",
+                  title: "Auto Structural Sizing",
+                  sub: "Column grid, beam & slab auto-design",
+                },
+                {
+                  icon: "📋",
+                  title: "Full BOQ with Rates",
+                  sub: "PWD WB SOR 2024 item-wise rates",
+                },
+                {
+                  icon: "🖨️",
+                  title: "Print-Ready PDF",
+                  sub: "Export official BOQ document",
+                },
+              ].map((f) => (
+                <div key={f.title} className="sh-feature-item">
+                  <div className="sh-feature-icon">{f.icon}</div>
+                  <div className="sh-feature-text">
+                    <div className="sh-feature-title">{f.title}</div>
+                    <div className="sh-feature-sub">{f.sub}</div>
+                  </div>
+                  <div className="sh-feature-arrow">›</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* ── MAIN ── */}
         <main className="boq-main calc-main">

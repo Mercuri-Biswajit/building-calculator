@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
 
-import CalculatorPage from "./pages/CalculatorPage";
-import VastuPage from "./pages/VastuPage";
-import BOQPage from "./pages/BOQPage";
-import BBSPage from "./pages/BBSPage";
+import CalculatorPage from "./pages/Calculator/CalculatorPage";
+import VastuPage from "./pages/Vastu/VastuPage";
+import BOQPage from "./pages/BOQ/BOQPage";
+import BBSPage from "./pages/BBS/BBSPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();

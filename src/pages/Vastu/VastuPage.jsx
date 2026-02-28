@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { SITE } from "../config/constants";
+import { SITE } from "../../config/constants";
 
-import VastuRoomPlanner from "../components/vastu/VastuRoomPlanner";
-import VastuStudy from "../components/vastu/VastuStudy";
-import { VastuHeroSection } from "../components/hero/VastuHeroSection";
+import VastuRoomPlanner from "../../components/vastu/VastuRoomPlanner";
+import VastuStudy from "../../components/vastu/VastuStudy";
+import { VastuHeroSection } from "../../components/hero/VastuHeroSection";
 
-import "../styles/pages/_vastupage.css";
+import "./_vastupage.css";
 
-import { useSkeleton } from "../hooks/useSkeleton";
-import { SkeletonBlock } from "../components/ui/Skeleton";
+import { useSkeleton } from "../../hooks/useSkeleton";
+import { SkeletonBlock } from "../../components/ui/Skeleton";
 
 export default function VastuPage() {
   const [mainTab, setMainTab] = useState("planner"); // "planner" | "study"

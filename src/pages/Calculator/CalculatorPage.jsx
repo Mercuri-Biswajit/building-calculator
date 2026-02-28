@@ -7,9 +7,9 @@
 
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { SITE } from "../config/constants";
+import { SITE } from "../../config/constants";
 
-import { formatCurrency } from "../utils/shared/formatHelpers";
+import { formatCurrency } from "../../utils/shared/formatHelpers";
 import {
   calcBuildingCost,
   calcStairDesign,
@@ -21,26 +21,26 @@ import {
   calcStandardBOQ,
   calcPremiumBOQ,
   calcFloorWiseBOQ,
-} from "../utils";
+} from "../../utils";
 
-import { useBeamDesign }     from "../hooks/useBeamDesign";
-import { useColumnDesign }   from "../hooks/useColumnDesign";
-import { useSlabDesign }     from "../hooks/useSlabDesign";
-import { useCostingInputs }  from "../hooks/useCostingInputs";
-import { useBrickMasonry }   from "../hooks/useBrickMasonry";
-import { usePaintEstimator } from "../hooks/usePaintEstimator";
+import { useBeamDesign }     from "../../hooks/useBeamDesign";
+import { useColumnDesign }   from "../../hooks/useColumnDesign";
+import { useSlabDesign }     from "../../hooks/useSlabDesign";
+import { useCostingInputs }  from "../../hooks/useCostingInputs";
+import { useBrickMasonry }   from "../../hooks/useBrickMasonry";
+import { usePaintEstimator } from "../../hooks/usePaintEstimator";
 
-import { HeroSection }         from "../components/hero/HeroSection";
-import { CostingInputPanel }   from "../components/costing/CostingInputPanel";
-import { CostingResults }      from "../components/costing/CostingResults";
-import { StructuralDesignTab } from "../components/structural/StructuralDesignTab";
-import { BrickMasonryTab }     from "../components/brick/BrickMasonryTab";
-import { PaintEstimatorTab }   from "../components/paint/PaintEstimatorTab";
+import { HeroSection }         from "../../components/hero/HeroSection";
+import { CostingInputPanel }   from "../../components/costing/CostingInputPanel";
+import { CostingResults }      from "../../components/costing/CostingResults";
+import { StructuralDesignTab } from "../../components/structural/StructuralDesignTab";
+import { BrickMasonryTab }     from "../../components/brick/BrickMasonryTab";
+import { PaintEstimatorTab }   from "../../components/paint/PaintEstimatorTab";
 
-import "../styles/pages/_calculator.css";
-import "../styles/pages/_design-calculator.css";
-import { useSkeleton }       from "../hooks/useSkeleton";
-import { CalcTabSkeleton }   from "../components/ui/Skeleton";
+import "./_calculator.css";
+import "./_design-calculator.css";
+import { useSkeleton }       from "../../hooks/useSkeleton";
+import { CalcTabSkeleton }   from "../../components/ui/Skeleton";
 
 function CalculatorsPage() {
   // Read tab from sessionStorage (set by ProjectEstimatorPage sidebar links)
