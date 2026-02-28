@@ -12,6 +12,7 @@
   --white: #ffffff;
   --border: #dde3ed;
   --muted: #475569;
+  --bg-color: #f0f0f0c2;
   --text: #0f172a;
   --success: #059669;
   --blue: #2563eb;
@@ -53,7 +54,7 @@
 
 .boq-hero {
   background: linear-gradient(135deg, var(--gradient-primary-start) 0%, var(--gradient-primary-end) 100%);
-  padding: 3.5rem 2rem 3rem;
+  padding: 5rem 3rem 2rem;
   position: relative;
   overflow: hidden;
   margin-bottom: 0;
@@ -70,7 +71,7 @@
 }
 
 .boq-hero-content {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
@@ -130,9 +131,10 @@
    ══════════════════════════════════════════════════════════════════════════ */
 
 .boq-main {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 3rem 2rem;
+  background-color: var(--bg-color);
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -140,7 +142,9 @@
    ══════════════════════════════════════════════════════════════════════════ */
 
 .boq-step-bar {
-  display: flex;
+  display: grid; /* Changed from flex */
+  grid-auto-flow: column; /* Force items into a single row */
+  grid-auto-columns: 1fr; /* Optional: Makes all steps equal width */
   gap: 0.5rem;
   margin-bottom: 3rem;
   padding: 1rem;
@@ -150,6 +154,7 @@
   overflow-x: auto;
   scrollbar-width: none;
 }
+
 
 .boq-step-bar::-webkit-scrollbar { display: none; }
 
@@ -1016,7 +1021,7 @@
 .boq-table tbody td.td-num {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 500;
   text-align: right;
 }
 

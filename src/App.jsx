@@ -24,8 +24,8 @@ function App() {
       <Routes>
         <Route path="/" element={<CalculatorPage />} />
         <Route path="/vastu" element={<VastuPage />} />
-        <Route path="/boq-generator" element={<BOQPage />} />
-        <Route path="/bbs-generator" element={<BBSPage />} />
+        <Route path="/boq-calculator" element={<BOQPage />} />
+        <Route path="/bbs-calculator" element={<BBSPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
