@@ -342,11 +342,13 @@ function calcColumn({
   diameter,
   steelGrade,
   concreteGrade,
+  nColumns = 1,
 }) {
   const warnings = [];
   const ldFactor = getLdFactor(steelGrade, concreteGrade);
   const lapFactor = getLapFactor(ldFactor);
   const isCirc = colShape === "circular";
+  const nCols = Math.max(1, Math.round(nColumns || 1));
 
   let Ag, Ast_min, Ast_req, mainDia, mainBars, Ast_prov;
 
@@ -449,7 +451,8 @@ function calcColumn({
     },
   ];
 
-  const rows = [
+  // ── Per-column rows (for 1 column) ──
+  const rowsPerCol = [
     calcRow(
       `Main Vertical Bars (${mainBars}–Ø${mainDia})`,
       "M1",
@@ -469,11 +472,43 @@ function calcColumn({
       0,
     ),
   ];
+
+  // ── Multiply by nCols ──
+  let rows;
+  if (nCols === 1) {
+    rows = rowsPerCol;
+  } else {
+    rows = rowsPerCol.map((r) => {
+      const totalQty = r.qty * nCols;
+      const totalLenM = parseFloat(
+        (((r.cutLen + (r.lapLen || 0)) * totalQty) / 1000).toFixed(3),
+      );
+      const weight = parseFloat((totalLenM * r.wtPerM).toFixed(2));
+      return {
+        ...r,
+        desc: r.desc + ` × ${nCols} cols`,
+        qty: totalQty,
+        totalLenM: totalLenM.toFixed(3),
+        weight: weight.toFixed(2),
+      };
+    });
+    warnings.push(
+      `ℹ BBS computed for ${nCols} identical columns — ${mainBars} main bars + ${tieQty} ties per column`,
+    );
+  }
+
   return {
     rows,
     warnings,
     designCards,
-    meta: { ldFactor, lapFactor, steelGrade, concreteGrade, isCirc },
+    meta: {
+      ldFactor,
+      lapFactor,
+      steelGrade,
+      concreteGrade,
+      isCirc,
+      nColumns: nCols,
+    },
   };
 }
 
@@ -783,6 +818,7 @@ const ELEMENTS = {
       depth: 300,
       colShape: "rectangular",
       diameter: 400,
+      nColumns: 1,
       steelGrade: "Fe415",
       concreteGrade: "M20",
     },
@@ -793,6 +829,15 @@ const ELEMENTS = {
         hint: "floor to floor",
         min: 1500,
         max: 15000,
+      },
+      {
+        id: "nColumns",
+        label: "No. of Columns",
+        hint: "identical columns in this group",
+        min: 1,
+        max: 200,
+        isInt: true,
+        type: "ncolumns",
       },
       {
         id: "colShape",
@@ -1862,6 +1907,18 @@ function VisualResultSummary({ result, elementType, inputs, steelRate }) {
             {result.meta.ldFactor}ϕ · Lap={result.meta.lapFactor}ϕ
           </span>
         )}
+        {result.meta?.nColumns > 1 && (
+          <span
+            className="bbs-vs-grade-badge"
+            style={{
+              background: "rgba(42,110,232,0.12)",
+              borderColor: "rgba(42,110,232,0.3)",
+              color: "#1d4ed8",
+            }}
+          >
+            🟫 {result.meta.nColumns} Columns
+          </span>
+        )}
       </div>
       <div className="bbs-vs-body">
         {Diagram && (
@@ -1920,6 +1977,20 @@ function VisualResultSummary({ result, elementType, inputs, steelRate }) {
             <span>Est. Cost @ ₹{steelRate}/kg:</span>
             <b>₹{cost}</b>
           </div>
+          {result.meta?.nColumns > 1 && (
+            <div className="bbs-vs-col-breakdown">
+              <span>Per Column:</span>
+              <b>
+                {(parseFloat(result.totalKg) / result.meta.nColumns).toFixed(2)}{" "}
+                kg
+              </b>
+              <span
+                style={{ color: "#94a3b8", fontSize: "0.72rem", marginLeft: 4 }}
+              >
+                × {result.meta.nColumns} = {result.totalKg} kg total
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -2125,7 +2196,13 @@ export default function BBSGenerator() {
           f.showIf === undefined,
       )
       .forEach((f) => {
-        if (f.type || f.id === "nSpans" || f.id === "colShape") return;
+        if (
+          f.type ||
+          f.id === "nSpans" ||
+          f.id === "nColumns" ||
+          f.id === "colShape"
+        )
+          return;
         const visibleIf = f.showIf ? inputs.colShape === f.showIf : true;
         if (!visibleIf) return;
         const v = inputs[f.id];
@@ -2402,6 +2479,50 @@ export default function BBSGenerator() {
                             ).toLocaleString()}
                             mm · Support bars at {(inputs.nSpans || 1) - 1}{" "}
                             intermediate supports
+                          </div>
+                        )}
+                      </div>
+                    );
+                  // nColumns: numeric stepper (column count)
+                  if (f.id === "nColumns")
+                    return (
+                      <div className="bbs-field" key={f.id}>
+                        <label className="bbs-field-label">
+                          {f.label}
+                          <span className="bbs-field-hint">{f.hint}</span>
+                        </label>
+                        <div className="bbs-stepper">
+                          <button
+                            className="bbs-stepper-btn"
+                            onClick={() =>
+                              handleInput(
+                                "nColumns",
+                                Math.max(1, (inputs.nColumns || 1) - 1),
+                              )
+                            }
+                          >
+                            −
+                          </button>
+                          <span className="bbs-stepper-val">
+                            {inputs.nColumns || 1} col
+                            {(inputs.nColumns || 1) > 1 ? "s" : ""}
+                          </span>
+                          <button
+                            className="bbs-stepper-btn"
+                            onClick={() =>
+                              handleInput(
+                                "nColumns",
+                                Math.min(200, (inputs.nColumns || 1) + 1),
+                              )
+                            }
+                          >
+                            +
+                          </button>
+                        </div>
+                        {(inputs.nColumns || 1) > 1 && (
+                          <div className="bbs-span-info">
+                            🟫 {inputs.nColumns} identical columns · BBS qty
+                            multiplied ×{inputs.nColumns}
                           </div>
                         )}
                       </div>
@@ -2742,6 +2863,23 @@ export default function BBSGenerator() {
                         <div>
                           <div className="bbs-el-card-title">
                             {el.elementType} — {el.elementId}
+                            {el.meta?.nColumns > 1 && (
+                              <span
+                                style={{
+                                  fontSize: "0.72rem",
+                                  fontWeight: 700,
+                                  background: "rgba(42,110,232,0.1)",
+                                  color: "#1d4ed8",
+                                  borderRadius: 5,
+                                  padding: "2px 8px",
+                                  marginLeft: 8,
+                                  fontFamily:
+                                    "var(--font-mono,'DM Mono',monospace)",
+                                }}
+                              >
+                                🟫 ×{el.meta.nColumns} cols
+                              </span>
+                            )}
                           </div>
                           <div className="bbs-el-card-sub">
                             Element {idx + 1}
