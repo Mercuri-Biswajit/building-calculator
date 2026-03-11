@@ -4,7 +4,7 @@
 // Place in: src/pages/CalculatorPage/components/SlabDesignTab.jsx
 // ═══════════════════════════════════════════════════════════════════════════
 
-// import { safeFormat, safeGet } from "../utils/formatHelpers";
+import "./SlabDesignTab.css";
 
 export function SlabDesignTab({
   inputs,
@@ -18,7 +18,7 @@ export function SlabDesignTab({
   const isTwoWay = inputs.slabType === "two_way";
 
   return (
-    <div className="calc-result-card">
+    <div className="calc-result-card slab-design-container">
       <h3 className="calc-breakdown-header">
         <span>⬜</span> Slab Design Calculator (IS 456:2000)
       </h3>

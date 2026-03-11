@@ -1,4 +1,5 @@
 import { safeFormat, safeGet } from "../../utils/shared/formatHelpers";
+import "./ColumnDesignTab.css";
 
 export function ColumnDesignTab({
   inputs,
@@ -7,7 +8,7 @@ export function ColumnDesignTab({
   results,
 }) {
   return (
-    <div className="calc-result-card">
+    <div className="calc-result-card column-design-container">
       <h3 className="calc-breakdown-header">
         <span>🏛️</span> Column Design Calculator (IS 456:2000)
       </h3>

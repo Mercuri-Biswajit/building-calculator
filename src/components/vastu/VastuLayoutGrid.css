@@ -1,0 +1,3 @@
+.vastu-layout-container {
+  animation: calcFadeIn 0.4s var(--ease-out);
+}

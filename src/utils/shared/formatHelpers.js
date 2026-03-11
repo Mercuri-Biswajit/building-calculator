@@ -54,3 +54,19 @@ export function formatNumber(number, decimals = 2) {
 export function toPercent(value, decimals = 1) {
   return `${(value * 100).toFixed(decimals)}%`;
 }
+
+/**
+ * 4. Format area
+ * @param {number} sqft
+ * @param {object} options
+ */
+export function formatArea(sqft, options = {}) {
+  const { includeUnit = true, compact = false } = options;
+  
+  if (compact && sqft >= 43560) {
+    const acres = sqft / 43560;
+    return `${(Math.round(acres * 100) / 100)}${includeUnit ? ' acres' : ''}`;
+  }
+  
+  return `${Math.round(sqft).toLocaleString('en-IN')}${includeUnit ? ' sq.ft' : ''}`;
+}

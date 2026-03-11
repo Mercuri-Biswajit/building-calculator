@@ -1,0 +1,5 @@
+.slab-design-container {
+  animation: calcFadeIn 0.4s var(--ease-out);
+}
+
+/* Any specific slab design overrides can go here */

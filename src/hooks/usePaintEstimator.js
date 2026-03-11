@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useUnit } from "../context/UnitContext";
 
 const DEFAULT_INPUTS = {
   // Room / surface dimensions
@@ -180,6 +181,7 @@ export function calcPaintQuantity(inputs) {
 }
 
 export function usePaintEstimator() {
+  const { unit } = useUnit();
   const [inputs, setInputs] = useState(DEFAULT_INPUTS);
   const [results, setResults] = useState(null);
 
@@ -188,7 +190,29 @@ export function usePaintEstimator() {
   };
 
   const calculate = () => {
-    const r = calcPaintQuantity(inputs);
+    const isMeters = unit === "meters";
+    const conv = isMeters ? 3.28084 : 1;
+    const areaConv = isMeters ? 10.76391 : 1;
+    
+    // Convert all linear dimensions to feet before calculation
+    const calcInputs = {
+      ...inputs,
+      roomLength: parseFloat(inputs.roomLength || 0) * conv,
+      roomBreadth: parseFloat(inputs.roomBreadth || 0) * conv,
+      roomHeight: parseFloat(inputs.roomHeight || 0) * conv,
+      doorWidth: parseFloat(inputs.doorWidth || 0) * conv,
+      doorHeight: parseFloat(inputs.doorHeight || 0) * conv,
+      windowWidth: parseFloat(inputs.windowWidth || 0) * conv,
+      windowHeight: parseFloat(inputs.windowHeight || 0) * conv,
+    };
+
+    // If there is custom coverage provided (in sq.m or sq.ft depending on unit),
+    // convert it to sq.ft for the internal calculation
+    if (inputs.customCoverage) {
+      calcInputs.customCoverage = parseFloat(inputs.customCoverage) * areaConv;
+    }
+
+    const r = calcPaintQuantity(calcInputs);
     setResults(r || { error: "Please enter valid room dimensions." });
   };
 

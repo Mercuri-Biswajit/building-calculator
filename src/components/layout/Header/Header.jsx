@@ -1,78 +1,35 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-
-import { NAVBAR, SITE } from '../../../config/constants';
-
+import { Link } from 'react-router-dom';
+import { SITE } from '../../../config/constants';
+import { UnitToggle } from '../../ui/UnitToggle';
+import { useUnit } from '../../../context/UnitContext';
 import "./Header.css";
 
-function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
-
-  // Close menu on route change
-  useEffect(() => { 
-    setMenuOpen(false); 
-  }, [location]);
-
-  // Scrolled state for navbar style
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > NAVBAR.scrollThreshold);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Close on ESC key
-  useEffect(() => {
-    const handleKey = (e) => { 
-      if (e.key === 'Escape') setMenuOpen(false); 
-    };
-    document.addEventListener('keydown', handleKey);
-    return () => document.removeEventListener('keydown', handleKey);
-  }, []);
-
-  const getLinkClass = (path) =>
-    location.pathname === path ? 'nav-link active' : 'nav-link';
+function Header({ toggleSidebar }) {
+  const { unit, setUnit } = useUnit();
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <div className="nav-container">
-
-        <div className="logo">
-          <Link to="/">
-            <img
-              src="/assets/icons/My__Logo.png"
-              alt={SITE.name}
-              className="logo-img"
-            />
-          </Link>
-        </div>
-
-        <div className={`nav-menu ${menuOpen ? 'active' : ''}`}>
-          <Link to="/" className={getLinkClass('/')}>CALCULATORS</Link>
-          <Link to="/vastu" className={getLinkClass('/vastu')}>VASTU</Link>
-        </div>
-
-        <a
-          href="/assets/files/Biswajit_Deb_Barman__CV.pdf"
-          download
-          className="btn-nav-cta"
-        >
-          DOWNLOAD RESUME
-        </a>
-
+    <header className="dashboard-header">
+      <div className="header-left">
         <button
-          className={`hamburger ${menuOpen ? 'active' : ''}`}
-          onClick={() => setMenuOpen((prev) => !prev)}
-          aria-label="Toggle navigation"
+          className="hamburger-btn"
+          onClick={toggleSidebar}
+          aria-label="Toggle Navigation"
         >
-          <span />
-          <span />
-          <span />
+          <svg xmlns="http://www.w3.org/-2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
         </button>
-
+        <Link to="/" className="header-logo-container">
+          <img src="/assets/icons/My__Logo.png" alt={SITE.name} className="header-logo" />
+        </Link>
       </div>
-    </nav>
+
+      <div className="header-center">
+        <h1 className="header-title">{SITE.name}</h1>
+      </div>
+
+      <div className="header-right">
+        <UnitToggle unit={unit} onChange={setUnit} />
+      </div>
+    </header>
   );
 }
 

@@ -1,0 +1,8 @@
+.brick-results-container {
+  animation: calcFadeIn 0.4s var(--ease-out);
+}
+
+/* Specific styling for grand total highlight card */
+.brick-grand-card {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}

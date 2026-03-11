@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
+import { useUnit } from "../context/UnitContext";
 
 const DEFAULT_INPUTS = {
   // Building dimensions
@@ -235,6 +236,7 @@ export function calcBrickMasonry(inputs) {
 }
 
 export function useBrickMasonry() {
+  const { unit } = useUnit();
   const [inputs, setInputs] = useState(DEFAULT_INPUTS);
   const [results, setResults] = useState(null);
 
@@ -243,7 +245,24 @@ export function useBrickMasonry() {
   };
 
   const calculate = () => {
-    const r = calcBrickMasonry(inputs);
+    const isMeters = unit === "meters";
+    const conv = isMeters ? 3.28084 : 1;
+    const areaConv = isMeters ? 10.76391 : 1;
+
+    const calcInputs = {
+      ...inputs,
+      buildingLength: parseFloat(inputs.buildingLength || 0) * conv,
+      buildingBreadth: parseFloat(inputs.buildingBreadth || 0) * conv,
+      floorHeight: parseFloat(inputs.floorHeight || 0) * conv,
+      doorWidth: parseFloat(inputs.doorWidth || 0) * conv,
+      doorHeight: parseFloat(inputs.doorHeight || 0) * conv,
+      windowWidth: parseFloat(inputs.windowWidth || 0) * conv,
+      windowHeight: parseFloat(inputs.windowHeight || 0) * conv,
+      foundationDepth: parseFloat(inputs.foundationDepth || 0) * conv,
+      extraDeductionSqFt: parseFloat(inputs.extraDeductionSqFt || 0) * areaConv,
+    };
+
+    const r = calcBrickMasonry(calcInputs);
     setResults(
       r || {
         error:

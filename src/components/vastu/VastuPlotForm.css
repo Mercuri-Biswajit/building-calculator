@@ -1,0 +1,6 @@
+.vastu-form-container {
+  /* Scoped specific Vastu form styles if needed */
+}
+
+/* You can copy the specific utility classes from _calculator.css for just the planner, 
+   but for now we rely on the global ones still present unless migrating entirely. */

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { SITE } from "../../config/constants";
 
+import DashboardLayout     from "../../components/layout/DashboardLayout/DashboardLayout";
 import VastuRoomPlanner from "../../components/vastu/VastuRoomPlanner";
 import VastuStudy from "../../components/vastu/VastuStudy";
-import { VastuHeroSection } from "../../components/hero/VastuHeroSection";
 
 import "./_vastupage.css";
 
@@ -26,10 +26,11 @@ export default function VastuPage() {
         <meta name="description" content={SITE.seo.vastu.description} />
         <link rel="canonical" href={SITE.seo.vastu.canonical} />
       </Helmet>
-      <div className="vastu-page">
-
-        {/* ── Hero Section (same as Calculator page) ── */}
-        <VastuHeroSection mainTab={mainTab} onTabChange={setMainTab} />
+      <DashboardLayout activeTab={mainTab} onTabChange={setMainTab}>
+        <div className="vastu-page">
+          <div className="calc-alert calc-alert-info" style={{ marginBottom: "1.5rem" }}>
+            <strong>Vastu Tool:</strong> Select the Planner or Study tab from the sidebar (or top navigation).
+          </div>
 
         {/* ── Room Planner Panel ── */}
         {mainTab === "planner" && (
@@ -128,7 +129,8 @@ export default function VastuPage() {
           ) : (
             <VastuStudy />
           ))}
-      </div>
+        </div>
+      </DashboardLayout>
     </>
   );
 }

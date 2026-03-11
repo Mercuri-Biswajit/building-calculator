@@ -7,6 +7,7 @@ import {
 } from "../tabs";
 
 import { FullBOQ } from "../tabs";
+import { useUnit } from "../../context/UnitContext";
 
 const SUB_TABS = [
   { key: "cost", label: "💰 Cost Breakdown" },
@@ -23,8 +24,11 @@ export function CostingResults({
   subTab,
   onSubTabChange,
   onReset,
+  onSave,
   formatCurrency,
 }) {
+  const { displayArea, displayRate, getAreaLabel } = useUnit();
+
   return (
     <section className="calc-results-section">
       {/* Cost Banner */}
@@ -38,16 +42,16 @@ export function CostingResults({
             Rate:{" "}
             <strong>
               ₹
-              {Math.round(results.buildingCost.costPerSqft).toLocaleString(
+              {displayRate(results.buildingCost.costPerSqft).toLocaleString(
                 "en-IN",
               )}
-              /sq.ft
+              /{getAreaLabel()}
             </strong>
           </span>
           <span>
             Area:{" "}
             <strong>
-              {results.buildingCost.totalArea.toLocaleString("en-IN")} sq.ft
+              {displayArea(results.buildingCost.totalArea).toLocaleString("en-IN")} {getAreaLabel()}
             </strong>
           </span>
           <span>
@@ -103,9 +107,12 @@ export function CostingResults({
         )}
       </div>
 
-      <div style={{ textAlign: "center", paddingTop: "2rem" }}>
+      <div style={{ textAlign: "center", paddingTop: "2rem", display: "flex", justifyContent: "center", gap: "1rem" }}>
         <button onClick={onReset} className="calc-btn-secondary">
           ← New Estimate
+        </button>
+        <button onClick={onSave} className="calc-btn-primary">
+          💾 Save Project
         </button>
       </div>
     </section>

@@ -7,12 +7,14 @@ import {
   MATERIAL_RATES,
 } from "../../utils/shared/constants";
 
+import { useUnit } from "../../context/UnitContext";
+
 // ─── Validation rules ───────────────────────────────────────────────────────
-const RULES = {
-  length: { min: 5, max: 500, required: true, label: "Length" },
-  breadth: { min: 5, max: 500, required: true, label: "Breadth" },
-  floorHeight: { min: 8, max: 20, required: true, label: "Floor Height" },
-  basementDepth: { min: 5, max: 30, required: false, label: "Basement Depth" },
+const getRules = (unit) => ({
+  length: { min: unit==='meters'?1.5:5, max: unit==='meters'?150:500, required: true, label: "Length" },
+  breadth: { min: unit==='meters'?1.5:5, max: unit==='meters'?150:500, required: true, label: "Breadth" },
+  floorHeight: { min: unit==='meters'?2.4:8, max: unit==='meters'?6:20, required: true, label: "Floor Height" },
+  basementDepth: { min: unit==='meters'?1.5:5, max: unit==='meters'?9:30, required: false, label: "Basement Depth" },
   customCementRate: {
     min: 100,
     max: 1000,
@@ -27,10 +29,10 @@ const RULES = {
     required: false,
     label: "Aggregate Rate",
   },
-};
+});
 
-function validate(field, value) {
-  const rule = RULES[field];
+function validate(field, value, unit) {
+  const rule = getRules(unit)[field];
   if (!rule) return null;
 
   const isEmpty = value === "" || value === null || value === undefined;
@@ -45,12 +47,13 @@ function validate(field, value) {
   return null;
 }
 
-function validateAll(inputs) {
+function validateAll(inputs, unit) {
   const errors = {};
-  Object.keys(RULES).forEach((field) => {
+  const currentRules = getRules(unit);
+  Object.keys(currentRules).forEach((field) => {
     // Only validate basementDepth when basement is included
     if (field === "basementDepth" && !inputs.includeBasement) return;
-    const err = validate(field, inputs[field]);
+    const err = validate(field, inputs[field], unit);
     if (err) errors[field] = err;
   });
   return errors;
@@ -81,13 +84,14 @@ export function CostingInputPanel({
   onCalculate,
   onReset,
 }) {
+  const { unit, setUnit } = useUnit();
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
 
   // Mark field as touched and validate it on blur
   const handleBlur = (field) => () => {
     setTouched((prev) => ({ ...prev, [field]: true }));
-    const err = validate(field, inputs[field]);
+    const err = validate(field, inputs[field], unit);
     setErrors((prev) => ({ ...prev, [field]: err }));
   };
 
@@ -95,16 +99,17 @@ export function CostingInputPanel({
   const handleChange = (field) => (e) => {
     updateField(field)(e);
     if (touched[field]) {
-      const err = validate(field, e.target.value);
+      const err = validate(field, e.target.value, unit);
       setErrors((prev) => ({ ...prev, [field]: err }));
     }
   };
 
   // Full validation on submit attempt
   const handleCalculate = () => {
-    const allErrors = validateAll(inputs);
+    const allErrors = validateAll(inputs, unit);
+    const currentRules = getRules(unit);
     // Mark all validated fields as touched so errors are visible
-    const allTouched = Object.keys(RULES).reduce((acc, f) => {
+    const allTouched = Object.keys(currentRules).reduce((acc, f) => {
       acc[f] = true;
       return acc;
     }, {});
@@ -128,11 +133,13 @@ export function CostingInputPanel({
   return (
     <section className="calc-input-section">
       <div className="calc-section-header">
-        <div className="calc-panel-label">
-          <span className="label-icon">▣</span>
-          BUILDING SPECIFICATIONS
+        <div className="calc-panel-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+          <div>
+            <span className="label-icon">▣</span>
+            BUILDING SPECIFICATIONS
+          </div>
         </div>
-        <button className="calc-btn-reset" onClick={handleReset}>
+        <button className="calc-btn-reset" onClick={handleReset} style={{ marginLeft: 'auto' }}>
           ↺ Reset All
         </button>
       </div>
@@ -144,17 +151,17 @@ export function CostingInputPanel({
           {/* Length */}
           <div className="calc-input-group">
             <label className="calc-label-primary">
-              Length <span className="calc-label-unit">feet</span>
+              Length <span className="calc-label-unit">{unit}</span>
             </label>
             <input
               type="number"
               className={inputClass("calc-input-primary", "length")}
-              placeholder="e.g. 40"
+              placeholder={`e.g. ${unit === 'meters' ? '12.5' : '40'}`}
               value={inputs.length}
               onChange={handleChange("length")}
               onBlur={handleBlur("length")}
-              min={RULES.length.min}
-              max={RULES.length.max}
+              min={getRules(unit).length.min}
+              max={getRules(unit).length.max}
             />
             {touched.length && <FieldError message={errors.length} />}
           </div>
@@ -162,17 +169,17 @@ export function CostingInputPanel({
           {/* Breadth */}
           <div className="calc-input-group">
             <label className="calc-label-primary">
-              Breadth <span className="calc-label-unit">feet</span>
+              Breadth <span className="calc-label-unit">{unit}</span>
             </label>
             <input
               type="number"
               className={inputClass("calc-input-primary", "breadth")}
-              placeholder="e.g. 30"
+              placeholder={`e.g. ${unit === 'meters' ? '9' : '30'}`}
               value={inputs.breadth}
               onChange={handleChange("breadth")}
               onBlur={handleBlur("breadth")}
-              min={RULES.breadth.min}
-              max={RULES.breadth.max}
+              min={getRules(unit).breadth.min}
+              max={getRules(unit).breadth.max}
             />
             {touched.breadth && <FieldError message={errors.breadth} />}
           </div>
@@ -180,17 +187,17 @@ export function CostingInputPanel({
           {/* Floor Height */}
           <div className="calc-input-group">
             <label className="calc-label-primary">
-              Floor Height <span className="calc-label-unit">feet</span>
+              Floor Height <span className="calc-label-unit">{unit}</span>
             </label>
             <input
               type="number"
               className={inputClass("calc-input-primary", "floorHeight")}
-              placeholder="10"
+              placeholder={unit === 'meters' ? '3' : '10'}
               value={inputs.floorHeight}
               onChange={handleChange("floorHeight")}
               onBlur={handleBlur("floorHeight")}
-              min={RULES.floorHeight.min}
-              max={RULES.floorHeight.max}
+              min={getRules(unit).floorHeight.min}
+              max={getRules(unit).floorHeight.max}
             />
             {touched.floorHeight && <FieldError message={errors.floorHeight} />}
           </div>
@@ -306,17 +313,17 @@ export function CostingInputPanel({
           <div className="calc-grid-3" style={{ marginTop: "1rem" }}>
             <div className="calc-input-group">
               <label className="calc-label-primary">
-                Basement Depth <span className="calc-label-unit">feet</span>
+                Basement Depth <span className="calc-label-unit">{unit}</span>
               </label>
               <input
                 type="number"
                 className={inputClass("calc-input-primary", "basementDepth")}
-                placeholder="8"
+                placeholder={unit === 'meters' ? '2.5' : '8'}
                 value={inputs.basementDepth}
                 onChange={handleChange("basementDepth")}
                 onBlur={handleBlur("basementDepth")}
-                min={RULES.basementDepth.min}
-                max={RULES.basementDepth.max}
+                min={getRules(unit).basementDepth.min}
+                max={getRules(unit).basementDepth.max}
               />
               {touched.basementDepth && (
                 <FieldError message={errors.basementDepth} />
@@ -381,8 +388,8 @@ export function CostingInputPanel({
                 value={inputs[field]}
                 onChange={handleChange(field)}
                 onBlur={handleBlur(field)}
-                min={RULES[field].min}
-                max={RULES[field].max}
+                min={getRules(unit)[field].min}
+                max={getRules(unit)[field].max}
               />
               {touched[field] && <FieldError message={errors[field]} />}
             </div>

@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
 
-import CalculatorPage from "./pages/Calculator/CalculatorPage";
-import VastuPage from "./pages/Vastu/VastuPage";
+import CalculatorPage from "./pages/calculator/CalculatorPage";
+import VastuPage from "./pages/vastu/VastuPage";
+import DashboardPage from "./pages/dashboard/DashboardPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -18,12 +19,11 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Header />
       <Routes>
         <Route path="/" element={<CalculatorPage />} />
         <Route path="/vastu" element={<VastuPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }

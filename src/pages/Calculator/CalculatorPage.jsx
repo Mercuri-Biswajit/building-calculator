@@ -6,6 +6,7 @@
 // ═══════════════════════════════════════════════════════════════════════════
 
 import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { SITE } from "../../config/constants";
 
@@ -23,6 +24,8 @@ import {
   calcFloorWiseBOQ,
 } from "../../utils";
 
+import { saveProject } from "../../utils/shared/projectStore";
+
 import { useBeamDesign }     from "../../hooks/useBeamDesign";
 import { useColumnDesign }   from "../../hooks/useColumnDesign";
 import { useSlabDesign }     from "../../hooks/useSlabDesign";
@@ -30,7 +33,7 @@ import { useCostingInputs }  from "../../hooks/useCostingInputs";
 import { useBrickMasonry }   from "../../hooks/useBrickMasonry";
 import { usePaintEstimator } from "../../hooks/usePaintEstimator";
 
-import { HeroSection }         from "../../components/hero/HeroSection";
+import DashboardLayout         from "../../components/layout/DashboardLayout/DashboardLayout";
 import { CostingInputPanel }   from "../../components/costing/CostingInputPanel";
 import { CostingResults }      from "../../components/costing/CostingResults";
 import { StructuralDesignTab } from "../../components/structural/StructuralDesignTab";
@@ -41,6 +44,7 @@ import "./_calculator.css";
 import "./_design-calculator.css";
 import { useSkeleton }       from "../../hooks/useSkeleton";
 import { CalcTabSkeleton }   from "../../components/ui/Skeleton";
+import { useUnit }           from "../../context/UnitContext";
 
 function CalculatorsPage() {
   // Read tab from sessionStorage (set by ProjectEstimatorPage sidebar links)
@@ -54,12 +58,18 @@ function CalculatorsPage() {
   const [costingSubTab, setCostingSubTab]     = useState("cost");
   const { isLoading } = useSkeleton(700);
 
-  const { inputs, updateField, resetInputs } = useCostingInputs();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const { inputs, updateField, resetInputs, setInputs } = useCostingInputs();
   const beam   = useBeamDesign();
   const column = useColumnDesign();
   const slab   = useSlabDesign();
   const brick  = useBrickMasonry();
   const paint  = usePaintEstimator();
+
+  // Unit State from Context
+  const { unit, displayArea, getAreaLabel } = useUnit();
 
   // Auto-populate beam/column from structure design when switching to structural tab
   useEffect(() => {
@@ -71,6 +81,19 @@ function CalculatorsPage() {
     }
   }, [mainTab, costingResults]);
 
+  // Load project from Dashboard
+  useEffect(() => {
+    if (location.state?.loadProject) {
+      const p = location.state.loadProject;
+      setInputs(p.inputs);
+      setCostingResults(p.results);
+      setMainTab("costing");
+      
+      // Clear location state so refresh doesn't reload it
+      navigate(".", { replace: true, state: {} });
+    }
+  }, [location.state, navigate, setInputs]);
+
   const handleCalculate = () => {
     const { length, breadth, floors, floorHeight } = inputs;
 
@@ -79,14 +102,17 @@ function CalculatorsPage() {
       return;
     }
 
+    const isMeters = unit === "meters";
+    const conv = isMeters ? 3.28084 : 1; // Convert meters to feet for internal algos
+
     const calcInputs = {
       ...inputs,
-      length:      parseFloat(length),
-      breadth:     parseFloat(breadth),
+      length:      parseFloat(length) * conv,
+      breadth:     parseFloat(breadth) * conv,
       floors:      parseInt(floors),
-      floorHeight: parseFloat(floorHeight),
-      basementDepth:  parseFloat(inputs.basementDepth),
-      avgColumnSpan:  parseFloat(inputs.avgColumnSpan),
+      floorHeight: parseFloat(floorHeight) * conv,
+      basementDepth:  parseFloat(inputs.basementDepth) * conv,
+      avgColumnSpan:  parseFloat(inputs.avgColumnSpan) * conv,
       customRates: {
         cement:    inputs.customCementRate    ? parseFloat(inputs.customCementRate)    : null,
         steel:     inputs.customSteelRate     ? parseFloat(inputs.customSteelRate)     : null,
@@ -117,6 +143,27 @@ function CalculatorsPage() {
     setCostingSubTab("cost");
   };
 
+  const handleSaveProject = () => {
+    if (!costingResults) return;
+
+    const projectName = window.prompt("Enter a name for this project:", `Estimate - ${displayArea(inputs.length * inputs.breadth)} ${getAreaLabel()}`);
+    
+    if (projectName) {
+      const saved = saveProject({
+        name: projectName,
+        inputs: inputs,
+        results: costingResults,
+        unit: unit
+      });
+      
+      if (saved) {
+        alert("Project saved securely to your Dashboard!");
+      } else {
+        alert("Failed to save project.");
+      }
+    }
+  };
+
   const handleTabChange = (tab) => {
     setMainTab(tab);
     if (tab === "structural" && costingResults?.structureDesign) {
@@ -135,10 +182,8 @@ function CalculatorsPage() {
         <link rel="canonical" href={SITE.seo.calculators.canonical} />
       </Helmet>
 
-      <div className="calc-page">
-        <HeroSection mainTab={mainTab} onTabChange={handleTabChange} />
-
-        <main className="calc-main">
+      <DashboardLayout activeTab={mainTab} onTabChange={handleTabChange}>
+        <main className="calc-main" style={{ marginTop: 0, paddingTop: 0 }}>
           {isLoading ? (
             <CalcTabSkeleton />
           ) : (
@@ -159,6 +204,7 @@ function CalculatorsPage() {
                       subTab={costingSubTab}
                       onSubTabChange={setCostingSubTab}
                       onReset={handleReset}
+                      onSave={handleSaveProject}
                       formatCurrency={formatCurrency}
                     />
                   )}
@@ -206,7 +252,7 @@ function CalculatorsPage() {
             </>
           )}
         </main>
-      </div>
+      </DashboardLayout>
     </>
   );
 }

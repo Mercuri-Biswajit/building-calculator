@@ -1,0 +1,5 @@
+.beam-design-container {
+  animation: calcFadeIn 0.4s var(--ease-out);
+}
+
+/* Any specific beam design overrides can go here */

@@ -1,0 +1,5 @@
+.column-design-container {
+  animation: calcFadeIn 0.4s var(--ease-out);
+}
+
+/* Any specific column design overrides can go here */

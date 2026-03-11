@@ -1,0 +1,11 @@
+.brick-form-card {
+  /* Scope specific brick form styles here if needed */
+}
+
+.brick-field-error {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--color-error, #e53e3e);
+  font-weight: 500;
+}

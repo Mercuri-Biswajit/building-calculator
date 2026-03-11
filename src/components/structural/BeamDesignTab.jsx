@@ -1,8 +1,9 @@
 import { safeFormat, safeGet } from "../../utils/shared/formatHelpers";
+import "./BeamDesignTab.css";
 
 export function BeamDesignTab({ inputs, onInputChange, onCalculate, results }) {
   return (
-    <div className="calc-result-card">
+    <div className="calc-result-card beam-design-container">
       <h3 className="calc-breakdown-header">
         <span>🏗️</span> Beam Design Calculator (IS 456:2000)
       </h3>

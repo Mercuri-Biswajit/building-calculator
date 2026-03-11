@@ -30,5 +30,5 @@ export function useCostingInputs() {
 
   const resetInputs = () => setInputs(DEFAULT_INPUTS);
 
-  return { inputs, updateField, resetInputs };
+  return { inputs, updateField, resetInputs, setInputs };
 }
