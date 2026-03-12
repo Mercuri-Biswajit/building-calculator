@@ -19,6 +19,32 @@
   display: flex;
   align-items: center;
   gap: var(--sp-4);
+  position: relative;
+  z-index: 10;
+}
+
+.header-center {
+  position: absolute;
+  left: 280px; /* Offset by sidebar width */
+  right: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; /* Let clicks pass through to right/left items if they overlap */
+}
+
+/* Ensure title doesn't capture clicks needed below it */
+.header-title {
+  pointer-events: auto;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 10;
 }
 
 .hamburger-btn {
@@ -56,6 +82,17 @@
 
 /* ── Mobile responsiveness ── */
 @media (max-width: 1024px) {
+  .dashboard-header {
+    padding: 0 var(--sp-4);
+  }
+  .header-center {
+    left: 0;
+  }
+  .header-left {
+    width: auto;
+    border-right: none;
+    padding-left: 0;
+  }
   .hamburger-btn {
     display: flex;
   }

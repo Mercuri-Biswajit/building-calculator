@@ -1,6 +1,11 @@
 import { useState } from "react";
 
 const DEFAULT_INPUTS = {
+  projectName: "",
+  clientName: "",
+  location: "",
+  engineerName: "",
+  phoneNumber: "",
   length: "",
   breadth: "",
   floors: 1,

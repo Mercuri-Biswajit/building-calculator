@@ -1,0 +1,73 @@
+.sys-btn {
+  width: auto;
+  align-self: flex-start;
+  padding: 0.875rem var(--sp-6);
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+  letter-spacing: 0.04em;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  border: none;
+}
+
+.sys-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.sys-btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: var(--shadow-primary);
+}
+
+.sys-btn-primary:hover {
+  background: var(--color-secondary);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.sys-btn-secondary {
+  background: transparent;
+  color: var(--color-text-light);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.sys-btn-secondary:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background: rgba(0, 51, 102, 0.05);
+}
+
+.sys-btn-danger {
+  background: #ff4d4f;
+  color: #fff;
+  box-shadow: 0 4px 14px 0 rgba(255, 77, 79, 0.39);
+}
+
+.sys-btn-danger:hover {
+  background: #ff7875;
+  box-shadow: 0 6px 20px rgba(255, 77, 79, 0.23);
+  transform: translateY(-2px);
+}
+
+.sys-btn-reset {
+  background: transparent;
+  color: var(--color-text-light);
+  padding: 0.5rem 1rem;
+}
+
+.sys-btn-reset:hover {
+  color: var(--color-text);
+  background: var(--bg-secondary);
+}

@@ -33,7 +33,7 @@ import { useCostingInputs }  from "../../hooks/useCostingInputs";
 import { useBrickMasonry }   from "../../hooks/useBrickMasonry";
 import { usePaintEstimator } from "../../hooks/usePaintEstimator";
 
-import DashboardLayout         from "../../components/layout/DashboardLayout/DashboardLayout";
+import Sidebar           from "../../components/layout/Sidebar/Sidebar";
 import { CostingInputPanel }   from "../../components/costing/CostingInputPanel";
 import { CostingResults }      from "../../components/costing/CostingResults";
 import { StructuralDesignTab } from "../../components/structural/StructuralDesignTab";
@@ -145,22 +145,25 @@ function CalculatorsPage() {
 
   const handleSaveProject = () => {
     if (!costingResults) return;
-
-    const projectName = window.prompt("Enter a name for this project:", `Estimate - ${displayArea(inputs.length * inputs.breadth)} ${getAreaLabel()}`);
     
-    if (projectName) {
-      const saved = saveProject({
-        name: projectName,
-        inputs: inputs,
-        results: costingResults,
-        unit: unit
-      });
-      
-      if (saved) {
-        alert("Project saved securely to your Dashboard!");
-      } else {
-        alert("Failed to save project.");
-      }
+    // We now have all the identifying information strictly validated in the `inputs` state!
+    const saved = saveProject({
+      name: inputs.projectName || `Estimate - ${displayArea(inputs.length * inputs.breadth, { unit: unit })}`,
+      clientName: inputs.clientName,
+      location: inputs.location,
+      engineerName: inputs.engineerName,
+      phoneNumber: inputs.phoneNumber,
+      buildingType: inputs.buildingType, // Added project type as requested
+      notes: "Saved directly from Calculator",
+      inputs: inputs,
+      results: costingResults,
+      unit: unit
+    });
+
+    if (saved) {
+      alert("Project saved securely to your Dashboard!");
+    } else {
+      alert("Failed to save project.");
     }
   };
 
@@ -182,7 +185,7 @@ function CalculatorsPage() {
         <link rel="canonical" href={SITE.seo.calculators.canonical} />
       </Helmet>
 
-      <DashboardLayout activeTab={mainTab} onTabChange={handleTabChange}>
+      <Sidebar activeTab={mainTab} onTabChange={handleTabChange}>
         <main className="calc-main" style={{ marginTop: 0, paddingTop: 0 }}>
           {isLoading ? (
             <CalcTabSkeleton />
@@ -251,8 +254,9 @@ function CalculatorsPage() {
               )}
             </>
           )}
+
         </main>
-      </DashboardLayout>
+      </Sidebar>
     </>
   );
 }

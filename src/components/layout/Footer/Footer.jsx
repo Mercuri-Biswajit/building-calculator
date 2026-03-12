@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { SITE } from "../../../config/constants";
+import "./Footer.css";
 
 function Footer() {
   return (

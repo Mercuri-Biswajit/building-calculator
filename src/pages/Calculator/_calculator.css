@@ -261,7 +261,7 @@
 
 .calc-material-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: var(--sp-4);
 }
 
@@ -274,7 +274,8 @@
 
 .calc-label-primary {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 0.4rem;
   align-items: center;
   font-family: var(--font-display);
   font-size: var(--fs-sm);
@@ -416,7 +417,8 @@
 
 /* ── Action Buttons ─────────────────────────────────────────────────────── */
 .calc-btn-primary {
-  width: 100%;
+  width: auto;
+  align-self: flex-start;
   padding: 0.875rem var(--sp-6);
   background: var(--color-primary);
   color: #fff;

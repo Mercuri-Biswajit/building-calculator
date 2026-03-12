@@ -8,6 +8,9 @@ import {
 
 import { FullBOQ } from "../tabs";
 import { useUnit } from "../../context/UnitContext";
+import { Button } from "../ui/Button";
+import { TabBar } from "../ui/TabBar";
+import { SaveEstimateButton } from "../ui/SaveEstimateButton";
 
 const SUB_TABS = [
   { key: "cost", label: "💰 Cost Breakdown" },
@@ -68,19 +71,11 @@ export function CostingResults({
       </div>
 
       {/* Sub Tabs */}
-      <div className="calc-tabs">
-        {SUB_TABS.filter((t) => !t.conditional || results.stairDesign).map(
-          (t) => (
-            <button
-              key={t.key}
-              className={`calc-tab ${subTab === t.key ? "active" : ""}`}
-              onClick={() => onSubTabChange(t.key)}
-            >
-              {t.label}
-            </button>
-          ),
-        )}
-      </div>
+      <TabBar 
+        tabs={SUB_TABS.map(t => ({...t, hidden: t.conditional && !results.stairDesign}))}
+        activeTab={subTab}
+        onTabChange={onSubTabChange}
+      />
 
       {/* Tab Content */}
       <div className="calc-tab-content">
@@ -107,13 +102,14 @@ export function CostingResults({
         )}
       </div>
 
-      <div style={{ textAlign: "center", paddingTop: "2rem", display: "flex", justifyContent: "center", gap: "1rem" }}>
-        <button onClick={onReset} className="calc-btn-secondary">
-          ← New Estimate
-        </button>
-        <button onClick={onSave} className="calc-btn-primary">
-          💾 Save Project
-        </button>
+      {/* Prominent Save Action */}
+      <SaveEstimateButton onSave={onSave} />
+
+      {/* New Estimate Action */}
+      <div style={{ textAlign: "center", display: "flex", justifyContent: "center" }}>
+        <Button onClick={onReset} variant="secondary" icon="←">
+          New Estimate
+        </Button>
       </div>
     </section>
   );

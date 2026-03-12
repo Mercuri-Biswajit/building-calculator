@@ -1,0 +1,45 @@
+.sys-save-estimate-container {
+  background: linear-gradient(135deg, rgba(0, 51, 102, 0.03) 0%, rgba(0, 102, 204, 0.06) 100%);
+  border: 1px solid rgba(0, 51, 102, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-6);
+  margin-top: var(--sp-12);
+  margin-bottom: var(--sp-6);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.sys-save-estimate-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+}
+
+.sys-save-text h4 {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
+.sys-save-text p {
+  color: var(--color-text-light);
+  margin: 0;
+  font-size: var(--fs-sm);
+}
+
+.sys-save-btn {
+  margin-top: 0 !important;
+  font-size: var(--fs-lg) !important;
+  padding: 1rem 2rem !important;
+  box-shadow: 0 8px 16px rgba(0, 102, 204, 0.2) !important;
+}
+
+@media (max-width: 768px) {
+  .sys-save-estimate-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}

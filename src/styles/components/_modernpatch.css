@@ -1,0 +1,997 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   _modernpatch.css — Modern Polish Patch
+   Import this LAST in src/styles/index.css:
+   @import "./components/_modernpatch.css";
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════
+   1. DESIGN TOKEN OVERRIDES
+   ══════════════════════════════════════════════════════ */
+:root {
+  /* Slightly warmer, richer surfaces */
+  --color-bg: #f0f4f9;
+  --color-surface: #ffffff;
+  --color-surface-2: #f7f9fc;
+  --color-surface-3: #eef2f7;
+
+  /* Crisper borders */
+  --color-border: #d8e2ef;
+  --color-border-light: #e8eef6;
+  --color-border-dark: #b8c8dc;
+
+  /* Tighter, more refined typography scale */
+  --fs-xs: 0.72rem; /* 11.5px */
+  --fs-sm: 0.8125rem; /* 13px   */
+  --fs-base: 0.9rem; /* 14.4px */
+  --fs-md: 1rem; /* 16px   */
+  --fs-lg: 1.125rem; /* 18px   */
+  --fs-xl: 1.25rem; /* 20px   */
+
+  /* Slightly tighter letter-spacing for DM Sans */
+  --lh-relaxed: 1.6;
+
+  /* More pronounced shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 51, 102, 0.07), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 51, 102, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 8px 28px rgba(0, 51, 102, 0.13), 0 3px 8px rgba(0, 0, 0, 0.06);
+
+  /* Slightly faster transitions */
+  --transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ══════════════════════════════════════════════════════
+   2. GLOBAL BASE POLISH
+   ══════════════════════════════════════════════════════ */
+body {
+  background: var(--color-bg);
+  font-size: var(--fs-base);
+  letter-spacing: -0.01em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -0.025em;
+}
+
+/* Better focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ══════════════════════════════════════════════════════
+   3. CALCULATOR PAGE — INPUT PANEL
+   ══════════════════════════════════════════════════════ */
+
+/* Tighter main container */
+.calc-main {
+  padding: var(--sp-6) var(--sp-6);
+}
+
+/* Card with stronger visual presence */
+.calc-input-section {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--sp-6) var(--sp-8);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--sp-5);
+}
+
+/* Section header — tighter */
+.calc-section-header {
+  margin-bottom: var(--sp-6);
+  padding-bottom: var(--sp-4);
+}
+
+/* Panel label — stronger */
+.calc-panel-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--color-primary);
+  gap: 0.5rem;
+}
+
+.label-icon {
+  font-size: 0.9rem;
+}
+
+/* ── Section subtitle (Building Dimensions, Deductions…) ── */
+.calc-card-subtitle,
+.calc-section-label {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1.5px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+/* ── Labels ── */
+.calc-label-primary {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  margin-bottom: 0.3rem;
+}
+
+.calc-label-secondary {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+
+.calc-label-unit {
+  font-size: 0.65rem;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* ── Inputs — polished ── */
+.calc-input-primary {
+  width: 100%;
+  padding: 0.6rem var(--sp-4);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--fs-base);
+  font-weight: 500;
+  color: var(--color-text);
+  background: var(--color-surface-2);
+  transition: var(--transition);
+  letter-spacing: -0.01em;
+}
+
+.calc-input-primary:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.09);
+}
+
+.calc-input-primary::placeholder {
+  color: var(--color-text-light);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.calc-input-secondary {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+  background: var(--color-surface-2);
+  transition: var(--transition);
+}
+
+.calc-input-secondary:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.09);
+}
+
+/* Input hint text */
+.calc-input-hint,
+.calc-rate-hint {
+  font-size: 0.68rem;
+  color: var(--color-text-light);
+  margin-top: 0.25rem;
+  font-style: italic;
+  letter-spacing: 0;
+}
+
+/* ── Floor buttons — tighter & more refined ── */
+.calc-floor-buttons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.4rem;
+}
+
+.calc-floor-btn {
+  padding: 0.5rem 0;
+  background: var(--color-surface-2);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--color-text-dim);
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.02em;
+}
+
+.calc-floor-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(0, 51, 102, 0.04);
+}
+
+.calc-floor-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 51, 102, 0.28);
+}
+
+/* ── Primary CTA button ── */
+.calc-btn-primary {
+  padding: 0.8rem var(--sp-6);
+  border-radius: var(--radius-xl);
+  font-size: var(--fs-sm);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: var(--sp-5);
+  box-shadow: 0 4px 18px rgba(0, 51, 102, 0.28);
+}
+
+.calc-btn-primary:hover {
+  box-shadow: 0 6px 22px rgba(0, 51, 102, 0.38);
+  transform: translateY(-2px);
+}
+
+/* ── Reset button ── */
+.calc-btn-reset {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+}
+
+/* ── Grids ── */
+.calc-grid-2 {
+  gap: var(--sp-4);
+}
+
+.calc-grid-3 {
+  gap: var(--sp-4);
+}
+
+/* ── Card inner ── */
+.calc-card {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5) var(--sp-6);
+  margin-bottom: var(--sp-4);
+}
+
+/* ── Result cards ── */
+.calc-result-card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--sp-6) var(--sp-8);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Cost banner ── */
+.calc-cost-banner {
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Sub-tabs ── */
+.calc-tabs {
+  background: var(--color-surface-3);
+  border: 1px solid var(--color-border);
+  padding: 0.25rem;
+  border-radius: var(--radius-xl);
+  gap: 0.25rem;
+}
+
+.calc-tab {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-md);
+}
+
+.calc-tab.active {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Struct cards ── */
+.calc-struct-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+}
+
+.calc-struct-value {
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+}
+
+.calc-struct-title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  margin-bottom: 0.3rem;
+}
+
+/* ── Alerts ── */
+.calc-alert {
+  font-size: var(--fs-sm);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-3) var(--sp-4);
+}
+
+.calc-note {
+  font-size: var(--fs-sm);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-3) var(--sp-5);
+}
+
+/* ── Tables ── */
+.calc-table th {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  font-weight: 800;
+  padding: 0.65rem var(--sp-4);
+}
+
+.calc-table td {
+  font-size: var(--fs-sm);
+  padding: 0.6rem var(--sp-4);
+}
+
+/* ── Detail grid items ── */
+.calc-detail-item {
+  border-radius: var(--radius-lg);
+  padding: var(--sp-3) var(--sp-4);
+}
+
+.calc-detail-value {
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+
+.calc-detail-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+/* ══════════════════════════════════════════════════════
+   4. DASHBOARD PAGE POLISH
+   ══════════════════════════════════════════════════════ */
+.dashboard-page-container {
+  max-width: 1100px;
+  padding: var(--sp-8) var(--sp-8);
+}
+
+.dashboard-header {
+  margin-bottom: var(--sp-8);
+  padding-bottom: var(--sp-5);
+  border-bottom: 1.5px solid var(--color-border);
+}
+
+.dashboard-header h1 {
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.03em;
+  margin-bottom: 0.3rem;
+}
+
+.dashboard-header p {
+  color: var(--color-text-dim);
+  font-size: var(--fs-base);
+}
+
+/* Grid — 3 columns max */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--sp-5);
+}
+
+/* Card */
+.dashboard-card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.card-header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #1a4f8a 100%);
+  padding: var(--sp-5) var(--sp-6);
+  border-bottom: none;
+}
+
+.card-header h3 {
+  margin: 0 0 0.3rem;
+  font-size: var(--fs-base);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.card-date {
+  font-size: var(--fs-xs);
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+}
+
+.card-body {
+  padding: var(--sp-5) var(--sp-6);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.card-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--color-border-light);
+}
+
+.card-stat:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.stat-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-text-light);
+}
+
+.stat-value {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+}
+
+.stat-value.highlight {
+  color: var(--color-accent);
+  font-size: var(--fs-base);
+  font-weight: 800;
+}
+
+/* Action buttons */
+.card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1.5px solid var(--color-border-light);
+}
+
+.action-btn {
+  padding: 0.85rem;
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: var(--transition);
+}
+
+.action-btn.load-btn {
+  color: var(--color-primary);
+  border-right: 1.5px solid var(--color-border-light);
+}
+
+.action-btn.load-btn:hover {
+  background: rgba(0, 51, 102, 0.05);
+}
+
+.action-btn.delete-btn {
+  color: #dc2626;
+}
+
+.action-btn.delete-btn:hover {
+  background: #fef2f2;
+}
+
+/* Empty state */
+.dashboard-empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--color-surface);
+  border-radius: var(--radius-2xl);
+  border: 2px dashed var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.dashboard-empty-state h3 {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-empty-state p {
+  font-size: var(--fs-base);
+  color: var(--color-text-dim);
+  margin-bottom: var(--sp-6);
+}
+
+.dashboard-primary-btn {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.75rem;
+  border-radius: var(--radius-xl);
+  font-size: var(--fs-sm);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-primary);
+}
+
+.dashboard-primary-btn:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 51, 102, 0.32);
+}
+
+/* ══════════════════════════════════════════════════════
+   5. VASTU PAGE POLISH
+   ══════════════════════════════════════════════════════ */
+.vastu-page {
+  background: var(--color-bg);
+}
+
+.vastu-main-content {
+  background: var(--color-bg);
+  padding: var(--sp-6) 0 var(--sp-12);
+}
+
+/* Info cards */
+.vastu-info-card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5) var(--sp-6);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.vastu-info-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-dark);
+  transform: translateY(-3px);
+}
+
+.vastu-info-card h3 {
+  font-size: var(--fs-base);
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.vastu-info-card p {
+  font-size: var(--fs-sm);
+  color: var(--color-text-dim);
+  line-height: 1.6;
+}
+
+/* Planner card */
+.planner-card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5) var(--sp-6);
+  margin-bottom: var(--sp-4);
+  box-shadow: var(--shadow-sm);
+}
+
+.planner-card-title {
+  font-size: var(--fs-sm);
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1.5px solid var(--color-border-light);
+}
+
+/* Planner inputs */
+.planner-field input,
+.planner-field select {
+  background: var(--color-surface-2);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  transition: var(--transition);
+}
+
+.planner-field input:focus,
+.planner-field select:focus {
+  border-color: var(--color-primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.08);
+}
+
+.planner-field label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  margin-bottom: 0.4rem;
+}
+
+/* Facing buttons */
+.planner-facing-btn {
+  background: var(--color-surface-2);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--color-text-dim);
+  transition: var(--transition);
+}
+
+.planner-facing-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(0, 51, 102, 0.04);
+}
+
+.planner-facing-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 51, 102, 0.25);
+}
+
+/* Analysis cards */
+.planner-analysis-card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-4) var(--sp-5);
+  box-shadow: var(--shadow-xs);
+  transition: var(--transition);
+}
+
+.planner-analysis-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.planner-analysis-name {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.01em;
+}
+
+/* Summary bar */
+.planner-summary-bar {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-4) var(--sp-8);
+  box-shadow: var(--shadow-sm);
+}
+
+.planner-summary-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
+
+.planner-summary-val {
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+  font-family: var(--font-mono);
+}
+
+/* ══════════════════════════════════════════════════════
+   6. SIDEBAR (DashboardLayout) POLISH
+   ══════════════════════════════════════════════════════ */
+
+/* Assume sidebar items use standard nav classes; patch likely class names */
+[class*="sidebar"] a,
+[class*="nav-item"],
+[class*="sidebar-item"] {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+[class*="sidebar-label"],
+[class*="nav-group-label"] {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════════════════
+   7. STRUCTURAL DESIGN SUB-TABS
+   ══════════════════════════════════════════════════════ */
+.struct-subtab-btn {
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-2);
+  padding: 0.6rem 1.1rem;
+  box-shadow: var(--shadow-xs);
+  transition: var(--transition);
+}
+
+.struct-subtab-btn:hover {
+  border-color: var(--color-primary);
+  background: rgba(0, 51, 102, 0.04);
+  box-shadow: var(--shadow-sm);
+}
+
+.struct-subtab-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-primary);
+}
+
+.struct-subtab-label {
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.struct-subtab-desc {
+  font-size: 0.65rem;
+  letter-spacing: 0;
+}
+
+/* ══════════════════════════════════════════════════════
+   8. BOQ SECTION
+   ══════════════════════════════════════════════════════ */
+.boq-masthead {
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+}
+
+.boq-masthead-title {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.boq-grand-amount {
+  font-size: var(--fs-3xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.boq-table-card {
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-md);
+}
+
+.boq-th {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 0.7rem var(--sp-4);
+}
+
+.boq-td {
+  font-size: var(--fs-sm);
+  padding: 0.6rem var(--sp-4);
+}
+
+/* ══════════════════════════════════════════════════════
+   9. HIGHLIGHT CARDS
+   ══════════════════════════════════════════════════════ */
+.calc-highlight-card {
+  border-radius: var(--radius-xl);
+  padding: var(--sp-4) var(--sp-5);
+  box-shadow: var(--shadow-xs);
+}
+
+.calc-highlight-value {
+  font-size: 1.45rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+}
+
+.calc-highlight-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════════════════
+   10. HERO / TABS SECTION (HeroSection)
+   ══════════════════════════════════════════════════════ */
+.hs-tab-label {
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.hs-tab-sub {
+  font-size: 0.65rem;
+  letter-spacing: 0;
+}
+
+.hs-tab {
+  padding: 1rem 1.25rem;
+}
+
+.hs-title {
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.hs-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--hs-text-mid);
+}
+
+/* ══════════════════════════════════════════════════════
+   11. TOGGLE / CHECKBOX
+   ══════════════════════════════════════════════════════ */
+.calc-toggle-label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  gap: 0.6rem;
+}
+
+.calc-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+/* ══════════════════════════════════════════════════════
+   12. PAINT / BRICK SPECIFIC
+   ══════════════════════════════════════════════════════ */
+.calc-can-card {
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-4) var(--sp-5);
+  box-shadow: var(--shadow-xs);
+  transition: var(--transition);
+}
+
+.calc-can-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.calc-can-count {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+}
+
+/* ══════════════════════════════════════════════════════
+   13. BREAKDOWN ROWS (Cost breakdown bars)
+   ══════════════════════════════════════════════════════ */
+.calc-breakdown-name {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--color-text-dim);
+  text-transform: capitalize;
+  letter-spacing: 0.01em;
+}
+
+.calc-breakdown-cost {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+}
+
+.calc-breakdown-qty {
+  font-size: 0.65rem;
+  color: var(--color-text-light);
+}
+
+/* ══════════════════════════════════════════════════════
+   14. RESPONSIVE FIXES
+   ══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .calc-main {
+    padding: var(--sp-4) var(--sp-4);
+  }
+
+  .calc-input-section,
+  .calc-result-card {
+    padding: var(--sp-5);
+  }
+
+  .dashboard-page-container {
+    padding: var(--sp-5) var(--sp-4);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+  }
+
+  .planner-card {
+    padding: var(--sp-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .calc-main {
+    padding: var(--sp-3) var(--sp-3);
+  }
+
+  .calc-floor-buttons {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
